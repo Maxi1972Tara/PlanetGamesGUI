@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -20,6 +20,20 @@
 </head>
 
 <body>
+  <!-- Contenido de tu página de juegos -->
+
+    <!-- Elemento para mostrar la primera letra del correo -->
+    <div id="profileLetter"></div>
+
+    <script>
+        // Recuperar la primera letra del correo desde localStorage
+        var profileLetter = localStorage.getItem('profileLetter');
+        
+        // Mostrar la primera letra del correo en la página de juegos
+        if (profileLetter) {
+            document.getElementById("profileLetter").textContent = profileLetter;
+        }
+    </script>
   <!-- Header Section -->
   <section class="main">
     <!-- Navbar -->
@@ -34,10 +48,8 @@
           <span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse d-lg-flex justify-content-evenly" id="navbarmenu">
           <ul class="navbar-nav d-flex align-items-center p-2 p-lg-0" style="position: relative; left: -8px;">
-            <li class="nav-item"><a href="#" class="nav-link main-nav-links text-white">Home</a></li>
-            <li class="nav-item"><a href="#" class="nav-link main-nav-links text-white">Juegos</a></li>
-            <li class="nav-item"><a href="#" class="nav-link main-nav-links text-white">Tienda</a></li>
-            <li class="nav-item"><a href="#" class="nav-link main-nav-links text-white">Contacto</a></li>
+            <li class="nav-item"><a href="index.html" class="nav-link main-nav-links text-white">Home</a></li>
+            <li class="nav-item"><a href="Lista de juegos.html" class="nav-link main-nav-links text-white">Lista De Juegos</a></li>
             <li class="nav-item"><a href="carrito.html" class="nav-link main-nav-links text-white">Carrito</a></li>
           </ul>
           <form role="search">
@@ -48,10 +60,10 @@
             </div>
           </form>
           <div class="wrapper d-flex flex-column flex-lg-row justify-content-center align-items-center">
-            <button class="btn btn-primary my-3 m-lg-0 ms-lg-2 main-btn-style border-0">Acceso /
-              Registarse</button>
-            <img src="resources/images/bag.svg" alt="shopping_bag-pic" class="img-fluid ms-2 shopping-bag-icon"
-              width="35">
+            <div class="profile">
+              <span id="profileName"></span>
+            </div>
+            <a href="formulario.html" class="btn btn-primary my-3 m-lg-0 ms-lg-2 main-btn-style border-0">Acceso / Registro</a>
             <div class="btn-group my-2 m-lg-0 profile-group d-flex align-items-center">
               <div class="lead fs-6 p-2 group-name">Perfil</div>
               <img src="resources/images/profile.png" alt="profile_pic" width="45" class="mt-1 group-pic">
@@ -1468,6 +1480,17 @@
     crossorigin="anonymous"></script>
   <!-- Font Awesome Bundle -->
   <script src="https://kit.fontawesome.com/80afa6ed2d.js" crossorigin="anonymous"></script>
+  
+  <script>
+    var cookies = document.cookie.split("; ");
+    cookies.forEach(function(cookie){
+      var parts = cookie.split("=");
+      if (parts[0] === "username") {
+        var username = parts[1];
+        var profileName = username.charAt(0).toUpperCase();
+        document.getElementById("profileName").textContent = profileName;
+      }
+    })
+  </script>
 </body>
-
 </html>

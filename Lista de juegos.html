@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <header>
+          <nav>
+              <ul>
+                  <li><a href="index.html">Atras</a></li>
+              </ul>
+          </nav>
+      </header>
+        <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de juegos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif; 
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .game {
+            background-color: #fff;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+        }
+        .game img {
+            max-width: 200px;
+            height: auto;
+            margin-right: 20px;
+        }
+        .game-details {
+            flex: 1;
+            font-family: "Times New Roman", Times, serif; 
+        }
+    </style>
+    <script>
+        // Realiza una solicitud AJAX para obtener los datos de los juegos desde la API
+        fetch('http://localhost:3000/api/games')
+            .then(response => response.json())
+            .then(data => {
+                // Procesa los datos de los juegos y actualiza el DOM
+                const gameList = document.getElementById('gameList');
+                data.forEach(game => {
+                    const gameDiv = document.createElement('div');
+                    gameDiv.innerHTML = `
+                        <div class="game">
+                            <img src="${game.image}" alt="${game.title}">
+                            <div class="game-details">
+                                <h2>${game.title}</h2>
+                                <p>${game.description}</p>
+                            </div>
+                        </div>
+                    `;
+                    gameList.appendChild(gameDiv);
+                });
+            })
+            .catch(error => {
+                console.error('Error al obtener los datos de los juegos:', error);
+            });
+    </script>
+</head>
+<body>
+    
+<div class="container">
+    <h1>Lista De Juegos</h1>
+    
+    <div class="game">
+        <img src="resources\images\Alanwake2.png" alt="Alan Wake 2">
+        <div class="game-details">
+            <h2>Alan Wake 2</h2>
+            <p>Llega Saga Anderson para investigar asesinatos ritualistas en un pequeño pueblo. Alan Wake escribe una oscura historia para dar forma a la realidad que lo rodea. Estos dos héroes están conectados de algún modo. ¿Podrán convertirse en los héroes que han de ser?
+            </p>
+        </div>
+    </div>
+
+        <div class="game">
+            <img src="resources\images\BaldursGate3.jpg" alt="Baldur Gate 3">
+            <div class="game-details">
+                <h2>Baldur Gate 3</h2>
+                <p>es un juego de rol basado en grupos, rico en historias, ambientado en el universo de Dungeons & Dragons, donde tus elecciones dan forma a una historia de compañerismo y traición, supervivencia y sacrificio, y el atractivo del poder absoluto.</p>
+            </div>
+        </div>
+      
+        <div class="game">
+            <img src="resources\images\EldenRing.jpg" alt="Elden Ring">
+            <div class="game-details">
+                <h2>Elden Ring</h2>
+                <p>Desvela los misterios del poder del Círculo de Elden. Enfréntate a criaturas temibles y conoce a adversarios con pasados tumultuosos y personajes con sus propias motivaciones para ayudarte a avanzar o complicarte las cosas. 
+                </p>
+            </div>
+        </div>
+
+        <div class="game">
+            <img src="resources\images\DEADISLAND2.jpg" alt="Dead Island 2">
+            <div class="game-details">
+                <h2>Dead Island 2</h2>
+                <p>Un virus mortal se extiende por Los Ángeles y está convirtiendo a sus habitantes en zombis. Te han mordido e infectado, pero tu cuerpo es inmune.</p>
+            </div>
+        </div>
+        
+        <div class="game">
+            <img src="resources\images\ghostoftsushimaplaystation.jpg" alt="Ghost of Tsushima">
+            <div class="game-details"> 
+                <h2>Ghost of Tsushima</h2>
+                <p>Forja un nuevo camino y emplea tácticas de guerra poco convencionales para liberar Tsushima. Desafía a tus enemigos con tu katana, domina el arco para eliminar las amenazas lejanas, aprende tácticas de sigilo para emboscar a los enemigos y explora una nueva historia en la Isla Iki.</p>
+            </div>
+        </div>
+        
+        <div class="game">
+            <img src="resources\images\Bloodborne.jpg" alt="Bloodborne">
+            <div class="game-details">
+                <h2>Bloodborne</h2>
+                <p>Enfrenta tus pesadillas mientras buscas respuestas en la antigua ciudad de Yharnam, ahora maldecida por una enfermedad endémica que se propaga por las calles como un fuego arrasador. El peligro, la muerte y la locura merodean en cada esquina de este mundo oscuro y espantoso, y debes descubrir sus secretos más oscuros para poder sobrevivir.</p>
+            </div>
+        </div>
+        
+        <div class="game">
+            <img src="resources\images\Daysgone.png" alt="Daysgone">
+            <div class="game-details">
+                <h2>Daysgone</h2>
+                <p>Ponte en los zapatos sucios y salpicados del antiguo motero forajido Deacon St. John, un cazarrecompensas que busca una razón para vivir en una tierra rodeada de muerte. Rebusca equipamiento entre asentamientos abandonados para fabricar objetos valiosos y armas, o prueba tu suerte con otros sobrevivientes que tratan de ganarse la vida con el comercio justo... o medios más violentos.</p>
+            </div>
+        </div>
+        
+        <div class="game">
+            <img src="resources\images\FC24.jpg" alt="FC24">
+            <div class="game-details">
+                <h2>FC24</h2>
+                <p>es el comienzo del futuro del fútbol. Con este título innovador y auténtico, te sentirás mucho más cerca del juego gracias a una experiencia futbolística más real que nunca y a la compañía de los mejores jugadores de los equipos, ligas y competencias más grandes del mundo.</p>
+            </div>
+        </div>
+        
+        <div class="game">
+            <img src="resources\images\GodofWarplaystation.jpg" alt="God Of War">
+            <div class="game-details">
+                <h2>God Of War</h2>
+                <p>Kratos vuelve a ser padre. Como mentor y protector de Atreus, un hijo determinado a ganarse el respeto de su padre, se ve obligado a contener la ira que durante tanto tiempo lo ha caracterizado mientras recorre un mundo lleno de peligros junto a su muchacho.</p>
+            </div>
+        </div>
+        
+        <div class="game">
+            <img src="resources\images\lastofusplaystation.jpg" alt="Last Of Us Part II">
+            <div class="game-details">
+                <h2>Last Of Us Part II</h2>
+                <p>Cinco años después de su peligroso viaje a través de unos Estados Unidos pospandemia, Ellie y Joel logran establecerse en Jackson, Wyoming. Vivir entre una próspera comunidad de sobrevivientes les ha concedido paz y estabilidad, a pesar de la amenaza constante de los infectados y de otros sobrevivientes más desesperados.</p>
+            </div>
+        </div>
+        
+        <div class="game">
+            <img src="resources\images\spidermanplaystation.jpg" alt="Marvel's Spider-Man">
+            <div class="game-details">
+                <h2>Marvel's Spider-Man</h2>
+                <p>nos encontramos con un Peter Parker experimentado en luchar contra el crimen organizado en la ciudad de Nueva York. Al mismo tiempo, se esfuerza por mantener el equilibrio entre su caótica vida personal y su carrera mientras carga con el peso de proteger el destino de la Nueva York de Marvel.</p>
+            </div>
+        </div>
+        
+        <div class="game">
+            <img src="resources\images\Streetfighter6.png" alt="Street Fighter 6">
+            <div class="game-details">
+                <h2>Street Fighter 6</h2>
+                <p>es el próximo paso en la evolución de la serie de Street Fighter, e incluye innovadoras funcionalidades de jugabilidad, así como mejores gráficos para todos los aspectos del juego.</p>
+            </div>
+        </div>
+        
+        <div class="game">
+            <img src="resources\images\uncharted4playstation.jpg" alt="Uncharted 4">
+            <div class="game-details"> 
+                <h2>Uncharted 4</h2>
+                <p>Al comienzo de este episodio vemos a Nathan, que ha cambiado las aventuras y los tesoros por una vida normal y bastante tranquila. Tras años de tranquilidad, Sam -su hermano- regresa de la nada y lo convence de volver a recorrer el mundo cazando reliquias y gloria.</p>
+            </div>
+        </div>
+        
+        <div class="game">
+            <img src="resources\images\forzahorizon5xbox.jpg" alt="Forza Horizon 5">
+            <div class="game-details"> 
+                <h2>Forza Horizon 5</h2>
+                <p>¡Tu aventura Horizon por excelencia te espera! Explora los dinámicos paisajes de mundo abierto y en constante evolución de México con una acción de conducción ilimitada y divertida en cientos de los mejores autos del mundo.</p>
+            </div>
+        </div>
+        
+        <div class="game">
+            <img src="resources\images\gears5.xbox.jpg" alt="Gears 5">
+            <div class="game-details"> 
+                <h2>Gears 5</h2>
+                <p>Con el estallido de una guerra...</p>
+            </div>
+        </div>
+        
+        <div class="game">
+            <img src="resources\images\haloinfinitexbox.jpg" alt="Halo Infinite">
+            <div class="game-details"> 
+                <h2>Halo Infinite</h2>
+                <p>Cuando se pierde toda esperanza y el destino de la humanidad pende de un hilo, el Jefe Maestro está listo para enfrentarse al enemigo más despiadado que jamás haya enfrentado. Colócate la armadura del mayor héroe de la humanidad para disfrutar de una aventura épica y explorar la escala masiva del anillo de Halo.</p>
+            </div>
+        </div>
+        
+        <div class="game">
+            <img src="resources\images\seaofthievesxbox.jpg" alt="Sea Of Thieves">
+            <div class="game-details"> 
+                <h2>Sea Of Thieves</h2>
+                <p>Explora un vasto mundo abierto repleto de islas vírgenes, navíos hundidos y misteriosos artefactos. Parte en pos de tesoros perdidos, enfréntate a capitanes esqueleto y custodia valiosos cargamentos de compañías comerciales. Además, ¡puedes darte a la pesca y la caza o volcarte en los cientos de objetivos secundarios!</p>
+            </div>
+        </div>
+        
+        <div class="game">
+            <img src="resources\images\stateofdecayxbox.jpg" alt="State Of Decay">
+            <div class="game-details"> 
+                <h2>State Of Decay</h2>
+                <p>La vida tal como la conocías se ha ido al infierno después de la madre de todos los brotes de zombis. Ahora tú y los pocos supervivientes dispersos debéis uniros para sobrevivir y reconstruir en un juego de acción en tercera persona ambientado en un mundo abierto dinámico.</p>
+            </div>
+        </div>
+        
+        <div class="game">
+            <img src="resources\images\fablexbox.jpg" alt="Fable">
+            <div class="game-details"> 
+                <h2>Fable</h2>
+                <p>¿Qué significa ser un héroe? Bueno, en la fantástica tierra de Albion, tú mismo lo decides. Con una amenaza oscura que se avecina, tus elecciones cambiarán Albion para siempre.</p>
+            </div>
+        </div>
+  </body>
+  </html>
+  
