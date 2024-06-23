@@ -3,210 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Acceso / Registro - Tienda de Juegos</title>
-    <header>
-        <nav>
-            <ul>
-                <li><a href="index.html">Atras</a></li>
-            </ul>
-        </nav>
-    </header>
+    <title>Agregar Cliente</title>
+    <link rel="stylesheet" href="styles.css">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-        }
-        .container {
-            max-width: 500px;
-            margin: 50px auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        h2 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        label {
-            display: block;
-            margin-bottom: 8px;
-        }
-        input[type="text"], input[type="email"], input[type="password"] {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 20px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-        input[type="submit"] {
+        .back-button {
+            position: absolute;
+            left: 10px;
+            top: 20px;
+            text-decoration: none;
+            padding: 10px 20px;
             background-color: #007bff;
-            color: #fff;
+            color: white;
             border: none;
-            padding: 12px 20px;
             border-radius: 4px;
             cursor: pointer;
-            width: 100%;
-            font-size: 16px;
         }
-        input[type="submit"]:hover {
+        .back-button:hover {
             background-color: #0056b3;
+        }
+        .header-container {
+            text-align: center;
+            margin-top: 60px; 
+        }
+        .login-button {
+            margin-top: 20px;
+            text-decoration: none;
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            display: block;
+            text-align: center;
+        }
+        .login-button:hover {
+            background-color: #218838;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h2>Acceso / Registro - Tienda de Juegos</h2>
-        <form action="#" method="post" id="loginForm">
-            <h3>Acceder</h3>
-            <label for="loginEmail">Correo Electrónico:</label>
-            <input type="email" id="loginEmail" name="loginEmail" required>
+        <header>
+            <h1>Agregar Cliente</h1>
+        </header>
+        <form id="clientForm">
+            <label for="id">ID</label>
+            <input type="number" id="id" name="id" required>
+           
+            <label for="fullname">Nombre Completo:</label>
+            <input type="text" id="fullname" name="fullname" required>
+           
+            <label for="email">Correo Electrónico:</label>
+            <input type="email" id="email" name="email" required>
+           
+            <label for="newUsername">Nombre de usuario:</label>
+            <input type="text" id="newUsername" name="newUsername" required>
 
-            <label for="loginPassword">Contraseña:</label>
-            <input type="password" id="loginPassword" name="loginPassword" required>
-
-            <input type="submit" value="Acceder">
+            <label for="newPassword">Contraseña</label>
+            <input type="password" id="newPassword" name="newPassword" required>
+           
+            <input type="submit" value="Agregar Cliente">
         </form>
-        <hr>
-        <form action="#" method="post" id="registerForm" style="display: none;">
-            <h3>Registrarse</h3>
-            <label for="registerName">Nombre:</label>
-            <input type="text" id="registerName" name="registerName" required>
-
-            <label for="registerEmail">Correo Electrónico:</label>
-            <input type="email" id="registerEmail" name="registerEmail" required>
-
-            <label for="registerPassword">Contraseña:</label>
-            <input type="password" id="registerPassword" name="registerPassword" required>
-
-            <label for="confirm_registerPassword">Confirmar Contraseña:</label>
-            <input type="password" id="confirm_registerPassword" name="confirm_registerPassword" required>
-
-            <input type="submit" value="Registrarse">
-        </form>
-        <div id="registrationMessage" style="display: none;">Registro completado con éxito</div>
-        <div id="loginMessage" style="display: none;"></div>
-        <p>¿No tienes una cuenta? <a href="#" id="showRegisterForm">Registrarse</a></p>
-        <p>¿Ya tienes una cuenta? <a href="#" id="showLoginForm">Acceder</a></p>
     </div>
-
-    <script>
-        document.getElementById("showRegisterForm").addEventListener("click", function(event){
-            event.preventDefault();
-            document.getElementById("registerForm").style.display = "block";
-            document.getElementById("loginForm").style.display = "none";
-            document.getElementById("registrationMessage").style.display = "none";
-            document.getElementById("loginMessage").style.display = "none";
-        });
-
-        document.getElementById("showLoginForm").addEventListener("click", function(event){
-            event.preventDefault();
-            document.getElementById("registerForm").style.display = "none";
-            document.getElementById("loginForm").style.display = "block";
-            document.getElementById("registrationMessage").style.display = "none";
-            document.getElementById("loginMessage").style.display = "none";
-        });
-
-        document.getElementById("registerForm").addEventListener("submit", function(event){
-            event.preventDefault();
-
-            // Validar campos del formulario de registro
-            var registerName = document.getElementById("registerName").value;
-            var registerEmail = document.getElementById("registerEmail").value;
-            var registerPassword = document.getElementById("registerPassword").value;
-            var confirmPassword = document.getElementById("confirm_registerPassword").value;
-
-            if (registerPassword !== confirmPassword) {
-                alert("Las contraseñas no coinciden");
-                return;
-            }
-
-            // Mostrar mensaje de registro completado con éxito
-            document.getElementById("registrationMessage").style.display = "block";
-
-            // Mostrar la primera letra del nombre en la página principal
-            var profileLetter = registerName.charAt(0).toUpperCase();
-            document.getElementById("profileLetter").textContent = profileLetter;
-        });
-
-        document.getElementById("loginForm").addEventListener("submit", function(event){
-            event.preventDefault();
-
-            // Obtener los datos del formulario de acceso
-            var loginEmail = document.getElementById("loginEmail").value;
-            var loginPassword = document.getElementById("loginPassword").value;
-
-            // Verificar si el correo está registrado
-            var registeredUsers = ["correo1@example.com", "correo2@example.com", "correo3@example.com"];
-            if (registeredUsers.includes(loginEmail)) {
-                document.getElementById("loginMessage").textContent = "Acceso exitoso";
-            } else {
-                document.getElementById("loginMessage").textContent = "El correo electrónico no está registrado";
-            }
-
-            // Mostrar el mensaje de acceso o error
-            document.getElementById("loginMessage").style.display = "block";
-        });
-        // Almacenar el correo electrónico registrado
-    localStorage.setItem('registeredEmail', registerEmail);
-    
-    // Verificar si el correo electrónico está registrado
-    var registeredEmail = localStorage.getItem('registeredEmail');
-    if (registeredEmail === loginEmail) {
-        // El correo electrónico está registrado
-    } else {
-        // El correo electrónico no está registrado
-    }
-    document.getElementById("registerForm").addEventListener("submit", function(event){
-    event.preventDefault();
-
-    // Validar campos del formulario de registro
-    var registerName = document.getElementById("registerName").value;
-    var registerEmail = document.getElementById("registerEmail").value;
-    var registerPassword = document.getElementById("registerPassword").value;
-    var confirmPassword = document.getElementById("confirm_registerPassword").value;
-
-    if (registerPassword !== confirmPassword) {
-        alert("Las contraseñas no coinciden");
-        return;
-    }
-
-    // Almacenar el correo electrónico registrado
-    localStorage.setItem('registeredEmail', registerEmail);
-
-    // Mostrar mensaje de registro completado con éxito
-    document.getElementById("registrationMessage").style.display = "block";
-
-    // Mostrar la primera letra del nombre en la página principal
-    var profileLetter = registerName.charAt(0).toUpperCase();
-    document.getElementById("profileLetter").textContent = profileLetter;
-});
-
-document.getElementById("loginForm").addEventListener("submit", function(event){
-    event.preventDefault();
-
-    // Validar campos del formulario de acceso
-    var loginEmail = document.getElementById("loginEmail").value;
-    var loginPassword = document.getElementById("loginPassword").value;
-
-    // Verificar si el correo electrónico está registrado
-    var registeredEmail = localStorage.getItem('registeredEmail');
-    if (registeredEmail === loginEmail) {
-        // El correo electrónico está registrado
-        document.getElementById("loginMessage").textContent = "Acceso exitoso";
-        document.getElementById("loginMessage").style.display = "block";
-    } else {
-        // El correo electrónico no está registrado
-        document.getElementById("loginMessage").textContent = "El correo electrónico no está registrado";
-        document.getElementById("loginMessage").style.display = "block";
-    }
-});
- 
-    </script>
-    
-    
+    <script src="script.js"></script>
 </body>
 </html>

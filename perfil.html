@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .center-message {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+            font-size: 2em; /* Cambia el tamaño del texto según lo necesites */
+        }
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px; /* Cambiado a 'left' para posicionar a la izquierda */
+            padding: 10px 20px;
+            font-size: 1em;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .back-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <button onclick="goBack()" class="back-button">Atrás</button>
+    <div class="center-message" id="welcomeContainer"></div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const newUsername = localStorage.getItem('newUsername');
+            const welcomeContainer = document.getElementById('welcomeContainer');
+            if (newUsername) {
+                welcomeContainer.textContent = `Bienvenido, ${newUsername}`;
+            } else {
+                welcomeContainer.textContent = 'Bienvenido, Usuario';
+            }
+        });
+        // Función para retroceder en la historia del navegador
+        function goBack() {
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>
+
+

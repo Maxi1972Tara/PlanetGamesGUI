@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -10,68 +10,107 @@
   <!-- Bootstrap CSS Link -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+  <!-- Custom CSS -->
   <link rel="stylesheet" href="css/style.css">
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100;400;700;800&display=swap"
     rel="stylesheet">
+  <style>
+    .main-navbar {
+      background-color: #000000; 
+    }
+  
+    .main-nav-links {
+      color: #ffffff !important; 
+    }
+    
+    .group-name {
+      color: #ffffff !important; 
+    }
+  </style>
   <title>Planet Games</title>
 </head>
 
 <body>
-  <!-- Contenido de tu página de juegos -->
-
-    <!-- Elemento para mostrar la primera letra del correo -->
-    <div id="profileLetter"></div>
-
-    <script>
-        // Recuperar la primera letra del correo desde localStorage
-        var profileLetter = localStorage.getItem('profileLetter');
-        
-        // Mostrar la primera letra del correo en la página de juegos
-        if (profileLetter) {
-            document.getElementById("profileLetter").textContent = profileLetter;
-        }
-    </script>
-  <!-- Header Section -->
-  <section class="main">
-    <!-- Navbar -->
-    <div class="navbar-temp"></div>
-    <nav class="navbar navbar-expand-lg text-white navbar-light sticky-top main-navbar">
-      <div class=" container">
-        <a href="#" class="navbar-brand">
-          <img src="resources/images/Logo.png" alt="Logo" width="70" class="img-fluid">
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarmenu"
-          aria-controls="navbarmenu" aria-expanded="false">
-          <span class="navbar-toggler-icon"></span></button>
-        <div class="collapse navbar-collapse d-lg-flex justify-content-evenly" id="navbarmenu">
-          <ul class="navbar-nav d-flex align-items-center p-2 p-lg-0" style="position: relative; left: -8px;">
-            <li class="nav-item"><a href="index.html" class="nav-link main-nav-links text-white">Home</a></li>
-            <li class="nav-item"><a href="Lista de juegos.html" class="nav-link main-nav-links text-white">Lista De Juegos</a></li>
-            <li class="nav-item"><a href="carrito.html" class="nav-link main-nav-links text-white">Carrito</a></li>
-          </ul>
-          <form role="search">
-            <div class="row">
-              <div class="col-12 col-sm-9 col-lg-12 m-auto game-search-bar-col">
-                <input type="search" class="form-control border-0  game-search-bar" placeholder="Busca Juegos Aqui">
-              </div>
-            </div>
-          </form>
-          <div class="wrapper d-flex flex-column flex-lg-row justify-content-center align-items-center">
-            <div class="profile">
-              <span id="profileName"></span>
-            </div>
-            <a href="formulario.html" class="btn btn-primary my-3 m-lg-0 ms-lg-2 main-btn-style border-0">Acceso / Registro</a>
-            <div class="btn-group my-2 m-lg-0 profile-group d-flex align-items-center">
-              <div class="lead fs-6 p-2 group-name">Perfil</div>
-              <img src="resources/images/profile.png" alt="profile_pic" width="45" class="mt-1 group-pic">
-            </div>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light sticky-top main-navbar">
+    <div class="container">
+      <a href="#" class="navbar-brand">
+        <img src="resources/images/Logo.png" alt="Logo" width="70" class="img-fluid">
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarmenu"
+        aria-controls="navbarmenu" aria-expanded="false">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-between" id="navbarmenu">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a href="Lista de juegos.html" class="nav-link main-nav-links">Catálogo de Juegos</a>
+          </li>
+          <li class="nav-item">
+            <a href="carrito.html" class="nav-link main-nav-links"></a>
+          </li>
+        </ul>
+        <div class="d-flex align-items-center">
+          <div id="profileName" class="mr-3"></div>
+          <a href="iniciar sesion.html" id="accessButton" class="btn btn-primary my-2 my-lg-0 ms-lg-2">Acceso / Registro</a>
+          <div class="btn-group ms-2">
+            <a href="perfil.html" class="lead fs-6 p-2 group-name" style="text-decoration: none; color: inherit;">Perfil</a>
+            <img src="resources/images/profile.png" alt="profile_pic" width="45" class="mt-1 group-pic">
+            <div id="usernameDisplay" class="lead fs-6 p-2 group-name"></div>
+            <button id="logoutButton" class="btn btn-secondary ms-2">Cerrar Sesión</button>
           </div>
+          <script>
+            
+            var username = localStorage.getItem('newUsername');
+            var formCompleted = localStorage.getItem('formCompleted');
+
+            
+            if (username) {
+                document.getElementById('usernameDisplay').textContent = username;
+            }
+            
+            if (formCompleted === 'true') {
+            document.getElementById('accessButton').style.display = 'none';
+            }
+            
+            if (username) {
+              document.getElementById('logoutButton').style.display = 'inline-block';
+            } else {
+              document.getElementById('logoutButton').style.display = 'none';
+            }
+            
+            document.getElementById('logoutButton').addEventListener('click', function() {
+              localStorage.removeItem('newUsername');
+              localStorage.removeItem('formCompleted');
+              window.location.reload(); 
+            });
+        </script>
         </div>
       </div>
-    </nav>
+    </div>
+  </nav>
+
+  
+
+  <!-- Optional JavaScript -->
+  <!-- Bootstrap Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-eFVniE3F0F6JXaSSsCj5uA5kNq5eMRm0lHhuP3liP9tZn2xFP9b/Kgp0K5G2Zt1o"
+    crossorigin="anonymous"></script>
+  
+  <script>
+    var profileName = localStorage.getItem('profileName');
+    if (profileName) {
+      document.getElementById("profileName").textContent = profileName;
+    }
+  </script>
+</body>
+
+</html>
+
 
     <!-- Hero Section -->
     <section class="hero-section bg-light" style="height: 610px;">
@@ -82,7 +121,6 @@
             <div class="hero-title as">¡Sube de nivel tus juegos!</div>
             <div class="hero-description ms-1 fs-6">Encuentra los últimos videojuegos en Planet Games y lleva tus juegos y
               experiencias al siguiente nivel sin tener que gastar mucho dinero</div>
-            <button class="btn btn-primary hero-btn main-btn-style border-0 m-3 ms-1" style="max-width: 110px;">Comenzar</button>
           </div>
         </div>
       </div>
@@ -92,374 +130,438 @@
     <section class="popular-games">
       <div class="container text-white text-center">
         <div class="lead fw-bold fs-1" style="padding-top: 70px;">Juegos <span
-            class="assign-purple-color-1">Popular</span></div>
+            class="assign-purple-color-1">Populares</span></div>
         <div class="lead pb-3">Comienza a jugar con nuestras categorías principales que presentan los mejores y más recientes títulos.
         </div>
         <div class="cards-wrapper text-white d-flex justify-content-evenly flex-wrap">
           <!-- Card 1 -->
           <div class="card m-2 border-0 top-games-card" style="width: 18rem;">
-            <img src="resources/images/EldenRing.jpg" class="card-img-top top-games-card" alt="..."
-              style=" min-width: 286.4px; min-height: 226px; object-fit: cover; object-position: center;">
+            <img src="resources/images/EldenRing.jpg" class="card-img-top top-games-card" alt="Elden Ring"
+              style="min-width: 286.4px; min-height: 226px; object-fit: cover; object-position: center;">
             <div class="card-body text-center d-flex flex-column justify-content-between"
-              style=" min-width: 286.4px; min-height: 226px">
+              style="min-width: 286.4px; min-height: 226px">
               <h5 class="card-title assign-purple-color fw-bold">Elden Ring</h5>
-              <p class="card-text">Levántate, tiznado, y déjate guiar por la gracia para esgrimir el poder del Anillo de Elden y convertirte en un Señor de Elden en las Tierras Intermedias..
-              </p>
+              <p class="card-text">Levántate, tiznado, y déjate guiar por la gracia para esgrimir el poder del Anillo de Elden y convertirte en un Señor de Elden en las Tierras Intermedias.</p>
               <div class="btn-group add-and-like-btn-group">
-                    <path fill-rule="evenodd"
-                      d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" />
+                <a href="#" class="playstation-svg-icon mx-1" id="playstationButtonER" data-game-id="elden-ring">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="bi bi-playstation" viewBox="0 0 16 16">
+                    <path d="M15.858 11.451c-.313.395-1.079.676-1.079.676l-5.696 2.046v-1.509l4.192-1.493c.476-.17.549-.412.162-.538-.386-.127-1.085-.09-1.56.08l-2.794.984v-1.566l.161-.054s.807-.286 1.942-.412c1.135-.125 2.525.017 3.616.43 1.23.39 1.368.962 1.056 1.356ZM9.625 8.883v-3.86c0-.453-.083-.87-.508-.988-.326-.105-.528.198-.528.65v9.664l-2.606-.827V2c1.108.206 2.722.692 3.59.985 2.207.757 2.955 1.7 2.955 3.825 0 2.071-1.278 2.856-2.903 2.072Zm-8.424 3.625C-.061 12.15-.271 11.41.304 10.984c.532-.394 1.436-.69 1.436-.69l3.737-1.33v1.515l-2.69.963c-.474.17-.547.411-.161.538.386.126 1.085.09 1.56-.08l1.29-.469v1.356l-.257.043a8.454 8.454 0 0 1-4.018-.323Z" />
                   </svg>
                 </a>
               </div>
               <div class="wrapper-priceandplatforms d-flex justify-content-between align-items-center">
-                <div class="card-text assign-purple-color fw-bold fs-5">$39.99</div>
-                <div class="btn-group platform-btn-group">
-                  <a href="carrito.html" class="xbox-svg-icon mx-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="bi bi-xbox"
-                      viewBox="0 0 16 16">
-                      <path
-                        d="M7.202 15.967a7.987 7.987 0 0 1-3.552-1.26c-.898-.585-1.101-.826-1.101-1.306 0-.965 1.062-2.656 2.879-4.583C6.459 7.723 7.897 6.44 8.052 6.475c.302.068 2.718 2.423 3.622 3.531 1.43 1.753 2.088 3.189 1.754 3.829-.254.486-1.83 1.437-2.987 1.802-.954.301-2.207.429-3.239.33Zm-5.866-3.57C.589 11.253.212 10.127.03 8.497c-.06-.539-.038-.846.137-1.95.218-1.377 1.002-2.97 1.945-3.95.401-.417.437-.427.926-.263.595.2 1.23.638 2.213 1.528l.574.519-.313.385C4.056 6.553 2.52 9.086 1.94 10.653c-.315.852-.442 1.707-.306 2.063.091.24.007.15-.3-.319Zm13.101.195c.074-.36-.019-1.02-.238-1.687-.473-1.443-2.055-4.128-3.508-5.953l-.457-.575.494-.454c.646-.593 1.095-.948 1.58-1.25.381-.237.927-.448 1.161-.448.145 0 .654.528 1.065 1.104a8.372 8.372 0 0 1 1.343 3.102c.153.728.166 2.286.024 3.012a9.495 9.495 0 0 1-.6 1.893c-.179.393-.624 1.156-.82 1.404-.1.128-.1.127-.043-.148ZM7.335 1.952c-.67-.34-1.704-.705-2.276-.803a4.171 4.171 0 0 0-.759-.043c-.471.024-.45 0 .306-.358A7.778 7.778 0 0 1 6.47.128c.8-.169 2.306-.17 3.094-.005.85.18 1.853.552 2.418.9l.168.103-.385-.02c-.766-.038-1.88.27-3.078.853-.361.176-.676.316-.699.312a12.246 12.246 0 0 1-.654-.319Z" />
-                    </svg>
-                  </a>
-                  <a href="carrito.html" class="playstation-svg-icon mx-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="bi bi-playstation"
-                      viewBox="0 0 16 16">
-                      <path
-                        d="M15.858 11.451c-.313.395-1.079.676-1.079.676l-5.696 2.046v-1.509l4.192-1.493c.476-.17.549-.412.162-.538-.386-.127-1.085-.09-1.56.08l-2.794.984v-1.566l.161-.054s.807-.286 1.942-.412c1.135-.125 2.525.017 3.616.43 1.23.39 1.368.962 1.056 1.356ZM9.625 8.883v-3.86c0-.453-.083-.87-.508-.988-.326-.105-.528.198-.528.65v9.664l-2.606-.827V2c1.108.206 2.722.692 3.59.985 2.207.757 2.955 1.7 2.955 3.825 0 2.071-1.278 2.856-2.903 2.072Zm-8.424 3.625C-.061 12.15-.271 11.41.304 10.984c.532-.394 1.436-.69 1.436-.69l3.737-1.33v1.515l-2.69.963c-.474.17-.547.411-.161.538.386.126 1.085.09 1.56-.08l1.29-.469v1.356l-.257.043a8.454 8.454 0 0 1-4.018-.323Z" />
-                    </svg>
-                  </a>
-                  <a href="carrito.html" class="steam-svg-icon mx-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="bi bi-steam"
-                      viewBox="0 0 16 16">
-                      <path
-                        d="M.329 10.333A8.01 8.01 0 0 0 7.99 16C12.414 16 16 12.418 16 8s-3.586-8-8.009-8A8.006 8.006 0 0 0 0 7.468l.003.006 4.304 1.769A2.198 2.198 0 0 1 5.62 8.88l1.96-2.844-.001-.04a3.046 3.046 0 0 1 3.042-3.043 3.046 3.046 0 0 1 3.042 3.043 3.047 3.047 0 0 1-3.111 3.044l-2.804 2a2.223 2.223 0 0 1-3.075 2.11 2.217 2.217 0 0 1-1.312-1.568L.33 10.333Z" />
-                      <path
-                        d="M4.868 12.683a1.715 1.715 0 0 0 1.318-3.165 1.705 1.705 0 0 0-1.263-.02l1.023.424a1.261 1.261 0 1 1-.97 2.33l-.99-.41a1.7 1.7 0 0 0 .882.84Zm3.726-6.687a2.03 2.03 0 0 0 2.027 2.029 2.03 2.03 0 0 0 2.027-2.029 2.03 2.03 0 0 0-2.027-2.027 2.03 2.03 0 0 0-2.027 2.027Zm2.03-1.527a1.524 1.524 0 1 1-.002 3.048 1.524 1.524 0 0 1 .002-3.048Z" />
-                    </svg>
-                  </a>
-                </div>
+                <div class="card-text assign-purple-color fw-bold fs-5">$37.374</div>
               </div>
             </div>
           </div>
+          
+          <script>
+            document.addEventListener('DOMContentLoaded', () => {
+              const playstationButtonER = document.getElementById('playstationButtonER');
+          
+              playstationButtonER.addEventListener('click', (event) => {
+                event.preventDefault();  
+          
+                const gameId = playstationButtonER.getAttribute('data-game-id');
+                const gameTitle = playstationButtonER.closest('.card-body').querySelector('.card-title').innerText;
+                const gameImage = playstationButtonER.closest('.card').querySelector('img').src;
+                const gamePrice = 37374; 
+          
+                
+                let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+          
+                
+                carrito.push({
+                  id: gameId,
+                  nombre: gameTitle,
+                  imagen: gameImage,
+                  precioOriginal: gamePrice,
+                  cantidad: 1
+                });
+          
+                
+                localStorage.setItem('carrito', JSON.stringify(carrito));
+          
+                
+                window.location.href = 'carrito.html';
+              });
+            });
+          </script>
           <!-- Card 2 -->
           <div class="card m-2 border-0 top-games-card" style="width: 18rem;">
             <img src="resources/images/Alanwake2.png" class="card-img-top top-games-card" alt="..."
-              style=" min-width: 286.4px; min-height: 226px; object-fit: cover; object-position: center;">
+              style="min-width: 286.4px; min-height: 226px; object-fit: cover; object-position: center;">
             <div class="card-body text-center d-flex flex-column justify-content-between"
-              style=" min-width: 286.4px; min-height: 226px">
+              style="min-width: 286.4px; min-height: 226px">
               <h5 class="card-title assign-purple-color fw-bold">Alan Wake 2</h5>
-              <p class="card-text">Resuelve un misterio sobrenatural. Lo que comienza como una investigación sobre un asesinato en un pequeño pueblo termina convirtiéndose en una pesadilla real..
-              </p>
+              <p class="card-text">Resuelve un misterio sobrenatural. Lo que comienza como una investigación sobre un asesinato en un pequeño pueblo termina convirtiéndose en una pesadilla real.</p>
               <div class="btn-group add-and-like-btn-group">
-                    <path fill-rule="evenodd"
-                      d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" />
+                <a href="#" class="playstation-svg-icon mx-1 add-to-cart-button" id="alanWake2Button" data-game-id="alan-wake-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="bi bi-playstation" viewBox="0 0 16 16">
+                    <path
+                      d="M15.858 11.451c-.313.395-1.079.676-1.079.676l-5.696 2.046v-1.509l4.192-1.493c.476-.17.549-.412.162-.538-.386-.127-1.085-.09-1.56.08l-2.794.984v-1.566l.161-.054s.807-.286 1.942-.412c1.135-.125 2.525.017 3.616.43 1.23.39 1.368.962 1.056 1.356ZM9.625 8.883v-3.86c0-.453-.083-.87-.508-.988-.326-.105-.528.198-.528.65v9.664l-2.606-.827V2c1.108.206 2.722.692 3.59.985 2.207.757 2.955 1.7 2.955 3.825 0 2.071-1.278 2.856-2.903 2.072Zm-8.424 3.625C-.061 12.15-.271 11.41.304 10.984c.532-.394 1.436-.69 1.436-.69l3.737-1.33v1.515l-2.69.963c-.474.17-.547.411-.161.538.386.126 1.085.09 1.56-.08l1.29-.469v1.356l-.257.043a8.454 8.454 0 0 1-4.018-.323Z" />
                   </svg>
                 </a>
               </div>
               <div class="wrapper-priceandplatforms d-flex justify-content-between align-items-center">
-                <div class="card-text assign-purple-color fw-bold fs-5">$59.99</div>
-                <div class="btn-group platform-btn-group">
-                  <a href="carrito.html" class="xbox-svg-icon mx-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="bi bi-xbox"
-                      viewBox="0 0 16 16">
-                      <path
-                        d="M7.202 15.967a7.987 7.987 0 0 1-3.552-1.26c-.898-.585-1.101-.826-1.101-1.306 0-.965 1.062-2.656 2.879-4.583C6.459 7.723 7.897 6.44 8.052 6.475c.302.068 2.718 2.423 3.622 3.531 1.43 1.753 2.088 3.189 1.754 3.829-.254.486-1.83 1.437-2.987 1.802-.954.301-2.207.429-3.239.33Zm-5.866-3.57C.589 11.253.212 10.127.03 8.497c-.06-.539-.038-.846.137-1.95.218-1.377 1.002-2.97 1.945-3.95.401-.417.437-.427.926-.263.595.2 1.23.638 2.213 1.528l.574.519-.313.385C4.056 6.553 2.52 9.086 1.94 10.653c-.315.852-.442 1.707-.306 2.063.091.24.007.15-.3-.319Zm13.101.195c.074-.36-.019-1.02-.238-1.687-.473-1.443-2.055-4.128-3.508-5.953l-.457-.575.494-.454c.646-.593 1.095-.948 1.58-1.25.381-.237.927-.448 1.161-.448.145 0 .654.528 1.065 1.104a8.372 8.372 0 0 1 1.343 3.102c.153.728.166 2.286.024 3.012a9.495 9.495 0 0 1-.6 1.893c-.179.393-.624 1.156-.82 1.404-.1.128-.1.127-.043-.148ZM7.335 1.952c-.67-.34-1.704-.705-2.276-.803a4.171 4.171 0 0 0-.759-.043c-.471.024-.45 0 .306-.358A7.778 7.778 0 0 1 6.47.128c.8-.169 2.306-.17 3.094-.005.85.18 1.853.552 2.418.9l.168.103-.385-.02c-.766-.038-1.88.27-3.078.853-.361.176-.676.316-.699.312a12.246 12.246 0 0 1-.654-.319Z" />
-                    </svg>
-                  </a>
-                  <a href="carrito.html" class="playstation-svg-icon mx-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="bi bi-playstation"
-                      viewBox="0 0 16 16">
-                      <path
-                        d="M15.858 11.451c-.313.395-1.079.676-1.079.676l-5.696 2.046v-1.509l4.192-1.493c.476-.17.549-.412.162-.538-.386-.127-1.085-.09-1.56.08l-2.794.984v-1.566l.161-.054s.807-.286 1.942-.412c1.135-.125 2.525.017 3.616.43 1.23.39 1.368.962 1.056 1.356ZM9.625 8.883v-3.86c0-.453-.083-.87-.508-.988-.326-.105-.528.198-.528.65v9.664l-2.606-.827V2c1.108.206 2.722.692 3.59.985 2.207.757 2.955 1.7 2.955 3.825 0 2.071-1.278 2.856-2.903 2.072Zm-8.424 3.625C-.061 12.15-.271 11.41.304 10.984c.532-.394 1.436-.69 1.436-.69l3.737-1.33v1.515l-2.69.963c-.474.17-.547.411-.161.538.386.126 1.085.09 1.56-.08l1.29-.469v1.356l-.257.043a8.454 8.454 0 0 1-4.018-.323Z" />
-                    </svg>
-                  </a>
-                  <a href="carrito.html" class="steam-svg-icon mx-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="bi bi-steam"
-                      viewBox="0 0 16 16">
-                      <path
-                        d="M.329 10.333A8.01 8.01 0 0 0 7.99 16C12.414 16 16 12.418 16 8s-3.586-8-8.009-8A8.006 8.006 0 0 0 0 7.468l.003.006 4.304 1.769A2.198 2.198 0 0 1 5.62 8.88l1.96-2.844-.001-.04a3.046 3.046 0 0 1 3.042-3.043 3.046 3.046 0 0 1 3.042 3.043 3.047 3.047 0 0 1-3.111 3.044l-2.804 2a2.223 2.223 0 0 1-3.075 2.11 2.217 2.217 0 0 1-1.312-1.568L.33 10.333Z" />
-                      <path
-                        d="M4.868 12.683a1.715 1.715 0 0 0 1.318-3.165 1.705 1.705 0 0 0-1.263-.02l1.023.424a1.261 1.261 0 1 1-.97 2.33l-.99-.41a1.7 1.7 0 0 0 .882.84Zm3.726-6.687a2.03 2.03 0 0 0 2.027 2.029 2.03 2.03 0 0 0 2.027-2.029 2.03 2.03 0 0 0-2.027-2.027 2.03 2.03 0 0 0-2.027 2.027Zm2.03-1.527a1.524 1.524 0 1 1-.002 3.048 1.524 1.524 0 0 1 .002-3.048Z" />
-                    </svg>
-                  </a>
-                </div>
+                <div class="card-text assign-purple-color fw-bold fs-5">$43.650</div>
               </div>
             </div>
           </div>
+          
+          <script>
+            document.addEventListener('DOMContentLoaded', () => {
+              const alanWake2Button = document.getElementById('alanWake2Button');
+          
+              alanWake2Button.addEventListener('click', (event) => {
+                event.preventDefault();  
+          
+                const gameId = alanWake2Button.getAttribute('data-game-id');
+                const gameTitle = alanWake2Button.closest('.card-body').querySelector('.card-title').innerText;
+                const gameImage = alanWake2Button.closest('.card').querySelector('img').src;
+                const gamePrice = 43650; 
+          
+               
+                let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+          
+                
+                carrito.push({
+                  id: gameId,
+                  nombre: gameTitle,
+                  imagen: gameImage,
+                  precioOriginal: gamePrice,
+                  cantidad: 1
+                });
+          
+                
+                localStorage.setItem('carrito', JSON.stringify(carrito));
+          
+                
+                window.location.href = 'carrito.html';
+              });
+            });
+          </script>
           <!-- Card 3 -->
-          <div class="card m-2 border-0  top-games-card" style="width: 18rem;">
-            <img src="resources/images/BaldursGate3.jpg" class="card-img-top top-games-card" alt="..."
-              style=" min-width: 286.4px; min-height: 226px; object-fit: cover; object-position: center;">
+          <div class="card m-2 border-0 top-games-card" style="width: 18rem;">
+            <img src="resources/images/BaldursGate3.jpg" class="card-img-top top-games-card" alt="Baldur's Gate 3"
+              style="min-width: 286.4px; min-height: 226px; object-fit: cover; object-position: center;">
             <div class="card-body text-center d-flex flex-column justify-content-between"
-              style=" min-width: 286.4px; min-height: 226px">
-              <h5 class="card-title assign-purple-color fw-bold">Baldurs Gate 3</h5>
-              <p class="card-text">Reúne a un grupo y emprendan juntos una campaña épica en este RPG de próxima generación ambientado en el mundo de Calabozos y Dragones.
-              </p>
+              style="min-width: 286.4px; min-height: 226px">
+              <h5 class="card-title assign-purple-color fw-bold">Baldur's Gate 3</h5>
+              <p class="card-text">Reúne a un grupo y emprendan juntos una campaña épica en este RPG de próxima generación ambientado en el mundo de Calabozos y Dragones.</p>
               <div class="btn-group add-and-like-btn-group">
-                    <path fill-rule="evenodd"
-                      d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" />
+                <a href="#" class="playstation-svg-icon mx-1" id="playstationButtonBG3" data-game-id="baldurs-gate-3">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="bi bi-playstation" viewBox="0 0 16 16">
+                    <path
+                      d="M15.858 11.451c-.313.395-1.079.676-1.079.676l-5.696 2.046v-1.509l4.192-1.493c.476-.17.549-.412.162-.538-.386-.127-1.085-.09-1.56.08l-2.794.984v-1.566l.161-.054s.807-.286 1.942-.412c1.135-.125 2.525.017 3.616.43 1.23.39 1.368.962 1.056 1.356ZM9.625 8.883v-3.86c0-.453-.083-.87-.508-.988-.326-.105-.528.198-.528.65v9.664l-2.606-.827V2c1.108.206 2.722.692 3.59.985 2.207.757 2.955 1.7 2.955 3.825 0 2.071-1.278 2.856-2.903 2.072Zm-8.424 3.625C-.061 12.15-.271 11.41.304 10.984c.532-.394 1.436-.69 1.436-.69l3.737-1.33v1.515l-2.69.963c-.474.17-.547.411-.161.538.386.126 1.085.09 1.56-.08l1.29-.469v1.356l-.257.043a8.454 8.454 0 0 1-4.018-.323Z" />
                   </svg>
                 </a>
               </div>
               <div class="wrapper-priceandplatforms d-flex justify-content-between align-items-center">
-                <div class="card-text assign-purple-color fw-bold fs-5">$29.99</div>
-                <div class="btn-group platform-btn-group">
-                  <a href="carrito.html" class="xbox-svg-icon mx-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="bi bi-xbox"
-                      viewBox="0 0 16 16">
-                      <path
-                        d="M7.202 15.967a7.987 7.987 0 0 1-3.552-1.26c-.898-.585-1.101-.826-1.101-1.306 0-.965 1.062-2.656 2.879-4.583C6.459 7.723 7.897 6.44 8.052 6.475c.302.068 2.718 2.423 3.622 3.531 1.43 1.753 2.088 3.189 1.754 3.829-.254.486-1.83 1.437-2.987 1.802-.954.301-2.207.429-3.239.33Zm-5.866-3.57C.589 11.253.212 10.127.03 8.497c-.06-.539-.038-.846.137-1.95.218-1.377 1.002-2.97 1.945-3.95.401-.417.437-.427.926-.263.595.2 1.23.638 2.213 1.528l.574.519-.313.385C4.056 6.553 2.52 9.086 1.94 10.653c-.315.852-.442 1.707-.306 2.063.091.24.007.15-.3-.319Zm13.101.195c.074-.36-.019-1.02-.238-1.687-.473-1.443-2.055-4.128-3.508-5.953l-.457-.575.494-.454c.646-.593 1.095-.948 1.58-1.25.381-.237.927-.448 1.161-.448.145 0 .654.528 1.065 1.104a8.372 8.372 0 0 1 1.343 3.102c.153.728.166 2.286.024 3.012a9.495 9.495 0 0 1-.6 1.893c-.179.393-.624 1.156-.82 1.404-.1.128-.1.127-.043-.148ZM7.335 1.952c-.67-.34-1.704-.705-2.276-.803a4.171 4.171 0 0 0-.759-.043c-.471.024-.45 0 .306-.358A7.778 7.778 0 0 1 6.47.128c.8-.169 2.306-.17 3.094-.005.85.18 1.853.552 2.418.9l.168.103-.385-.02c-.766-.038-1.88.27-3.078.853-.361.176-.676.316-.699.312a12.246 12.246 0 0 1-.654-.319Z" />
-                    </svg>
-                  </a>
-                  <a href="carrito.html" class="playstation-svg-icon mx-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="bi bi-playstation"
-                      viewBox="0 0 16 16">
-                      <path
-                        d="M15.858 11.451c-.313.395-1.079.676-1.079.676l-5.696 2.046v-1.509l4.192-1.493c.476-.17.549-.412.162-.538-.386-.127-1.085-.09-1.56.08l-2.794.984v-1.566l.161-.054s.807-.286 1.942-.412c1.135-.125 2.525.017 3.616.43 1.23.39 1.368.962 1.056 1.356ZM9.625 8.883v-3.86c0-.453-.083-.87-.508-.988-.326-.105-.528.198-.528.65v9.664l-2.606-.827V2c1.108.206 2.722.692 3.59.985 2.207.757 2.955 1.7 2.955 3.825 0 2.071-1.278 2.856-2.903 2.072Zm-8.424 3.625C-.061 12.15-.271 11.41.304 10.984c.532-.394 1.436-.69 1.436-.69l3.737-1.33v1.515l-2.69.963c-.474.17-.547.411-.161.538.386.126 1.085.09 1.56-.08l1.29-.469v1.356l-.257.043a8.454 8.454 0 0 1-4.018-.323Z" />
-                    </svg>
-                  </a>
-                  <a href="carrito.html" class="steam-svg-icon mx-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="bi bi-steam"
-                      viewBox="0 0 16 16">
-                      <path
-                        d="M.329 10.333A8.01 8.01 0 0 0 7.99 16C12.414 16 16 12.418 16 8s-3.586-8-8.009-8A8.006 8.006 0 0 0 0 7.468l.003.006 4.304 1.769A2.198 2.198 0 0 1 5.62 8.88l1.96-2.844-.001-.04a3.046 3.046 0 0 1 3.042-3.043 3.046 3.046 0 0 1 3.042 3.043 3.047 3.047 0 0 1-3.111 3.044l-2.804 2a2.223 2.223 0 0 1-3.075 2.11 2.217 2.217 0 0 1-1.312-1.568L.33 10.333Z" />
-                      <path
-                        d="M4.868 12.683a1.715 1.715 0 0 0 1.318-3.165 1.705 1.705 0 0 0-1.263-.02l1.023.424a1.261 1.261 0 1 1-.97 2.33l-.99-.41a1.7 1.7 0 0 0 .882.84Zm3.726-6.687a2.03 2.03 0 0 0 2.027 2.029 2.03 2.03 0 0 0 2.027-2.029 2.03 2.03 0 0 0-2.027-2.027 2.03 2.03 0 0 0-2.027 2.027Zm2.03-1.527a1.524 1.524 0 1 1-.002 3.048 1.524 1.524 0 0 1 .002-3.048Z" />
-                    </svg>
-                  </a>
-                </div>
+                <div class="card-text assign-purple-color fw-bold fs-5">$59.990</div>
               </div>
             </div>
           </div>
+          
+          <script>
+            document.addEventListener('DOMContentLoaded', () => {
+              const playstationButtonBG3 = document.getElementById('playstationButtonBG3');
+          
+              playstationButtonBG3.addEventListener('click', (event) => {
+                event.preventDefault();
+          
+                const gameId = playstationButtonBG3.getAttribute('data-game-id');
+                const gameTitle = playstationButtonBG3.closest('.card-body').querySelector('.card-title').innerText;
+                const gameImage = playstationButtonBG3.closest('.card').querySelector('img').src;
+                const gamePrice = 59990; 
+          
+                let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+          
+                carrito.push({
+                  id: gameId,
+                  nombre: gameTitle,
+                  imagen: gameImage,
+                  precioOriginal: gamePrice,
+                  cantidad: 1
+                });
+          
+                localStorage.setItem('carrito', JSON.stringify(carrito));
+          
+                window.location.href = 'carrito.html';
+              });
+            });
+          </script>
           <!-- Card 4 -->
-          <div class="card m-2 border-0  top-games-card" style="width: 18rem;">
-            <img src="resources/images/DEADISLAND2.jpg" class="card-img-top top-games-card" alt="..."
-              style=" min-width: 286.4px; min-height: 226px; object-fit: cover; object-position: center;">
+          <div class="card m-2 border-0 top-games-card" style="width: 18rem;">
+            <img src="resources/images/DEADISLAND2.jpg" class="card-img-top top-games-card" alt="Dead Island 2"
+              style="min-width: 286.4px; min-height: 226px; object-fit: cover; object-position: center;">
             <div class="card-body text-center d-flex flex-column justify-content-between"
-              style=" min-width: 286.4px; min-height: 226px">
+              style="min-width: 286.4px; min-height: 226px">
               <h5 class="card-title assign-purple-color fw-bold">Dead Island 2</h5>
-              <p class="card-text">Un virus mortal se extiende por Los Ángeles y está convirtiendo a sus habitantes en zombis. Te han mordido e infectado, pero tu cuerpo es inmune.
-              </p>
+              <p class="card-text">Un virus mortal se extiende por Los Ángeles y está convirtiendo a sus habitantes en zombis. Te han mordido e infectado, pero tu cuerpo es inmune.</p>
               <div class="btn-group add-and-like-btn-group">
-                    <path fill-rule="evenodd"
-                      d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" />
+                <a href="#" class="playstation-svg-icon mx-1" id="playstationButtonDeadIsland2" data-game-id="dead-island-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="bi bi-playstation" viewBox="0 0 16 16">
+                    <path d="M15.858 11.451c-.313.395-1.079.676-1.079.676l-5.696 2.046v-1.509l4.192-1.493c.476-.17.549-.412.162-.538-.386-.127-1.085-.09-1.56.08l-2.794.984v-1.566l.161-.054s.807-.286 1.942-.412c1.135-.125 2.525.017 3.616.43 1.23.39 1.368.962 1.056 1.356ZM9.625 8.883v-3.86c0-.453-.083-.87-.508-.988-.326-.105-.528.198-.528.65v9.664l-2.606-.827V2c1.108.206 2.722.692 3.59.985 2.207.757 2.955 1.7 2.955 3.825 0 2.071-1.278 2.856-2.903 2.072Zm-8.424 3.625C-.061 12.15-.271 11.41.304 10.984c.532-.394 1.436-.69 1.436-.69l3.737-1.33v1.515l-2.69.963c-.474.17-.547.411-.161.538.386.126 1.085.09 1.56-.08l1.29-.469v1.356l-.257.043a8.454 8.454 0 0 1-4.018-.323Z" />
                   </svg>
                 </a>
               </div>
               <div class="wrapper-priceandplatforms d-flex justify-content-between align-items-center">
-                <div class="card-text assign-purple-color fw-bold fs-5">$29.99</div>
-                <div class="btn-group platform-btn-group">
-                  <a href="carrito.html" class="xbox-svg-icon mx-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="bi bi-xbox"
-                      viewBox="0 0 16 16">
-                      <path
-                        d="M7.202 15.967a7.987 7.987 0 0 1-3.552-1.26c-.898-.585-1.101-.826-1.101-1.306 0-.965 1.062-2.656 2.879-4.583C6.459 7.723 7.897 6.44 8.052 6.475c.302.068 2.718 2.423 3.622 3.531 1.43 1.753 2.088 3.189 1.754 3.829-.254.486-1.83 1.437-2.987 1.802-.954.301-2.207.429-3.239.33Zm-5.866-3.57C.589 11.253.212 10.127.03 8.497c-.06-.539-.038-.846.137-1.95.218-1.377 1.002-2.97 1.945-3.95.401-.417.437-.427.926-.263.595.2 1.23.638 2.213 1.528l.574.519-.313.385C4.056 6.553 2.52 9.086 1.94 10.653c-.315.852-.442 1.707-.306 2.063.091.24.007.15-.3-.319Zm13.101.195c.074-.36-.019-1.02-.238-1.687-.473-1.443-2.055-4.128-3.508-5.953l-.457-.575.494-.454c.646-.593 1.095-.948 1.58-1.25.381-.237.927-.448 1.161-.448.145 0 .654.528 1.065 1.104a8.372 8.372 0 0 1 1.343 3.102c.153.728.166 2.286.024 3.012a9.495 9.495 0 0 1-.6 1.893c-.179.393-.624 1.156-.82 1.404-.1.128-.1.127-.043-.148ZM7.335 1.952c-.67-.34-1.704-.705-2.276-.803a4.171 4.171 0 0 0-.759-.043c-.471.024-.45 0 .306-.358A7.778 7.778 0 0 1 6.47.128c.8-.169 2.306-.17 3.094-.005.85.18 1.853.552 2.418.9l.168.103-.385-.02c-.766-.038-1.88.27-3.078.853-.361.176-.676.316-.699.312a12.246 12.246 0 0 1-.654-.319Z" />
-                    </svg>
-                  </a>
-                  <a href="carrito.html" class="playstation-svg-icon mx-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="bi bi-playstation"
-                      viewBox="0 0 16 16">
-                      <path
-                        d="M15.858 11.451c-.313.395-1.079.676-1.079.676l-5.696 2.046v-1.509l4.192-1.493c.476-.17.549-.412.162-.538-.386-.127-1.085-.09-1.56.08l-2.794.984v-1.566l.161-.054s.807-.286 1.942-.412c1.135-.125 2.525.017 3.616.43 1.23.39 1.368.962 1.056 1.356ZM9.625 8.883v-3.86c0-.453-.083-.87-.508-.988-.326-.105-.528.198-.528.65v9.664l-2.606-.827V2c1.108.206 2.722.692 3.59.985 2.207.757 2.955 1.7 2.955 3.825 0 2.071-1.278 2.856-2.903 2.072Zm-8.424 3.625C-.061 12.15-.271 11.41.304 10.984c.532-.394 1.436-.69 1.436-.69l3.737-1.33v1.515l-2.69.963c-.474.17-.547.411-.161.538.386.126 1.085.09 1.56-.08l1.29-.469v1.356l-.257.043a8.454 8.454 0 0 1-4.018-.323Z" />
-                    </svg>
-                  </a>
-                  <a href="carrito.html" class="steam-svg-icon mx-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="bi bi-steam"
-                      viewBox="0 0 16 16">
-                      <path
-                        d="M.329 10.333A8.01 8.01 0 0 0 7.99 16C12.414 16 16 12.418 16 8s-3.586-8-8.009-8A8.006 8.006 0 0 0 0 7.468l.003.006 4.304 1.769A2.198 2.198 0 0 1 5.62 8.88l1.96-2.844-.001-.04a3.046 3.046 0 0 1 3.042-3.043 3.046 3.046 0 0 1 3.042 3.043 3.047 3.047 0 0 1-3.111 3.044l-2.804 2a2.223 2.223 0 0 1-3.075 2.11 2.217 2.217 0 0 1-1.312-1.568L.33 10.333Z" />
-                      <path
-                        d="M4.868 12.683a1.715 1.715 0 0 0 1.318-3.165 1.705 1.705 0 0 0-1.263-.02l1.023.424a1.261 1.261 0 1 1-.97 2.33l-.99-.41a1.7 1.7 0 0 0 .882.84Zm3.726-6.687a2.03 2.03 0 0 0 2.027 2.029 2.03 2.03 0 0 0 2.027-2.029 2.03 2.03 0 0 0-2.027-2.027 2.03 2.03 0 0 0-2.027 2.027Zm2.03-1.527a1.524 1.524 0 1 1-.002 3.048 1.524 1.524 0 0 1 .002-3.048Z" />
-                    </svg>
-                  </a>
-                </div>
+                <div class="card-text assign-purple-color fw-bold fs-5">$64.990</div>
               </div>
             </div>
           </div>
+          
+          <script>
+            document.addEventListener('DOMContentLoaded', () => {
+              
+              const deadIsland2Button = document.getElementById('playstationButtonDeadIsland2');
+          
+              
+              deadIsland2Button.addEventListener('click', (event) => {
+                event.preventDefault();  
+          
+                
+                const gameId = deadIsland2Button.getAttribute('data-game-id');
+                const gameTitle = deadIsland2Button.closest('.card-body').querySelector('.card-title').innerText;
+                const gameImage = deadIsland2Button.closest('.card').querySelector('img').src;
+                const gamePrice = 64990; 
+          
+                
+                let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+          
+                
+                carrito.push({
+                  id: gameId,
+                  nombre: gameTitle,
+                  imagen: gameImage,
+                  precioOriginal: gamePrice,
+                  cantidad: 1
+                });
+          
+                
+                localStorage.setItem('carrito', JSON.stringify(carrito));
+          
+                
+                window.location.href = 'carrito.html';
+              });
+            });
+          </script>
           <!-- Card 5 -->
-          <div class="card m-2 border-0  top-games-card" style="width: 18rem;">
-            <img src="resources/images/FC24.jpg" class="card-img-top top-games-card" alt="..."
-              style=" min-width: 286.4px; min-height: 226px; object-fit: cover; object-position: center;">
+          <div class="card m-2 border-0 top-games-card" style="width: 18rem;">
+            <img src="resources/images/FC24.jpg" class="card-img-top top-games-card" alt="EA SPORTS FC 24"
+              style="min-width: 286.4px; min-height: 226px; object-fit: cover; object-position: center;">
             <div class="card-body text-center d-flex flex-column justify-content-between"
-              style=" min-width: 286.4px; min-height: 226px">
+              style="min-width: 286.4px; min-height: 226px">
               <h5 class="card-title assign-purple-color fw-bold">EA SPORTS FC 24</h5>
-              <p class="card-text">Únete para forjar el futuro del fútbol sobre una base de innovación y autenticidad con más de 19 000 futbolistas con licencia, 700 equipos y 30 ligas.
-              </p>
+              <p class="card-text">Únete para forjar el futuro del fútbol sobre una base de innovación y autenticidad con más de 19 000 futbolistas con licencia, 700 equipos y 30 ligas.</p>
               <div class="btn-group add-and-like-btn-group">
-                    <path fill-rule="evenodd"
-                      d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" />
+                <a href="#" class="playstation-svg-icon mx-1" id="playstationButtonFC24" data-game-id="ea-sports-fc-24">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="bi bi-playstation" viewBox="0 0 16 16">
+                    <path d="M15.858 11.451c-.313.395-1.079.676-1.079.676l-5.696 2.046v-1.509l4.192-1.493c.476-.17.549-.412.162-.538-.386-.127-1.085-.09-1.56.08l-2.794.984v-1.566l.161-.054s.807-.286 1.942-.412c1.135-.125 2.525.017 3.616.43 1.23.39 1.368.962 1.056 1.356ZM9.625 8.883v-3.86c0-.453-.083-.87-.508-.988-.326-.105-.528.198-.528.65v9.664l-2.606-.827V2c1.108.206 2.722.692 3.59.985 2.207.757 2.955 1.7 2.955 3.825 0 2.071-1.278 2.856-2.903 2.072Zm-8.424 3.625C-.061 12.15-.271 11.41.304 10.984c.532-.394 1.436-.69 1.436-.69l3.737-1.33v1.515l-2.69.963c-.474.17-.547.411-.161.538.386.126 1.085.09 1.56-.08l1.29-.469v1.356l-.257.043a8.454 8.454 0 0 1-4.018-.323Z" />
                   </svg>
                 </a>
               </div>
               <div class="wrapper-priceandplatforms d-flex justify-content-between align-items-center">
-                <div class="card-text assign-purple-color fw-bold fs-5">$59.99</div>
-                <div class="btn-group platform-btn-group">
-                  <a href="carrito.html" class="xbox-svg-icon mx-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="bi bi-xbox"
-                      viewBox="0 0 16 16">
-                      <path
-                        d="M7.202 15.967a7.987 7.987 0 0 1-3.552-1.26c-.898-.585-1.101-.826-1.101-1.306 0-.965 1.062-2.656 2.879-4.583C6.459 7.723 7.897 6.44 8.052 6.475c.302.068 2.718 2.423 3.622 3.531 1.43 1.753 2.088 3.189 1.754 3.829-.254.486-1.83 1.437-2.987 1.802-.954.301-2.207.429-3.239.33Zm-5.866-3.57C.589 11.253.212 10.127.03 8.497c-.06-.539-.038-.846.137-1.95.218-1.377 1.002-2.97 1.945-3.95.401-.417.437-.427.926-.263.595.2 1.23.638 2.213 1.528l.574.519-.313.385C4.056 6.553 2.52 9.086 1.94 10.653c-.315.852-.442 1.707-.306 2.063.091.24.007.15-.3-.319Zm13.101.195c.074-.36-.019-1.02-.238-1.687-.473-1.443-2.055-4.128-3.508-5.953l-.457-.575.494-.454c.646-.593 1.095-.948 1.58-1.25.381-.237.927-.448 1.161-.448.145 0 .654.528 1.065 1.104a8.372 8.372 0 0 1 1.343 3.102c.153.728.166 2.286.024 3.012a9.495 9.495 0 0 1-.6 1.893c-.179.393-.624 1.156-.82 1.404-.1.128-.1.127-.043-.148ZM7.335 1.952c-.67-.34-1.704-.705-2.276-.803a4.171 4.171 0 0 0-.759-.043c-.471.024-.45 0 .306-.358A7.778 7.778 0 0 1 6.47.128c.8-.169 2.306-.17 3.094-.005.85.18 1.853.552 2.418.9l.168.103-.385-.02c-.766-.038-1.88.27-3.078.853-.361.176-.676.316-.699.312a12.246 12.246 0 0 1-.654-.319Z" />
-                    </svg>
-                  </a>
-                  <a href="carrito.html" class="playstation-svg-icon mx-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="bi bi-playstation"
-                      viewBox="0 0 16 16">
-                      <path
-                        d="M15.858 11.451c-.313.395-1.079.676-1.079.676l-5.696 2.046v-1.509l4.192-1.493c.476-.17.549-.412.162-.538-.386-.127-1.085-.09-1.56.08l-2.794.984v-1.566l.161-.054s.807-.286 1.942-.412c1.135-.125 2.525.017 3.616.43 1.23.39 1.368.962 1.056 1.356ZM9.625 8.883v-3.86c0-.453-.083-.87-.508-.988-.326-.105-.528.198-.528.65v9.664l-2.606-.827V2c1.108.206 2.722.692 3.59.985 2.207.757 2.955 1.7 2.955 3.825 0 2.071-1.278 2.856-2.903 2.072Zm-8.424 3.625C-.061 12.15-.271 11.41.304 10.984c.532-.394 1.436-.69 1.436-.69l3.737-1.33v1.515l-2.69.963c-.474.17-.547.411-.161.538.386.126 1.085.09 1.56-.08l1.29-.469v1.356l-.257.043a8.454 8.454 0 0 1-4.018-.323Z" />
-                    </svg>
-                  </a>
-                  <a href="carrito.html" class="steam-svg-icon mx-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="bi bi-steam"
-                      viewBox="0 0 16 16">
-                      <path
-                        d="M.329 10.333A8.01 8.01 0 0 0 7.99 16C12.414 16 16 12.418 16 8s-3.586-8-8.009-8A8.006 8.006 0 0 0 0 7.468l.003.006 4.304 1.769A2.198 2.198 0 0 1 5.62 8.88l1.96-2.844-.001-.04a3.046 3.046 0 0 1 3.042-3.043 3.046 3.046 0 0 1 3.042 3.043 3.047 3.047 0 0 1-3.111 3.044l-2.804 2a2.223 2.223 0 0 1-3.075 2.11 2.217 2.217 0 0 1-1.312-1.568L.33 10.333Z" />
-                      <path
-                        d="M4.868 12.683a1.715 1.715 0 0 0 1.318-3.165 1.705 1.705 0 0 0-1.263-.02l1.023.424a1.261 1.261 0 1 1-.97 2.33l-.99-.41a1.7 1.7 0 0 0 .882.84Zm3.726-6.687a2.03 2.03 0 0 0 2.027 2.029 2.03 2.03 0 0 0 2.027-2.029 2.03 2.03 0 0 0-2.027-2.027 2.03 2.03 0 0 0-2.027 2.027Zm2.03-1.527a1.524 1.524 0 1 1-.002 3.048 1.524 1.524 0 0 1 .002-3.048Z" />
-                    </svg>
-                  </a>
-                </div>
+                <div class="card-text assign-purple-color fw-bold fs-5">$47.990</div>
               </div>
             </div>
           </div>
+          
+          <script>
+            document.addEventListener('DOMContentLoaded', () => {
+              const playstationButtonFC24 = document.getElementById('playstationButtonFC24');
+          
+              playstationButtonFC24.addEventListener('click', (event) => {
+                event.preventDefault();  
+          
+                const gameId = playstationButtonFC24.getAttribute('data-game-id');
+                const gameTitle = playstationButtonFC24.closest('.card-body').querySelector('.card-title').innerText;
+                const gameImage = playstationButtonFC24.closest('.card').querySelector('img').src;
+                const gamePrice = 47990; 
+          
+                
+                let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+          
+                
+                carrito.push({
+                  id: gameId,
+                  nombre: gameTitle,
+                  imagen: gameImage,
+                  precioOriginal: gamePrice,
+                  cantidad: 1
+                });
+          
+                
+                localStorage.setItem('carrito', JSON.stringify(carrito));
+          
+                
+                window.location.href = 'carrito.html';
+              });
+            });
+          </script>
+          
           <!-- Card 6 -->
           <div class="card m-2 border-0 top-games-card" style="width: 18rem;">
-            <img src="resources/images/Streetfighter6.png" class="card-img-top top-games-card" alt="..."
-              style=" min-width: 286.4px; min-height: 226px; object-fit: cover; object-position: center;">
+            <img src="resources/images/Streetfighter6.png" class="card-img-top top-games-card" alt="Street Fighter 6"
+              style="min-width: 286.4px; min-height: 226px; object-fit: cover; object-position: center;">
             <div class="card-body text-center d-flex flex-column justify-content-between"
-              style=" min-width: 286.4px; min-height: 226px">
+              style="min-width: 286.4px; min-height: 226px">
               <h5 class="card-title assign-purple-color fw-bold">Street Fighter 6</h5>
-              <p class="card-text">Un inmersivo modo historia para un jugador en el que crearás con gran detalle al personaje que protagonizará tus interacciones con todos los habitantes del mundo de Street Fighter.
-              </p>
+              <p class="card-text">Un inmersivo modo historia para un jugador en el que crearás con gran detalle al personaje que protagonizará tus interacciones con todos los habitantes del mundo de Street Fighter.</p>
               <div class="btn-group add-and-like-btn-group">
-                    <path fill-rule="evenodd"
-                      d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" />
+                <a href="#" class="playstation-svg-icon mx-1" id="playstationButtonSF6" data-game-id="street-fighter-6">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="bi bi-playstation" viewBox="0 0 16 16">
+                    <path d="M15.858 11.451c-.313.395-1.079.676-1.079.676l-5.696 2.046v-1.509l4.192-1.493c.476-.17.549-.412.162-.538-.386-.127-1.085-.09-1.56.08l-2.794.984v-1.566l.161-.054s.807-.286 1.942-.412c1.135-.125 2.525.017 3.616.43 1.23.39 1.368.962 1.056 1.356ZM9.625 8.883v-3.86c0-.453-.083-.87-.508-.988-.326-.105-.528.198-.528.65v9.664l-2.606-.827V2c1.108.206 2.722.692 3.59.985 2.207.757 2.955 1.7 2.955 3.825 0 2.071-1.278 2.856-2.903 2.072Zm-8.424 3.625C-.061 12.15-.271 11.41.304 10.984c.532-.394 1.436-.69 1.436-.69l3.737-1.33v1.515l-2.69.963c-.474.17-.547.411-.161.538.386.126 1.085.09 1.56-.08l1.29-.469v1.356l-.257.043a8.454 8.454 0 0 1-4.018-.323Z" />
                   </svg>
                 </a>
               </div>
               <div class="wrapper-priceandplatforms d-flex justify-content-between align-items-center">
-                <div class="card-text assign-purple-color fw-bold fs-5">$29.99</div>
-                <div class="btn-group platform-btn-group">
-                  <a href="carrito.html" class="xbox-svg-icon mx-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="bi bi-xbox"
-                      viewBox="0 0 16 16">
-                      <path
-                        d="M7.202 15.967a7.987 7.987 0 0 1-3.552-1.26c-.898-.585-1.101-.826-1.101-1.306 0-.965 1.062-2.656 2.879-4.583C6.459 7.723 7.897 6.44 8.052 6.475c.302.068 2.718 2.423 3.622 3.531 1.43 1.753 2.088 3.189 1.754 3.829-.254.486-1.83 1.437-2.987 1.802-.954.301-2.207.429-3.239.33Zm-5.866-3.57C.589 11.253.212 10.127.03 8.497c-.06-.539-.038-.846.137-1.95.218-1.377 1.002-2.97 1.945-3.95.401-.417.437-.427.926-.263.595.2 1.23.638 2.213 1.528l.574.519-.313.385C4.056 6.553 2.52 9.086 1.94 10.653c-.315.852-.442 1.707-.306 2.063.091.24.007.15-.3-.319Zm13.101.195c.074-.36-.019-1.02-.238-1.687-.473-1.443-2.055-4.128-3.508-5.953l-.457-.575.494-.454c.646-.593 1.095-.948 1.58-1.25.381-.237.927-.448 1.161-.448.145 0 .654.528 1.065 1.104a8.372 8.372 0 0 1 1.343 3.102c.153.728.166 2.286.024 3.012a9.495 9.495 0 0 1-.6 1.893c-.179.393-.624 1.156-.82 1.404-.1.128-.1.127-.043-.148ZM7.335 1.952c-.67-.34-1.704-.705-2.276-.803a4.171 4.171 0 0 0-.759-.043c-.471.024-.45 0 .306-.358A7.778 7.778 0 0 1 6.47.128c.8-.169 2.306-.17 3.094-.005.85.18 1.853.552 2.418.9l.168.103-.385-.02c-.766-.038-1.88.27-3.078.853-.361.176-.676.316-.699.312a12.246 12.246 0 0 1-.654-.319Z" />
-                    </svg>
-                  </a>
-                  <a href="carrito.html" class="playstation-svg-icon mx-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="bi bi-playstation"
-                      viewBox="0 0 16 16">
-                      <path
-                        d="M15.858 11.451c-.313.395-1.079.676-1.079.676l-5.696 2.046v-1.509l4.192-1.493c.476-.17.549-.412.162-.538-.386-.127-1.085-.09-1.56.08l-2.794.984v-1.566l.161-.054s.807-.286 1.942-.412c1.135-.125 2.525.017 3.616.43 1.23.39 1.368.962 1.056 1.356ZM9.625 8.883v-3.86c0-.453-.083-.87-.508-.988-.326-.105-.528.198-.528.65v9.664l-2.606-.827V2c1.108.206 2.722.692 3.59.985 2.207.757 2.955 1.7 2.955 3.825 0 2.071-1.278 2.856-2.903 2.072Zm-8.424 3.625C-.061 12.15-.271 11.41.304 10.984c.532-.394 1.436-.69 1.436-.69l3.737-1.33v1.515l-2.69.963c-.474.17-.547.411-.161.538.386.126 1.085.09 1.56-.08l1.29-.469v1.356l-.257.043a8.454 8.454 0 0 1-4.018-.323Z" />
-                    </svg>
-                  </a>
-                  <a href="carrito.html" class="steam-svg-icon mx-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="bi bi-steam"
-                      viewBox="0 0 16 16">
-                      <path
-                        d="M.329 10.333A8.01 8.01 0 0 0 7.99 16C12.414 16 16 12.418 16 8s-3.586-8-8.009-8A8.006 8.006 0 0 0 0 7.468l.003.006 4.304 1.769A2.198 2.198 0 0 1 5.62 8.88l1.96-2.844-.001-.04a3.046 3.046 0 0 1 3.042-3.043 3.046 3.046 0 0 1 3.042 3.043 3.047 3.047 0 0 1-3.111 3.044l-2.804 2a2.223 2.223 0 0 1-3.075 2.11 2.217 2.217 0 0 1-1.312-1.568L.33 10.333Z" />
-                      <path
-                        d="M4.868 12.683a1.715 1.715 0 0 0 1.318-3.165 1.705 1.705 0 0 0-1.263-.02l1.023.424a1.261 1.261 0 1 1-.97 2.33l-.99-.41a1.7 1.7 0 0 0 .882.84Zm3.726-6.687a2.03 2.03 0 0 0 2.027 2.029 2.03 2.03 0 0 0 2.027-2.029 2.03 2.03 0 0 0-2.027-2.027 2.03 2.03 0 0 0-2.027 2.027Zm2.03-1.527a1.524 1.524 0 1 1-.002 3.048 1.524 1.524 0 0 1 .002-3.048Z" />
-                    </svg>
-                  </a>
-                </div>
+                <div class="card-text assign-purple-color fw-bold fs-5">$39.990</div>
               </div>
             </div>
           </div>
+          
+          <script>
+            document.addEventListener('DOMContentLoaded', () => {
+              const playstationButtonSF6 = document.getElementById('playstationButtonSF6');
+          
+              playstationButtonSF6.addEventListener('click', (event) => {
+                event.preventDefault();  
+          
+                const gameId = playstationButtonSF6.getAttribute('data-game-id');
+                const gameTitle = playstationButtonSF6.closest('.card-body').querySelector('.card-title').innerText;
+                const gameImage = playstationButtonSF6.closest('.card').querySelector('img').src;
+                const gamePrice = 39990; 
+          
+                
+                let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+          
+                
+                carrito.push({
+                  id: gameId,
+                  nombre: gameTitle,
+                  imagen: gameImage,
+                  precioOriginal: gamePrice,
+                  cantidad: 1
+                });
+          
+                
+                localStorage.setItem('carrito', JSON.stringify(carrito));
+          
+                
+                window.location.href = 'carrito.html';
+              });
+            });
+          </script>
           <!-- Card 7 -->
-          <div class="card m-2 border-0  top-games-card" style="width: 18rem;">
+          <div class="card m-2 border-0 top-games-card" style="width: 18rem;">
             <img src="resources/images/Bloodborne.jpg" class="card-img-top top-games-card" alt="..."
-              style=" min-width: 286.4px; min-height: 226px; object-fit: cover; object-position: center;">
+              style="min-width: 286.4px; min-height: 226px; object-fit: cover; object-position: center;">
             <div class="card-body text-center d-flex flex-column justify-content-between"
-              style=" min-width: 286.4px; min-height: 226px">
+              style="min-width: 286.4px; min-height: 226px">
               <h5 class="card-title assign-purple-color fw-bold">Bloodborne</h5>
-              <p class="card-text">Enfrenta tus pesadillas mientras buscas respuestas en la antigua ciudad de Yharnam, ahora maldecida por una enfermedad endémica que se propaga por las calles como un fuego arrasador.
-              </p>
+              <p class="card-text">Enfrenta tus pesadillas mientras buscas respuestas en la antigua ciudad de Yharnam, ahora maldecida por una enfermedad endémica que se propaga por las calles como un fuego arrasador.</p>
               <div class="btn-group add-and-like-btn-group">
-                    <path fill-rule="evenodd"
-                      d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" />
+                <a href="#" class="playstation-svg-icon mx-1" id="playstationButtonBloodborne" data-game-id="bloodborne">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="bi bi-playstation" viewBox="0 0 16 16">
+                    <path
+                      d="M15.858 11.451c-.313.395-1.079.676-1.079.676l-5.696 2.046v-1.509l4.192-1.493c.476-.17.549-.412.162-.538-.386-.127-1.085-.09-1.56.08l-2.794.984v-1.566l.161-.054s.807-.286 1.942-.412c1.135-.125 2.525.017 3.616.43 1.23.39 1.368.962 1.056 1.356ZM9.625 8.883v-3.86c0-.453-.083-.87-.508-.988-.326-.105-.528.198-.528.65v9.664l-2.606-.827V2c1.108.206 2.722.692 3.59.985 2.207.757 2.955 1.7 2.955 3.825 0 2.071-1.278 2.856-2.903 2.072Zm-8.424 3.625C-.061 12.15-.271 11.41.304 10.984c.532-.394 1.436-.69 1.436-.69l3.737-1.33v1.515l-2.69.963c-.474.17-.547.411-.161.538.386.126 1.085.09 1.56-.08l1.29-.469v1.356l-.257.043a8.454 8.454 0 0 1-4.018-.323Z" />
                   </svg>
                 </a>
               </div>
               <div class="wrapper-priceandplatforms d-flex justify-content-between align-items-center">
-                <div class="card-text assign-purple-color fw-bold fs-5">$29.99</div>
-                <div class="btn-group platform-btn-group">
-                  <a href="#" class="xbox-svg-icon mx-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="bi bi-xbox"
-                      viewBox="0 0 16 16">
-                      <path
-                        d="M7.202 15.967a7.987 7.987 0 0 1-3.552-1.26c-.898-.585-1.101-.826-1.101-1.306 0-.965 1.062-2.656 2.879-4.583C6.459 7.723 7.897 6.44 8.052 6.475c.302.068 2.718 2.423 3.622 3.531 1.43 1.753 2.088 3.189 1.754 3.829-.254.486-1.83 1.437-2.987 1.802-.954.301-2.207.429-3.239.33Zm-5.866-3.57C.589 11.253.212 10.127.03 8.497c-.06-.539-.038-.846.137-1.95.218-1.377 1.002-2.97 1.945-3.95.401-.417.437-.427.926-.263.595.2 1.23.638 2.213 1.528l.574.519-.313.385C4.056 6.553 2.52 9.086 1.94 10.653c-.315.852-.442 1.707-.306 2.063.091.24.007.15-.3-.319Zm13.101.195c.074-.36-.019-1.02-.238-1.687-.473-1.443-2.055-4.128-3.508-5.953l-.457-.575.494-.454c.646-.593 1.095-.948 1.58-1.25.381-.237.927-.448 1.161-.448.145 0 .654.528 1.065 1.104a8.372 8.372 0 0 1 1.343 3.102c.153.728.166 2.286.024 3.012a9.495 9.495 0 0 1-.6 1.893c-.179.393-.624 1.156-.82 1.404-.1.128-.1.127-.043-.148ZM7.335 1.952c-.67-.34-1.704-.705-2.276-.803a4.171 4.171 0 0 0-.759-.043c-.471.024-.45 0 .306-.358A7.778 7.778 0 0 1 6.47.128c.8-.169 2.306-.17 3.094-.005.85.18 1.853.552 2.418.9l.168.103-.385-.02c-.766-.038-1.88.27-3.078.853-.361.176-.676.316-.699.312a12.246 12.246 0 0 1-.654-.319Z" />
-                    </svg>
-                  </a>
-                  <a href="carrito.html" class="playstation-svg-icon mx-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="bi bi-playstation"
-                      viewBox="0 0 16 16">
-                      <path
-                        d="M15.858 11.451c-.313.395-1.079.676-1.079.676l-5.696 2.046v-1.509l4.192-1.493c.476-.17.549-.412.162-.538-.386-.127-1.085-.09-1.56.08l-2.794.984v-1.566l.161-.054s.807-.286 1.942-.412c1.135-.125 2.525.017 3.616.43 1.23.39 1.368.962 1.056 1.356ZM9.625 8.883v-3.86c0-.453-.083-.87-.508-.988-.326-.105-.528.198-.528.65v9.664l-2.606-.827V2c1.108.206 2.722.692 3.59.985 2.207.757 2.955 1.7 2.955 3.825 0 2.071-1.278 2.856-2.903 2.072Zm-8.424 3.625C-.061 12.15-.271 11.41.304 10.984c.532-.394 1.436-.69 1.436-.69l3.737-1.33v1.515l-2.69.963c-.474.17-.547.411-.161.538.386.126 1.085.09 1.56-.08l1.29-.469v1.356l-.257.043a8.454 8.454 0 0 1-4.018-.323Z" />
-                    </svg>
-                  </a>
-                  <a href="carrito.html" class="steam-svg-icon mx-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="bi bi-steam"
-                      viewBox="0 0 16 16">
-                      <path
-                        d="M.329 10.333A8.01 8.01 0 0 0 7.99 16C12.414 16 16 12.418 16 8s-3.586-8-8.009-8A8.006 8.006 0 0 0 0 7.468l.003.006 4.304 1.769A2.198 2.198 0 0 1 5.62 8.88l1.96-2.844-.001-.04a3.046 3.046 0 0 1 3.042-3.043 3.046 3.046 0 0 1 3.042 3.043 3.047 3.047 0 0 1-3.111 3.044l-2.804 2a2.223 2.223 0 0 1-3.075 2.11 2.217 2.217 0 0 1-1.312-1.568L.33 10.333Z" />
-                      <path
-                        d="M4.868 12.683a1.715 1.715 0 0 0 1.318-3.165 1.705 1.705 0 0 0-1.263-.02l1.023.424a1.261 1.261 0 1 1-.97 2.33l-.99-.41a1.7 1.7 0 0 0 .882.84Zm3.726-6.687a2.03 2.03 0 0 0 2.027 2.029 2.03 2.03 0 0 0 2.027-2.029 2.03 2.03 0 0 0-2.027-2.027 2.03 2.03 0 0 0-2.027 2.027Zm2.03-1.527a1.524 1.524 0 1 1-.002 3.048 1.524 1.524 0 0 1 .002-3.048Z" />
-                    </svg>
-                  </a>
-                </div>
+                <div class="card-text assign-purple-color fw-bold fs-5">$32.990</div>
               </div>
             </div>
           </div>
+          
+          <script>
+            document.addEventListener('DOMContentLoaded', () => {
+              const playstationButtonBloodborne = document.getElementById('playstationButtonBloodborne');
+          
+              playstationButtonBloodborne.addEventListener('click', (event) => {
+                event.preventDefault();  
+          
+                const gameId = playstationButtonBloodborne.getAttribute('data-game-id');
+                const gameTitle = playstationButtonBloodborne.closest('.card-body').querySelector('.card-title').innerText;
+                const gameImage = playstationButtonBloodborne.closest('.card').querySelector('img').src;
+                const gamePrice = 32990; 
+          
+                
+                let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+          
+                
+                carrito.push({
+                  id: gameId,
+                  nombre: gameTitle,
+                  imagen: gameImage,
+                  precioOriginal: gamePrice,
+                  cantidad: 1
+                });
+          
+                
+                localStorage.setItem('carrito', JSON.stringify(carrito));
+          
+                
+                window.location.href = 'carrito.html';
+              });
+            });
+          </script>
           <!-- Card 8 -->
           <div class="card m-2 border-0 top-games-card" style="width: 18rem;">
-            <img src="resources/images/Daysgone.png" class="card-img-top top-games-card" alt="..."
-              style=" min-width: 286.4px; min-height: 226px; object-fit: cover; object-position: center;">
+            <img src="resources/images/Daysgone.png" class="card-img-top top-games-card" alt="Days Gone"
+              style="min-width: 286.4px; min-height: 226px; object-fit: cover; object-position: center;">
             <div class="card-body text-center d-flex flex-column justify-content-between"
-              style=" min-width: 286.4px; min-height: 226px">
+              style="min-width: 286.4px; min-height: 226px">
               <h5 class="card-title assign-purple-color fw-bold">Days Gone</h5>
-              <p class="card-text">Enfréntate a los desafíos impredecibles de un mundo abierto postapocalíptico ambientado el Pacífico Noroeste.
-              </p>
+              <p class="card-text">Enfréntate a los desafíos impredecibles de un mundo abierto postapocalíptico ambientado el Pacífico Noroeste.</p>
               <div class="btn-group add-and-like-btn-group">
-                    <path fill-rule="evenodd"
-                      d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" />
+                <a href="#" class="playstation-svg-icon mx-1" id="playstationButtonDaysGone" data-game-id="days-gone">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="bi bi-playstation" viewBox="0 0 16 16">
+                    <path
+                      d="M15.858 11.451c-.313.395-1.079.676-1.079.676l-5.696 2.046v-1.509l4.192-1.493c.476-.17.549-.412.162-.538-.386-.127-1.085-.09-1.56.08l-2.794.984v-1.566l.161-.054s.807-.286 1.942-.412c1.135-.125 2.525.017 3.616.43 1.23.39 1.368.962 1.056 1.356ZM9.625 8.883v-3.86c0-.453-.083-.87-.508-.988-.326-.105-.528.198-.528.65v9.664l-2.606-.827V2c1.108.206 2.722.692 3.59.985 2.207.757 2.955 1.7 2.955 3.825 0 2.071-1.278 2.856-2.903 2.072Zm-8.424 3.625C-.061 12.15-.271 11.41.304 10.984c.532-.394 1.436-.69 1.436-.69l3.737-1.33v1.515l-2.69.963c-.474.17-.547.411-.161.538.386.126 1.085.09 1.56-.08l1.29-.469v1.356l-.257.043a8.454 8.454 0 0 1-4.018-.323Z" />
                   </svg>
                 </a>
               </div>
               <div class="wrapper-priceandplatforms d-flex justify-content-between align-items-center">
-                <div class="card-text assign-purple-color fw-bold fs-5">$29.99</div>
-                <div class="btn-group platform-btn-group">
-                  <a href="#" class="xbox-svg-icon mx-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="bi bi-xbox"
-                      viewBox="0 0 16 16">
-                      <path
-                        d="M7.202 15.967a7.987 7.987 0 0 1-3.552-1.26c-.898-.585-1.101-.826-1.101-1.306 0-.965 1.062-2.656 2.879-4.583C6.459 7.723 7.897 6.44 8.052 6.475c.302.068 2.718 2.423 3.622 3.531 1.43 1.753 2.088 3.189 1.754 3.829-.254.486-1.83 1.437-2.987 1.802-.954.301-2.207.429-3.239.33Zm-5.866-3.57C.589 11.253.212 10.127.03 8.497c-.06-.539-.038-.846.137-1.95.218-1.377 1.002-2.97 1.945-3.95.401-.417.437-.427.926-.263.595.2 1.23.638 2.213 1.528l.574.519-.313.385C4.056 6.553 2.52 9.086 1.94 10.653c-.315.852-.442 1.707-.306 2.063.091.24.007.15-.3-.319Zm13.101.195c.074-.36-.019-1.02-.238-1.687-.473-1.443-2.055-4.128-3.508-5.953l-.457-.575.494-.454c.646-.593 1.095-.948 1.58-1.25.381-.237.927-.448 1.161-.448.145 0 .654.528 1.065 1.104a8.372 8.372 0 0 1 1.343 3.102c.153.728.166 2.286.024 3.012a9.495 9.495 0 0 1-.6 1.893c-.179.393-.624 1.156-.82 1.404-.1.128-.1.127-.043-.148ZM7.335 1.952c-.67-.34-1.704-.705-2.276-.803a4.171 4.171 0 0 0-.759-.043c-.471.024-.45 0 .306-.358A7.778 7.778 0 0 1 6.47.128c.8-.169 2.306-.17 3.094-.005.85.18 1.853.552 2.418.9l.168.103-.385-.02c-.766-.038-1.88.27-3.078.853-.361.176-.676.316-.699.312a12.246 12.246 0 0 1-.654-.319Z" />
-                    </svg>
-                  </a>
-                  <a href="carrito.html" class="playstation-svg-icon mx-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="bi bi-playstation"
-                      viewBox="0 0 16 16">
-                      <path
-                        d="M15.858 11.451c-.313.395-1.079.676-1.079.676l-5.696 2.046v-1.509l4.192-1.493c.476-.17.549-.412.162-.538-.386-.127-1.085-.09-1.56.08l-2.794.984v-1.566l.161-.054s.807-.286 1.942-.412c1.135-.125 2.525.017 3.616.43 1.23.39 1.368.962 1.056 1.356ZM9.625 8.883v-3.86c0-.453-.083-.87-.508-.988-.326-.105-.528.198-.528.65v9.664l-2.606-.827V2c1.108.206 2.722.692 3.59.985 2.207.757 2.955 1.7 2.955 3.825 0 2.071-1.278 2.856-2.903 2.072Zm-8.424 3.625C-.061 12.15-.271 11.41.304 10.984c.532-.394 1.436-.69 1.436-.69l3.737-1.33v1.515l-2.69.963c-.474.17-.547.411-.161.538.386.126 1.085.09 1.56-.08l1.29-.469v1.356l-.257.043a8.454 8.454 0 0 1-4.018-.323Z" />
-                    </svg>
-                  </a>
-                  <a href="carrito.html" class="steam-svg-icon mx-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="bi bi-steam"
-                      viewBox="0 0 16 16">
-                      <path
-                        d="M.329 10.333A8.01 8.01 0 0 0 7.99 16C12.414 16 16 12.418 16 8s-3.586-8-8.009-8A8.006 8.006 0 0 0 0 7.468l.003.006 4.304 1.769A2.198 2.198 0 0 1 5.62 8.88l1.96-2.844-.001-.04a3.046 3.046 0 0 1 3.042-3.043 3.046 3.046 0 0 1 3.042 3.043 3.047 3.047 0 0 1-3.111 3.044l-2.804 2a2.223 2.223 0 0 1-3.075 2.11 2.217 2.217 0 0 1-1.312-1.568L.33 10.333Z" />
-                      <path
-                        d="M4.868 12.683a1.715 1.715 0 0 0 1.318-3.165 1.705 1.705 0 0 0-1.263-.02l1.023.424a1.261 1.261 0 1 1-.97 2.33l-.99-.41a1.7 1.7 0 0 0 .882.84Zm3.726-6.687a2.03 2.03 0 0 0 2.027 2.029 2.03 2.03 0 0 0 2.027-2.029 2.03 2.03 0 0 0-2.027-2.027 2.03 2.03 0 0 0-2.027 2.027Zm2.03-1.527a1.524 1.524 0 1 1-.002 3.048 1.524 1.524 0 0 1 .002-3.048Z" />
-                    </svg>
-                  </a>
-                </div>
+                <div class="card-text assign-purple-color fw-bold fs-5">$46.990</div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-    </section>
-
+          
+          <script>
+            document.addEventListener('DOMContentLoaded', () => {
+              const playstationButtonDaysGone = document.getElementById('playstationButtonDaysGone');
+          
+              playstationButtonDaysGone.addEventListener('click', (event) => {
+                event.preventDefault();  
+          
+                const gameId = playstationButtonDaysGone.getAttribute('data-game-id');
+                const gameTitle = playstationButtonDaysGone.closest('.card-body').querySelector('.card-title').innerText;
+                const gameImage = playstationButtonDaysGone.closest('.card').querySelector('img').src;
+                const gamePrice = 46990; 
+          
+                
+                let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+          
+                
+                carrito.push({
+                  id: gameId,
+                  nombre: gameTitle,
+                  imagen: gameImage,
+                  precioOriginal: gamePrice,
+                  cantidad: 1
+                });
+          
+                
+                localStorage.setItem('carrito', JSON.stringify(carrito));
+          
+                
+                window.location.href = 'carrito.html';
+              });
+            });
+          </script>
     <!-- Best Deals -->
     <section class="best-deals">
       <div class="container text-center text-white">
@@ -475,16 +577,6 @@
               data-bs-target="#xbox-tab-pane" type="button" role="tab" aria-controls="xbox-tab-pane"
               aria-selected="true">Xbox</button>
           </li>
-          <li class="nav-item best-deals-nav-items" role="presentation">
-            <button class="nav-link text-white best-deals-nav-links border-0" id="playstation-tab" data-bs-toggle="tab"
-              data-bs-target="#playstation-tab-pane" type="button" role="tab" aria-controls="playstation-tab-pane"
-              aria-selected="false">Playstation</button>
-          </li>
-          <li class="nav-item best-deals-nav-items" role="presentation">
-            <button class="nav-link text-white best-deals-nav-links border-0" id="steam-tab" data-bs-toggle="tab"
-              data-bs-target="#steam-tab-pane" type="button" role="tab" aria-controls="steam-tab-pane"
-              aria-selected="false">Steam</button>
-          </li>
         </ul>
         <div class="tab-content bg-gradient" id="myTabContent">
           <div class="tab-pane fade show active" id="xbox-tab-pane" role="tabpanel" aria-labelledby="xbox-tab"
@@ -495,8 +587,7 @@
               <div class="card my-3 best-deals-card border-0 m-auto" style="max-width: 540px;">
                 <div class="row g-0">
                   <div class="col-md-4">
-                    <img src="resources/images/haloinfinite.jpg" class="img-fluid best-deals-img h-100" alt="..."
-                      style="object-fit: cover; object-position: center;">
+                    <img src="resources/images/haloinfinite.jpg" class="img-fluid best-deals-img h-100" alt="..." style="object-fit: cover; object-position: center;">
                   </div>
                   <div class="col-md-8">
                     <div class="card-body" style="background-color: rgba(0, 0, 0, 0.4);">
@@ -507,38 +598,60 @@
                           <p class="discounted-price-percentage d-flex align-items-center fs-4 h-100 px-1 me-2">
                             -13%</p>
                           <div class="original-and-discounted-price-wrapper d-flex flex-column fs-6">
-                            <div class="original-price position-relative fs-5 fw-light" style="color:#ACABAB;">$59.99
-                            </div>
-                            <div class="discounted-price fs-4 " style="color: #42FF00;">$52.99</div>
+                            <div class="original-price position-relative fs-5 fw-light" style="color:#ACABAB;">$57,490</div>
+                            <div class="discounted-price fs-4 " style="color: #42FF00;">$49,990</div>
                           </div>
                         </div>
                         <!-- SVG Icon -->
-                        <a href="carrito.html" class="xbox-svg-icon">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="bi bi-xbox"
-                            viewBox="0 0 16 16">
-                            <path
-                              d="M7.202 15.967a7.987 7.987 0 0 1-3.552-1.26c-.898-.585-1.101-.826-1.101-1.306 0-.965 1.062-2.656 2.879-4.583C6.459 7.723 7.897 6.44 8.052 6.475c.302.068 2.718 2.423 3.622 3.531 1.43 1.753 2.088 3.189 1.754 3.829-.254.486-1.83 1.437-2.987 1.802-.954.301-2.207.429-3.239.33Zm-5.866-3.57C.589 11.253.212 10.127.03 8.497c-.06-.539-.038-.846.137-1.95.218-1.377 1.002-2.97 1.945-3.95.401-.417.437-.427.926-.263.595.2 1.23.638 2.213 1.528l.574.519-.313.385C4.056 6.553 2.52 9.086 1.94 10.653c-.315.852-.442 1.707-.306 2.063.091.24.007.15-.3-.319Zm13.101.195c.074-.36-.019-1.02-.238-1.687-.473-1.443-2.055-4.128-3.508-5.953l-.457-.575.494-.454c.646-.593 1.095-.948 1.58-1.25.381-.237.927-.448 1.161-.448.145 0 .654.528 1.065 1.104a8.372 8.372 0 0 1 1.343 3.102c.153.728.166 2.286.024 3.012a9.495 9.495 0 0 1-.6 1.893c-.179.393-.624 1.156-.82 1.404-.1.128-.1.127-.043-.148ZM7.335 1.952c-.67-.34-1.704-.705-2.276-.803a4.171 4.171 0 0 0-.759-.043c-.471.024-.45 0 .306-.358A7.778 7.778 0 0 1 6.47.128c.8-.169 2.306-.17 3.094-.005.85.18 1.853.552 2.418.9l.168.103-.385-.02c-.766-.038-1.88.27-3.078.853-.361.176-.676.316-.699.312a12.246 12.246 0 0 1-.654-.319Z" />
+                        <a href="#" class="xbox-svg-icon" id="xboxButton">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="bi bi-xbox" viewBox="0 0 16 16">
+                            <path d="M7.202 15.967a7.987 7.987 0 0 1-3.552-1.26c-.898-.585-1.101-.826-1.101-1.306 0-.965 1.062-2.656 2.879-4.583C6.459 7.723 7.897 6.44 8.052 6.475c.302.068 2.718 2.423 3.622 3.531 1.43 1.753 2.088 3.189 1.754 3.829-.254.486-1.83 1.437-2.987 1.802-.954.301-2.207.429-3.239.33Zm-5.866-3.57C.589 11.253.212 10.127.03 8.497c-.06-.539-.038-.846.137-1.95.218-1.377 1.002-2.97 1.945-3.95.401-.417.437-.427.926-.263.595.2 1.23.638 2.213 1.528l.574.519-.313.385C4.056 6.553 2.52 9.086 1.94 10.653c-.315.852-.442 1.707-.306 2.063.091.24.007.15-.3-.319Zm13.101.195c.074-.36-.019-1.02-.238-1.687-.473-1.443-2.055-4.128-3.508-5.953l-.457-.575.494-.454c.646-.593 1.095-.948 1.58-1.25.381-.237.927-.448 1.161-.448.145 0 .654.528 1.065 1.104a8.372 8.372 0 0 1 1.343 3.102c.153.728.166 2.286.024 3.012a9.495 9.495 0 0 1-.6 1.893c-.179.393-.624 1.156-.82 1.404-.1.128-.1.127-.043-.148ZM7.335 1.952c-.67-.34-1.704-.705-2.276-.803a4.171 4.171 0 0 0-.759-.043c-.471.024-.45 0 .306-.358A7.778 7.778 0 0 1 6.47.128c.8-.169 2.306-.17 3.094-.005.85.18 1.853.552 2.418.9l.168.103-.385-.02c-.766-.038-1.88.27-3.078.853-.361.176-.676.316-.699.312a12.246 12.246 0 0 1-.654-.319Z" />
                           </svg>
                         </a>
-                      </div>
-                      <div class="best-deals-btns">
-                        <div class="btn-group add-and-like-btn-group w-100">
-                              <path fill-rule="evenodd"
-                                d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" />
-                            </svg>
-                          </a>
-                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
+              
+              <script>
+                document.addEventListener('DOMContentLoaded', () => {
+                  const xboxButton = document.getElementById('xboxButton');
+              
+                  xboxButton.addEventListener('click', (event) => {
+                    event.preventDefault();
+              
+                    const gameTitle = 'Halo Infinite';
+                    const gameImage = 'resources/images/haloinfinitexbox.jpg';
+                    const originalPrice = 49990;
+                    const discountedPrice = 49990;
+              
+                    
+                    let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+              
+                    
+                    carrito.push({
+                      id: 'halo-infinite',  
+                      nombre: gameTitle,
+                      imagen: gameImage,
+                      precioOriginal: originalPrice,
+                      precioDescuento: discountedPrice,
+                      cantidad: 1
+                    });
+              
+                    
+                    localStorage.setItem('carrito', JSON.stringify(carrito));
+              
+                    
+                    window.location.href = 'carrito.html';
+                  });
+                });
+              </script>
               <!-- Best Deals Card 2 -->
               <div class="card my-3 best-deals-card border-0 m-auto" style="max-width: 540px;">
                 <div class="row g-0">
                   <div class="col-md-4">
-                    <img src="resources/images/forzahorizon5.jpg" class="img-fluid best-deals-img h-100" alt="..."
-                      style="object-fit: cover; object-position: center;">
+                    <img src="resources/images/forzahorizon5.jpg" class="img-fluid best-deals-img h-100" alt="..." style="object-fit: cover; object-position: center;">
                   </div>
                   <div class="col-md-8">
                     <div class="card-body" style="background-color: rgba(0, 0, 0, 0.4);">
@@ -549,32 +662,55 @@
                           <p class="discounted-price-percentage d-flex align-items-center fs-4 h-100 px-1 me-2">
                             -25%</p>
                           <div class="original-and-discounted-price-wrapper d-flex flex-column fs-6">
-                            <div class="original-price position-relative fs-5 fw-light" style="color:#ACABAB;">$59.99
-                            </div>
-                            <div class="discounted-price fs-4 " style="color: #42FF00;">$44.99</div>
+                            <div class="original-price position-relative fs-5 fw-light" style="color:#ACABAB;">$66.000</div>
+                            <div class="discounted-price fs-4 " style="color: #42FF00;">$49.990</div>
                           </div>
                         </div>
                         <!-- SVG Icon -->
-                        <a href="carrito.html" class="xbox-svg-icon">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="bi bi-xbox"
-                            viewBox="0 0 16 16">
-                            <path
-                              d="M7.202 15.967a7.987 7.987 0 0 1-3.552-1.26c-.898-.585-1.101-.826-1.101-1.306 0-.965 1.062-2.656 2.879-4.583C6.459 7.723 7.897 6.44 8.052 6.475c.302.068 2.718 2.423 3.622 3.531 1.43 1.753 2.088 3.189 1.754 3.829-.254.486-1.83 1.437-2.987 1.802-.954.301-2.207.429-3.239.33Zm-5.866-3.57C.589 11.253.212 10.127.03 8.497c-.06-.539-.038-.846.137-1.95.218-1.377 1.002-2.97 1.945-3.95.401-.417.437-.427.926-.263.595.2 1.23.638 2.213 1.528l.574.519-.313.385C4.056 6.553 2.52 9.086 1.94 10.653c-.315.852-.442 1.707-.306 2.063.091.24.007.15-.3-.319Zm13.101.195c.074-.36-.019-1.02-.238-1.687-.473-1.443-2.055-4.128-3.508-5.953l-.457-.575.494-.454c.646-.593 1.095-.948 1.58-1.25.381-.237.927-.448 1.161-.448.145 0 .654.528 1.065 1.104a8.372 8.372 0 0 1 1.343 3.102c.153.728.166 2.286.024 3.012a9.495 9.495 0 0 1-.6 1.893c-.179.393-.624 1.156-.82 1.404-.1.128-.1.127-.043-.148ZM7.335 1.952c-.67-.34-1.704-.705-2.276-.803a4.171 4.171 0 0 0-.759-.043c-.471.024-.45 0 .306-.358A7.778 7.778 0 0 1 6.47.128c.8-.169 2.306-.17 3.094-.005.85.18 1.853.552 2.418.9l.168.103-.385-.02c-.766-.038-1.88.27-3.078.853-.361.176-.676.316-.699.312a12.246 12.246 0 0 1-.654-.319Z" />
+                        <a href="#" class="xbox-svg-icon" id="forzaXboxButton">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="bi bi-xbox" viewBox="0 0 16 16">
+                            <path d="M7.202 15.967a7.987 7.987 0 0 1-3.552-1.26c-.898-.585-1.101-.826-1.101-1.306 0-.965 1.062-2.656 2.879-4.583C6.459 7.723 7.897 6.44 8.052 6.475c.302.068 2.718 2.423 3.622 3.531 1.43 1.753 2.088 3.189 1.754 3.829-.254.486-1.83 1.437-2.987 1.802-.954.301-2.207.429-3.239.33Zm-5.866-3.57C.589 11.253.212 10.127.03 8.497c-.06-.539-.038-.846.137-1.95.218-1.377 1.002-2.97 1.945-3.95.401-.417.437-.427.926-.263.595.2 1.23.638 2.213 1.528l.574.519-.313.385C4.056 6.553 2.52 9.086 1.94 10.653c-.315.852-.442 1.707-.306 2.063.091.24.007.15-.3-.319Zm13.101.195c.074-.36-.019-1.02-.238-1.687-.473-1.443-2.055-4.128-3.508-5.953l-.457-.575.494-.454c.646-.593 1.095-.948 1.58-1.25.381-.237.927-.448 1.161-.448.145 0 .654.528 1.065 1.104a8.372 8.372 0 0 1 1.343 3.102c.153.728.166 2.286.024 3.012a9.495 9.495 0 0 1-.6 1.893c-.179.393-.624 1.156-.82 1.404-.1.128-.1.127-.043-.148ZM7.335 1.952c-.67-.34-1.704-.705-2.276-.803a4.171 4.171 0 0 0-.759-.043c-.471.024-.45 0 .306-.358A7.778 7.778 0 0 1 6.47.128c.8-.169 2.306-.17 3.094-.005.85.18 1.853.552 2.418.9l.168.103-.385-.02c-.766-.038-1.88.27-3.078.853-.361.176-.676.316-.699.312a12.246 12.246 0 0 1-.654-.319Z" />
                           </svg>
                         </a>
-                      </div>
-                      <div class="best-deals-btns">
-                        <div class="btn-group add-and-like-btn-group w-100">
-                              <path fill-rule="evenodd"
-                                d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" />
-                            </svg>
-                          </a>
-                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
+              
+              <script>
+                document.addEventListener('DOMContentLoaded', () => {
+                  const forzaXboxButton = document.getElementById('forzaXboxButton');
+              
+                  forzaXboxButton.addEventListener('click', (event) => {
+                    event.preventDefault();
+              
+                    const gameTitle = 'Forza Horizon 5';
+                    const gameImage = 'resources/images/forzahorizon5xbox.jpg';
+                    const originalPrice = 49990;
+                    const discountedPrice = 49990;
+              
+                    
+                    let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+              
+                    
+                    carrito.push({
+                      id: 'forza-horizon-5',  
+                      nombre: gameTitle,
+                      imagen: gameImage,
+                      precioOriginal: originalPrice,
+                      precioDescuento: discountedPrice,
+                      cantidad: 1
+                    });
+              
+                    
+                    localStorage.setItem('carrito', JSON.stringify(carrito));
+              
+                    
+                    window.location.href = 'carrito.html';
+                  });
+                });
+              </script>
               <!-- Best Deals Card 3-->
               <div class="card my-3 best-deals-card border-0 m-auto" style="max-width: 540px;">
                 <div class="row g-0">
@@ -584,39 +720,64 @@
                   </div>
                   <div class="col-md-8">
                     <div class="card-body" style="background-color: rgba(0, 0, 0, 0.4);">
-                      <h5 class="card-title text-white lead text-center">Sea of thieves</h5>
+                      <h5 class="card-title text-white lead text-center">Sea of Thieves</h5>
                       <!-- card description text -->
                       <div class="d-flex justify-content-between best-deals-description py-2 pe-3 ">
                         <div class="price-and-percentage-price-wrapper d-flex text-white">
                           <p class="discounted-price-percentage d-flex align-items-center fs-4 h-100 px-1 me-2">
                             -15%</p>
                           <div class="original-and-discounted-price-wrapper d-flex flex-column fs-6">
-                            <div class="original-price position-relative fs-5 fw-light" style="color:#ACABAB;">$29.99
-                            </div>
-                            <div class="discounted-price fs-4 " style="color: #42FF00;">$25.49</div>
+                            <div class="original-price position-relative fs-5 fw-light" style="color:#ACABAB;">$38.000</div>
+                            <div class="discounted-price fs-4 " style="color: #42FF00;">$32.990</div>
                           </div>
                         </div>
                         <!-- SVG Icon -->
-                        <a href="carrito.html" class="xbox-svg-icon">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="bi bi-xbox"
-                            viewBox="0 0 16 16">
+                        <a href="#" class="xbox-svg-icon" id="seaOfThievesXboxButton">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="bi bi-xbox" viewBox="0 0 16 16">
                             <path
                               d="M7.202 15.967a7.987 7.987 0 0 1-3.552-1.26c-.898-.585-1.101-.826-1.101-1.306 0-.965 1.062-2.656 2.879-4.583C6.459 7.723 7.897 6.44 8.052 6.475c.302.068 2.718 2.423 3.622 3.531 1.43 1.753 2.088 3.189 1.754 3.829-.254.486-1.83 1.437-2.987 1.802-.954.301-2.207.429-3.239.33Zm-5.866-3.57C.589 11.253.212 10.127.03 8.497c-.06-.539-.038-.846.137-1.95.218-1.377 1.002-2.97 1.945-3.95.401-.417.437-.427.926-.263.595.2 1.23.638 2.213 1.528l.574.519-.313.385C4.056 6.553 2.52 9.086 1.94 10.653c-.315.852-.442 1.707-.306 2.063.091.24.007.15-.3-.319Zm13.101.195c.074-.36-.019-1.02-.238-1.687-.473-1.443-2.055-4.128-3.508-5.953l-.457-.575.494-.454c.646-.593 1.095-.948 1.58-1.25.381-.237.927-.448 1.161-.448.145 0 .654.528 1.065 1.104a8.372 8.372 0 0 1 1.343 3.102c.153.728.166 2.286.024 3.012a9.495 9.495 0 0 1-.6 1.893c-.179.393-.624 1.156-.82 1.404-.1.128-.1.127-.043-.148ZM7.335 1.952c-.67-.34-1.704-.705-2.276-.803a4.171 4.171 0 0 0-.759-.043c-.471.024-.45 0 .306-.358A7.778 7.778 0 0 1 6.47.128c.8-.169 2.306-.17 3.094-.005.85.18 1.853.552 2.418.9l.168.103-.385-.02c-.766-.038-1.88.27-3.078.853-.361.176-.676.316-.699.312a12.246 12.246 0 0 1-.654-.319Z" />
                           </svg>
                         </a>
                       </div>
-                      <div class="best-deals-btns">
-                        <div class="btn-group add-and-like-btn-group w-100">
-                              <path fill-rule="evenodd"
-                                d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" />
-                            </svg>
-                          </a>
-                        </div>
-                      </div>
                     </div>
                   </div>
                 </div>
               </div>
+              
+              <script>
+                document.addEventListener('DOMContentLoaded', () => {
+                  const seaOfThievesXboxButton = document.getElementById('seaOfThievesXboxButton');
+              
+                  seaOfThievesXboxButton.addEventListener('click', (event) => {
+                    event.preventDefault();
+              
+                    const gameTitle = 'Sea of Thieves';
+                    const gameImage = 'resources/images/seaofthievesxbox.jpg';
+                    const originalPrice = 32990;
+                    const discountedPrice = 32990;
+              
+                    
+                    let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+              
+                    
+                    carrito.push({
+                      id: 'sea-of-thieves',  
+                      nombre: gameTitle,
+                      imagen: gameImage,
+                      precioOriginal: originalPrice,
+                      precioDescuento: discountedPrice,
+                      cantidad: 1
+                    });
+              
+                    
+                    localStorage.setItem('carrito', JSON.stringify(carrito));
+              
+                    
+                    window.location.href = 'carrito.html';
+                  });
+                });
+              </script>
+              
               <!-- Best Deals Card 4-->
               <div class="card my-3 best-deals-card border-0 m-auto" style="max-width: 540px;">
                 <div class="row g-0">
@@ -633,32 +794,56 @@
                           <p class="discounted-price-percentage d-flex align-items-center fs-4 h-100 px-1 me-2">
                             -40%</p>
                           <div class="original-and-discounted-price-wrapper d-flex flex-column fs-6">
-                            <div class="original-price position-relative fs-5 fw-light" style="color:#ACABAB;">$99.99
-                            </div>
-                            <div class="discounted-price fs-4 " style="color: #42FF00;">$59.99</div>
+                            <div class="original-price position-relative fs-5 fw-light" style="color:#ACABAB;">$50.000</div>
+                            <div class="discounted-price fs-4 " style="color: #42FF00;">$29.990</div>
                           </div>
                         </div>
                         <!-- SVG Icon -->
-                        <a href="carrito.html" class="xbox-svg-icon">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="bi bi-xbox"
-                            viewBox="0 0 16 16">
+                        <a href="#" class="xbox-svg-icon" id="gears5XboxButton">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="bi bi-xbox" viewBox="0 0 16 16">
                             <path
                               d="M7.202 15.967a7.987 7.987 0 0 1-3.552-1.26c-.898-.585-1.101-.826-1.101-1.306 0-.965 1.062-2.656 2.879-4.583C6.459 7.723 7.897 6.44 8.052 6.475c.302.068 2.718 2.423 3.622 3.531 1.43 1.753 2.088 3.189 1.754 3.829-.254.486-1.83 1.437-2.987 1.802-.954.301-2.207.429-3.239.33Zm-5.866-3.57C.589 11.253.212 10.127.03 8.497c-.06-.539-.038-.846.137-1.95.218-1.377 1.002-2.97 1.945-3.95.401-.417.437-.427.926-.263.595.2 1.23.638 2.213 1.528l.574.519-.313.385C4.056 6.553 2.52 9.086 1.94 10.653c-.315.852-.442 1.707-.306 2.063.091.24.007.15-.3-.319Zm13.101.195c.074-.36-.019-1.02-.238-1.687-.473-1.443-2.055-4.128-3.508-5.953l-.457-.575.494-.454c.646-.593 1.095-.948 1.58-1.25.381-.237.927-.448 1.161-.448.145 0 .654.528 1.065 1.104a8.372 8.372 0 0 1 1.343 3.102c.153.728.166 2.286.024 3.012a9.495 9.495 0 0 1-.6 1.893c-.179.393-.624 1.156-.82 1.404-.1.128-.1.127-.043-.148ZM7.335 1.952c-.67-.34-1.704-.705-2.276-.803a4.171 4.171 0 0 0-.759-.043c-.471.024-.45 0 .306-.358A7.778 7.778 0 0 1 6.47.128c.8-.169 2.306-.17 3.094-.005.85.18 1.853.552 2.418.9l.168.103-.385-.02c-.766-.038-1.88.27-3.078.853-.361.176-.676.316-.699.312a12.246 12.246 0 0 1-.654-.319Z" />
                           </svg>
                         </a>
                       </div>
-                      <div class="best-deals-btns">
-                        <div class="btn-group add-and-like-btn-group w-100">
-                              <path fill-rule="evenodd"
-                                d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" />
-                            </svg>
-                          </a>
-                        </div>
-                      </div>
                     </div>
                   </div>
                 </div>
               </div>
+              
+              <script>
+                document.addEventListener('DOMContentLoaded', () => {
+                  const gears5XboxButton = document.getElementById('gears5XboxButton');
+              
+                  gears5XboxButton.addEventListener('click', (event) => {
+                    event.preventDefault();
+              
+                    const gameTitle = 'Gears 5';
+                    const gameImage = 'resources/images/gears5.xbox.jpg';
+                    const originalPrice = 29990;
+                    const discountedPrice = 29990;
+              
+                    
+                    let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+              
+                    
+                    carrito.push({
+                      id: 'gears-5',  
+                      nombre: gameTitle,
+                      imagen: gameImage,
+                      precioOriginal: originalPrice,
+                      precioDescuento: discountedPrice,
+                      cantidad: 1
+                    });
+              
+                    
+                    localStorage.setItem('carrito', JSON.stringify(carrito));
+              
+                    
+                    window.location.href = 'carrito.html';
+                  });
+                });
+              </script>
               <!-- Best Deals Card 5-->
               <div class="card my-3 best-deals-card border-0 m-auto" style="max-width: 540px;">
                 <div class="row g-0">
@@ -675,9 +860,9 @@
                           <p class="discounted-price-percentage d-flex align-items-center fs-4 h-100 px-1 me-2">
                             -30%</p>
                           <div class="original-and-discounted-price-wrapper d-flex flex-column fs-6">
-                            <div class="original-price position-relative fs-5 fw-light" style="color:#ACABAB;">$79.99
+                            <div class="original-price position-relative fs-5 fw-light" style="color:#ACABAB;">$55.000
                             </div>
-                            <div class="discounted-price fs-4 " style="color: #42FF00;">$55.99</div>
+                            <div class="discounted-price fs-4 " style="color: #42FF00;">$37.990</div>
                           </div>
                         </div>
                         <!-- SVG Icon -->
@@ -686,531 +871,6 @@
                             viewBox="0 0 16 16">
                             <path
                               d="M7.202 15.967a7.987 7.987 0 0 1-3.552-1.26c-.898-.585-1.101-.826-1.101-1.306 0-.965 1.062-2.656 2.879-4.583C6.459 7.723 7.897 6.44 8.052 6.475c.302.068 2.718 2.423 3.622 3.531 1.43 1.753 2.088 3.189 1.754 3.829-.254.486-1.83 1.437-2.987 1.802-.954.301-2.207.429-3.239.33Zm-5.866-3.57C.589 11.253.212 10.127.03 8.497c-.06-.539-.038-.846.137-1.95.218-1.377 1.002-2.97 1.945-3.95.401-.417.437-.427.926-.263.595.2 1.23.638 2.213 1.528l.574.519-.313.385C4.056 6.553 2.52 9.086 1.94 10.653c-.315.852-.442 1.707-.306 2.063.091.24.007.15-.3-.319Zm13.101.195c.074-.36-.019-1.02-.238-1.687-.473-1.443-2.055-4.128-3.508-5.953l-.457-.575.494-.454c.646-.593 1.095-.948 1.58-1.25.381-.237.927-.448 1.161-.448.145 0 .654.528 1.065 1.104a8.372 8.372 0 0 1 1.343 3.102c.153.728.166 2.286.024 3.012a9.495 9.495 0 0 1-.6 1.893c-.179.393-.624 1.156-.82 1.404-.1.128-.1.127-.043-.148ZM7.335 1.952c-.67-.34-1.704-.705-2.276-.803a4.171 4.171 0 0 0-.759-.043c-.471.024-.45 0 .306-.358A7.778 7.778 0 0 1 6.47.128c.8-.169 2.306-.17 3.094-.005.85.18 1.853.552 2.418.9l.168.103-.385-.02c-.766-.038-1.88.27-3.078.853-.361.176-.676.316-.699.312a12.246 12.246 0 0 1-.654-.319Z" />
-                          </svg>
-                        </a>
-                      </div>
-                      <div class="best-deals-btns">
-                        <div class="btn-group add-and-like-btn-group w-100">
-                              <path fill-rule="evenodd"
-                                d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" />
-                            </svg>
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- Best Deals Card 6-->
-              <div class="card my-3 best-deals-card border-0 m-auto" style="max-width: 540px;">
-                <div class="row g-0">
-                  <div class="col-md-4">
-                    <img src="resources/images/fable.jpg" class="img-fluid best-deals-img h-100" alt="..."
-                      style="object-fit: cover; object-position: center;">
-                  </div>
-                  <div class="col-md-8">
-                    <div class="card-body" style="background-color: rgba(0, 0, 0, 0.4);">
-                      <h5 class="card-title text-white lead text-center">Fable</h5>
-                      <!-- card description text -->
-                      <div class="d-flex justify-content-between best-deals-description py-2 pe-3 ">
-                        <div class="price-and-percentage-price-wrapper d-flex text-white">
-                          <p class="discounted-price-percentage d-flex align-items-center fs-4 h-100 px-1 me-2">
-                            -20%</p>
-                          <div class="original-and-discounted-price-wrapper d-flex flex-column fs-6">
-                            <div class="original-price position-relative fs-5 fw-light" style="color:#ACABAB;">$49.99
-                            </div>
-                            <div class="discounted-price fs-4 " style="color: #42FF00;">$39.99</div>
-                          </div>
-                        </div>
-                        <!-- SVG Icon -->
-                        <a href="carrito.html" class="xbox-svg-icon">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="bi bi-xbox"
-                            viewBox="0 0 16 16">
-                            <path
-                              d="M7.202 15.967a7.987 7.987 0 0 1-3.552-1.26c-.898-.585-1.101-.826-1.101-1.306 0-.965 1.062-2.656 2.879-4.583C6.459 7.723 7.897 6.44 8.052 6.475c.302.068 2.718 2.423 3.622 3.531 1.43 1.753 2.088 3.189 1.754 3.829-.254.486-1.83 1.437-2.987 1.802-.954.301-2.207.429-3.239.33Zm-5.866-3.57C.589 11.253.212 10.127.03 8.497c-.06-.539-.038-.846.137-1.95.218-1.377 1.002-2.97 1.945-3.95.401-.417.437-.427.926-.263.595.2 1.23.638 2.213 1.528l.574.519-.313.385C4.056 6.553 2.52 9.086 1.94 10.653c-.315.852-.442 1.707-.306 2.063.091.24.007.15-.3-.319Zm13.101.195c.074-.36-.019-1.02-.238-1.687-.473-1.443-2.055-4.128-3.508-5.953l-.457-.575.494-.454c.646-.593 1.095-.948 1.58-1.25.381-.237.927-.448 1.161-.448.145 0 .654.528 1.065 1.104a8.372 8.372 0 0 1 1.343 3.102c.153.728.166 2.286.024 3.012a9.495 9.495 0 0 1-.6 1.893c-.179.393-.624 1.156-.82 1.404-.1.128-.1.127-.043-.148ZM7.335 1.952c-.67-.34-1.704-.705-2.276-.803a4.171 4.171 0 0 0-.759-.043c-.471.024-.45 0 .306-.358A7.778 7.778 0 0 1 6.47.128c.8-.169 2.306-.17 3.094-.005.85.18 1.853.552 2.418.9l.168.103-.385-.02c-.766-.038-1.88.27-3.078.853-.361.176-.676.316-.699.312a12.246 12.246 0 0 1-.654-.319Z" />
-                          </svg>
-                        </a>
-                      </div>
-                      <div class="best-deals-btns">
-                        <div class="btn-group add-and-like-btn-group w-100">
-                              <path fill-rule="evenodd"
-                                d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" />
-                            </svg>
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="tab-pane fade" id="playstation-tab-pane" role="tabpanel" aria-labelledby="playstation-tab"
-            tabindex="2">
-            <!-- Playstation exclusive cards -->
-            <div class="best-deals-cards-wrapper pt-5 d-flex flex-wrap">
-              <!-- Best Deals Card 1 -->
-              <div class="card my-3 best-deals-card border-0 m-auto" style="max-width: 540px;">
-                <div class="row g-0">
-                  <div class="col-md-4">
-                    <img src="resources/images/ghostoftsushima (2).jpg" class="img-fluid best-deals-img h-100" alt="..."
-                      style="object-fit: cover; object-position: center;">
-                  </div>
-                  <div class="col-md-8">
-                    <div class="card-body" style="background-color: rgba(0, 0, 0, 0.4);">
-                      <h5 class="card-title text-white lead text-center">Ghost of Tsushima</h5>
-                      <!-- card description text -->
-                      <div class="d-flex justify-content-between best-deals-description py-2 pe-3 ">
-                        <div class="price-and-percentage-price-wrapper d-flex text-white">
-                          <p class="discounted-price-percentage d-flex align-items-center fs-4 h-100 px-1 me-2">
-                            -40%</p>
-                          <div class="original-and-discounted-price-wrapper d-flex flex-column fs-6">
-                            <div class="original-price position-relative fs-5 fw-light" style="color:#ACABAB;">$49.99
-                            </div>
-                            <div class="discounted-price fs-4 " style="color: #42FF00;">$29.99</div>
-                          </div>
-                        </div>
-                        <!-- SVG Icon -->
-                        <a href="carrito.html" class="playstation-svg-icon">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" class="bi bi-playstation"
-                            viewBox="0 0 16 16">
-                            <path
-                              d="M15.858 11.451c-.313.395-1.079.676-1.079.676l-5.696 2.046v-1.509l4.192-1.493c.476-.17.549-.412.162-.538-.386-.127-1.085-.09-1.56.08l-2.794.984v-1.566l.161-.054s.807-.286 1.942-.412c1.135-.125 2.525.017 3.616.43 1.23.39 1.368.962 1.056 1.356ZM9.625 8.883v-3.86c0-.453-.083-.87-.508-.988-.326-.105-.528.198-.528.65v9.664l-2.606-.827V2c1.108.206 2.722.692 3.59.985 2.207.757 2.955 1.7 2.955 3.825 0 2.071-1.278 2.856-2.903 2.072Zm-8.424 3.625C-.061 12.15-.271 11.41.304 10.984c.532-.394 1.436-.69 1.436-.69l3.737-1.33v1.515l-2.69.963c-.474.17-.547.411-.161.538.386.126 1.085.09 1.56-.08l1.29-.469v1.356l-.257.043a8.454 8.454 0 0 1-4.018-.323Z" />
-                          </svg>
-                        </a>
-                      </div>
-                      <div class="best-deals-btns">
-                        <div class="btn-group add-and-like-btn-group w-100">
-                              <path fill-rule="evenodd"
-                                d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" />
-                            </svg>
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- Best Deals Card 2 -->
-              <div class="card my-3 best-deals-card border-0 m-auto" style="max-width: 540px;">
-                <div class="row g-0">
-                  <div class="col-md-4">
-                    <img src="resources/images/uncharted4.jpg" class="img-fluid best-deals-img h-100" alt="..."
-                      style="object-fit: cover; object-position: center;">
-                  </div>
-                  <div class="col-md-8">
-                    <div class="card-body" style="background-color: rgba(0, 0, 0, 0.4);">
-                      <h5 class="card-title text-white lead text-center">Uncharted 4</h5>
-                      <!-- card description text -->
-                      <div class="d-flex justify-content-between best-deals-description py-2 pe-3 ">
-                        <div class="price-and-percentage-price-wrapper d-flex text-white">
-                          <p class="discounted-price-percentage d-flex align-items-center fs-4 h-100 px-1 me-2">
-                            -20%</p>
-                          <div class="original-and-discounted-price-wrapper d-flex flex-column fs-6">
-                            <div class="original-price position-relative fs-5 fw-light" style="color:#ACABAB;">$79.99
-                            </div>
-                            <div class="discounted-price fs-4 " style="color: #42FF00;">$63.99</div>
-                          </div>
-                        </div>
-                        <!-- SVG Icon -->
-                        <a href="carrito.html" class="playstation-svg-icon">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" class="bi bi-playstation"
-                            viewBox="0 0 16 16">
-                            <path
-                              d="M15.858 11.451c-.313.395-1.079.676-1.079.676l-5.696 2.046v-1.509l4.192-1.493c.476-.17.549-.412.162-.538-.386-.127-1.085-.09-1.56.08l-2.794.984v-1.566l.161-.054s.807-.286 1.942-.412c1.135-.125 2.525.017 3.616.43 1.23.39 1.368.962 1.056 1.356ZM9.625 8.883v-3.86c0-.453-.083-.87-.508-.988-.326-.105-.528.198-.528.65v9.664l-2.606-.827V2c1.108.206 2.722.692 3.59.985 2.207.757 2.955 1.7 2.955 3.825 0 2.071-1.278 2.856-2.903 2.072Zm-8.424 3.625C-.061 12.15-.271 11.41.304 10.984c.532-.394 1.436-.69 1.436-.69l3.737-1.33v1.515l-2.69.963c-.474.17-.547.411-.161.538.386.126 1.085.09 1.56-.08l1.29-.469v1.356l-.257.043a8.454 8.454 0 0 1-4.018-.323Z" />
-                          </svg>
-                        </a>
-                      </div>
-                      <div class="best-deals-btns">
-                        <div class="btn-group add-and-like-btn-group w-100">
-                              <path fill-rule="evenodd"
-                                d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" />
-                            </svg>
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- Best Deals Card 3-->
-              <div class="card my-3 best-deals-card border-0 m-auto" style="max-width: 540px;">
-                <div class="row g-0">
-                  <div class="col-md-4">
-                    <img src="resources/images/spiderman.jpg" class="img-fluid best-deals-img h-100" alt="..."
-                      style="object-fit: cover; object-position: center;">
-                  </div>
-                  <div class="col-md-8">
-                    <div class="card-body" style="background-color: rgba(0, 0, 0, 0.4);">
-                      <h5 class="card-title text-white lead text-center">Spiderman</h5>
-                      <!-- card description text -->
-                      <div class="d-flex justify-content-between best-deals-description py-2 pe-3 ">
-                        <div class="price-and-percentage-price-wrapper d-flex text-white">
-                          <p class="discounted-price-percentage d-flex align-items-center fs-4 h-100 px-1 me-2">
-                            -30%</p>
-                          <div class="original-and-discounted-price-wrapper d-flex flex-column fs-6">
-                            <div class="original-price position-relative fs-5 fw-light" style="color:#ACABAB;">$39.99
-                            </div>
-                            <div class="discounted-price fs-4 " style="color: #42FF00;">$27.99</div>
-                          </div>
-                        </div>
-                        <!-- SVG Icon -->
-                        <a href="carrito.html" class="playstation-svg-icon">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" class="bi bi-playstation"
-                            viewBox="0 0 16 16">
-                            <path
-                              d="M15.858 11.451c-.313.395-1.079.676-1.079.676l-5.696 2.046v-1.509l4.192-1.493c.476-.17.549-.412.162-.538-.386-.127-1.085-.09-1.56.08l-2.794.984v-1.566l.161-.054s.807-.286 1.942-.412c1.135-.125 2.525.017 3.616.43 1.23.39 1.368.962 1.056 1.356ZM9.625 8.883v-3.86c0-.453-.083-.87-.508-.988-.326-.105-.528.198-.528.65v9.664l-2.606-.827V2c1.108.206 2.722.692 3.59.985 2.207.757 2.955 1.7 2.955 3.825 0 2.071-1.278 2.856-2.903 2.072Zm-8.424 3.625C-.061 12.15-.271 11.41.304 10.984c.532-.394 1.436-.69 1.436-.69l3.737-1.33v1.515l-2.69.963c-.474.17-.547.411-.161.538.386.126 1.085.09 1.56-.08l1.29-.469v1.356l-.257.043a8.454 8.454 0 0 1-4.018-.323Z" />
-                          </svg>
-                        </a>
-                      </div>
-                      <div class="best-deals-btns">
-                        <div class="btn-group add-and-like-btn-group w-100">
-                              <path fill-rule="evenodd"
-                                d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" />
-                            </svg>
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- Best Deals Card 4-->
-              <div class="card my-3 best-deals-card border-0 m-auto" style="max-width: 540px;">
-                <div class="row g-0">
-                  <div class="col-md-4">
-                    <img src="resources/images/kratos1.jpg" class="img-fluid best-deals-img h-100" alt="..."
-                      style="object-fit: cover; object-position: center;">
-                  </div>
-                  <div class="col-md-8">
-                    <div class="card-body" style="background-color: rgba(0, 0, 0, 0.4);">
-                      <h5 class="card-title text-white lead text-center">God of war 2018</h5>
-                      <!-- card description text -->
-                      <div class="d-flex justify-content-between best-deals-description py-2 pe-3 ">
-                        <div class="price-and-percentage-price-wrapper d-flex text-white">
-                          <p class="discounted-price-percentage d-flex align-items-center fs-4 h-100 px-1 me-2">
-                            -25%</p>
-                          <div class="original-and-discounted-price-wrapper d-flex flex-column fs-6">
-                            <div class="original-price position-relative fs-5 fw-light" style="color:#ACABAB;">$69.99
-                            </div>
-                            <div class="discounted-price fs-4 " style="color: #42FF00;">$52.49</div>
-                          </div>
-                        </div>
-                        <!-- SVG Icon -->
-                        <a href="carrito.html" class="playstation-svg-icon">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" class="bi bi-playstation"
-                            viewBox="0 0 16 16">
-                            <path
-                              d="M15.858 11.451c-.313.395-1.079.676-1.079.676l-5.696 2.046v-1.509l4.192-1.493c.476-.17.549-.412.162-.538-.386-.127-1.085-.09-1.56.08l-2.794.984v-1.566l.161-.054s.807-.286 1.942-.412c1.135-.125 2.525.017 3.616.43 1.23.39 1.368.962 1.056 1.356ZM9.625 8.883v-3.86c0-.453-.083-.87-.508-.988-.326-.105-.528.198-.528.65v9.664l-2.606-.827V2c1.108.206 2.722.692 3.59.985 2.207.757 2.955 1.7 2.955 3.825 0 2.071-1.278 2.856-2.903 2.072Zm-8.424 3.625C-.061 12.15-.271 11.41.304 10.984c.532-.394 1.436-.69 1.436-.69l3.737-1.33v1.515l-2.69.963c-.474.17-.547.411-.161.538.386.126 1.085.09 1.56-.08l1.29-.469v1.356l-.257.043a8.454 8.454 0 0 1-4.018-.323Z" />
-                          </svg>
-                        </a>
-                      </div>
-                      <div class="best-deals-btns">
-                        <div class="btn-group add-and-like-btn-group w-100">
-                              <path fill-rule="evenodd"
-                                d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" />
-                            </svg>
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- Best Deals Card 5 -->
-              <div class="card my-3 best-deals-card border-0 m-auto" style="max-width: 540px;">
-                <div class="row g-0">
-                  <div class="col-md-4">
-                    <img src="resources/images/bloodborne2.jpg" class="img-fluid best-deals-img h-100" alt="..."
-                      style="object-fit: cover; object-position: center;">
-                  </div>
-                  <div class="col-md-8">
-                    <div class="card-body" style="background-color: rgba(0, 0, 0, 0.4);">
-                      <h5 class="card-title text-white lead text-center">Bloodborne</h5>
-                      <!-- card description text -->
-                      <div class="d-flex justify-content-between best-deals-description py-2 pe-3 ">
-                        <div class="price-and-percentage-price-wrapper d-flex text-white">
-                          <p class="discounted-price-percentage d-flex align-items-center fs-4 h-100 px-1 me-2">
-                            -20%</p>
-                          <div class="original-and-discounted-price-wrapper d-flex flex-column fs-6">
-                            <div class="original-price position-relative fs-5 fw-light" style="color:#ACABAB;">$119.99
-                            </div>
-                            <div class="discounted-price fs-4 " style="color: #42FF00;">$95.99</div>
-                          </div>
-                        </div>
-                        <!-- SVG Icon -->
-                        <a href="#" class="playstation-svg-icon">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" class="bi bi-playstation"
-                            viewBox="0 0 16 16">
-                            <path
-                              d="M15.858 11.451c-.313.395-1.079.676-1.079.676l-5.696 2.046v-1.509l4.192-1.493c.476-.17.549-.412.162-.538-.386-.127-1.085-.09-1.56.08l-2.794.984v-1.566l.161-.054s.807-.286 1.942-.412c1.135-.125 2.525.017 3.616.43 1.23.39 1.368.962 1.056 1.356ZM9.625 8.883v-3.86c0-.453-.083-.87-.508-.988-.326-.105-.528.198-.528.65v9.664l-2.606-.827V2c1.108.206 2.722.692 3.59.985 2.207.757 2.955 1.7 2.955 3.825 0 2.071-1.278 2.856-2.903 2.072Zm-8.424 3.625C-.061 12.15-.271 11.41.304 10.984c.532-.394 1.436-.69 1.436-.69l3.737-1.33v1.515l-2.69.963c-.474.17-.547.411-.161.538.386.126 1.085.09 1.56-.08l1.29-.469v1.356l-.257.043a8.454 8.454 0 0 1-4.018-.323Z" />
-                          </svg>
-                        </a>
-                      </div>
-                      <div class="best-deals-btns">
-                        <div class="btn-group add-and-like-btn-group w-100">
-                              <path fill-rule="evenodd"
-                                d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" />
-                            </svg>
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- Best Deals Card 5-->
-              <div class="card my-3 best-deals-card border-0 m-auto" style="max-width: 540px;">
-                <div class="row g-0">
-                  <div class="col-md-4">
-                    <img src="resources/images/lastofus.jpg" class="img-fluid best-deals-img h-100" alt="..."
-                      style="object-fit: cover; object-position: center;">
-                  </div>
-                  <div class="col-md-8">
-                    <div class="card-body" style="background-color: rgba(0, 0, 0, 0.4);">
-                      <h5 class="card-title text-white lead text-center">Last Of Us Part &#8544;&#8544;</h5>
-                      <!-- card description text -->
-                      <div class="d-flex justify-content-between best-deals-description py-2 pe-3 ">
-                        <div class="price-and-percentage-price-wrapper d-flex text-white">
-                          <p class="discounted-price-percentage d-flex align-items-center fs-4 h-100 px-1 me-2">
-                            -15%</p>
-                          <div class="original-and-discounted-price-wrapper d-flex flex-column fs-6">
-                            <div class="original-price position-relative fs-5 fw-light" style="color:#ACABAB;">$29.99
-                            </div>
-                            <div class="discounted-price fs-4 " style="color: #42FF00;">$25.49</div>
-                          </div>
-                        </div>
-                        <!-- SVG Icon -->
-                        <a href="#" class="playstation-svg-icon">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" class="bi bi-playstation"
-                            viewBox="0 0 16 16">
-                            <path
-                              d="M15.858 11.451c-.313.395-1.079.676-1.079.676l-5.696 2.046v-1.509l4.192-1.493c.476-.17.549-.412.162-.538-.386-.127-1.085-.09-1.56.08l-2.794.984v-1.566l.161-.054s.807-.286 1.942-.412c1.135-.125 2.525.017 3.616.43 1.23.39 1.368.962 1.056 1.356ZM9.625 8.883v-3.86c0-.453-.083-.87-.508-.988-.326-.105-.528.198-.528.65v9.664l-2.606-.827V2c1.108.206 2.722.692 3.59.985 2.207.757 2.955 1.7 2.955 3.825 0 2.071-1.278 2.856-2.903 2.072Zm-8.424 3.625C-.061 12.15-.271 11.41.304 10.984c.532-.394 1.436-.69 1.436-.69l3.737-1.33v1.515l-2.69.963c-.474.17-.547.411-.161.538.386.126 1.085.09 1.56-.08l1.29-.469v1.356l-.257.043a8.454 8.454 0 0 1-4.018-.323Z" />
-                          </svg>
-                        </a>
-                      </div>
-                      <div class="best-deals-btns">
-                        <div class="btn-group add-and-like-btn-group w-100">
-                              <path fill-rule="evenodd"
-                                d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" />
-                            </svg>
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="tab-pane fade" id="steam-tab-pane" role="tabpanel" aria-labelledby="steam-tab" tabindex="3">
-            <div class="best-deals-cards-wrapper pt-5 d-flex flex-wrap">
-              <!-- Steam SVG Icons -->
-              <!-- Best Deals Card 1 -->
-              <div class="card my-3 best-deals-card border-0 m-auto" style="max-width: 540px;">
-                <div class="row g-0">
-                  <div class="col-md-4">
-                    <img src="resources/images/cyberpunksamurai.jpg" class="img-fluid best-deals-img h-100" alt="..."
-                      style="object-fit: cover; object-position: center;">
-                  </div>
-                  <div class="col-md-8">
-                    <div class="card-body" style="background-color: rgba(0, 0, 0, 0.4);">
-                      <h5 class="card-title text-white lead text-center">Orbitron</h5>
-                      <!-- card description text -->
-                      <div class="d-flex justify-content-between best-deals-description py-2 pe-3 ">
-                        <div class="price-and-percentage-price-wrapper d-flex text-white">
-                          <p class="discounted-price-percentage d-flex align-items-center fs-4 h-100 px-1 me-2">
-                            -25%</p>
-                          <div class="original-and-discounted-price-wrapper d-flex flex-column fs-6">
-                            <div class="original-price position-relative fs-5 fw-light" style="color:#ACABAB;">$59.99
-                            </div>
-                            <div class="discounted-price fs-4 " style="color: #42FF00;">$44.99</div>
-                          </div>
-                        </div>
-                        <!-- SVG Icon -->
-                        <a href="carrito.html" class="steam-svg-icon">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="bi bi-steam"
-                            viewBox="0 0 16 16">
-                            <path
-                              d="M.329 10.333A8.01 8.01 0 0 0 7.99 16C12.414 16 16 12.418 16 8s-3.586-8-8.009-8A8.006 8.006 0 0 0 0 7.468l.003.006 4.304 1.769A2.198 2.198 0 0 1 5.62 8.88l1.96-2.844-.001-.04a3.046 3.046 0 0 1 3.042-3.043 3.046 3.046 0 0 1 3.042 3.043 3.047 3.047 0 0 1-3.111 3.044l-2.804 2a2.223 2.223 0 0 1-3.075 2.11 2.217 2.217 0 0 1-1.312-1.568L.33 10.333Z" />
-                            <path
-                              d="M4.868 12.683a1.715 1.715 0 0 0 1.318-3.165 1.705 1.705 0 0 0-1.263-.02l1.023.424a1.261 1.261 0 1 1-.97 2.33l-.99-.41a1.7 1.7 0 0 0 .882.84Zm3.726-6.687a2.03 2.03 0 0 0 2.027 2.029 2.03 2.03 0 0 0 2.027-2.029 2.03 2.03 0 0 0-2.027-2.027 2.03 2.03 0 0 0-2.027 2.027Zm2.03-1.527a1.524 1.524 0 1 1-.002 3.048 1.524 1.524 0 0 1 .002-3.048Z" />
-                          </svg>
-                        </a>
-                      </div>
-                      <div class="best-deals-btns">
-                        <div class="btn-group add-and-like-btn-group w-100">
-                              <path fill-rule="evenodd"
-                                d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" />
-                            </svg>
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- Best Deals Card 2 -->
-              <div class="card my-3 best-deals-card border-0 m-auto" style="max-width: 540px;">
-                <div class="row g-0">
-                  <div class="col-md-4">
-                    <img src="resources/images/cyborgninja.jpg" class="img-fluid best-deals-img h-100" alt="..."
-                      style="object-fit: cover; object-position: center;">
-                  </div>
-                  <div class="col-md-8">
-                    <div class="card-body" style="background-color: rgba(0, 0, 0, 0.4);">
-                      <h5 class="card-title text-white lead text-center">Cyberstrike</h5>
-                      <!-- card description text -->
-                      <div class="d-flex justify-content-between best-deals-description py-2 pe-3 ">
-                        <div class="price-and-percentage-price-wrapper d-flex text-white">
-                          <p class="discounted-price-percentage d-flex align-items-center fs-4 h-100 px-1 me-2">
-                            -40%</p>
-                          <div class="original-and-discounted-price-wrapper d-flex flex-column fs-6">
-                            <div class="original-price position-relative fs-5 fw-light" style="color:#ACABAB;">$49.99
-                            </div>
-                            <div class="discounted-price fs-4 " style="color: #42FF00;">$29.99</div>
-                          </div>
-                        </div>
-                        <!-- SVG Icon -->
-                        <a href="carrito.html" class="steam-svg-icon">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="bi bi-steam"
-                            viewBox="0 0 16 16">
-                            <path
-                              d="M.329 10.333A8.01 8.01 0 0 0 7.99 16C12.414 16 16 12.418 16 8s-3.586-8-8.009-8A8.006 8.006 0 0 0 0 7.468l.003.006 4.304 1.769A2.198 2.198 0 0 1 5.62 8.88l1.96-2.844-.001-.04a3.046 3.046 0 0 1 3.042-3.043 3.046 3.046 0 0 1 3.042 3.043 3.047 3.047 0 0 1-3.111 3.044l-2.804 2a2.223 2.223 0 0 1-3.075 2.11 2.217 2.217 0 0 1-1.312-1.568L.33 10.333Z" />
-                            <path
-                              d="M4.868 12.683a1.715 1.715 0 0 0 1.318-3.165 1.705 1.705 0 0 0-1.263-.02l1.023.424a1.261 1.261 0 1 1-.97 2.33l-.99-.41a1.7 1.7 0 0 0 .882.84Zm3.726-6.687a2.03 2.03 0 0 0 2.027 2.029 2.03 2.03 0 0 0 2.027-2.029 2.03 2.03 0 0 0-2.027-2.027 2.03 2.03 0 0 0-2.027 2.027Zm2.03-1.527a1.524 1.524 0 1 1-.002 3.048 1.524 1.524 0 0 1 .002-3.048Z" />
-                          </svg>
-                        </a>
-                      </div>
-                      <div class="best-deals-btns">
-                        <div class="btn-group add-and-like-btn-group w-100">
-                              <path fill-rule="evenodd"
-                                d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" />
-                            </svg>
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- Best Deals Card 3-->
-              <div class="card my-3 best-deals-card border-0 m-auto" style="max-width: 540px;">
-                <div class="row g-0">
-                  <div class="col-md-4">
-                    <img src="resources/images/purpledragons.jpg" class="img-fluid best-deals-img h-100" alt="..."
-                      style="object-fit: cover; object-position: center;">
-                  </div>
-                  <div class="col-md-8">
-                    <div class="card-body" style="background-color: rgba(0, 0, 0, 0.4);">
-                      <h5 class="card-title text-white lead text-center">Dragonfire</h5>
-                      <!-- card description text -->
-                      <div class="d-flex justify-content-between best-deals-description py-2 pe-3 ">
-                        <div class="price-and-percentage-price-wrapper d-flex text-white">
-                          <p class="discounted-price-percentage d-flex align-items-center fs-4 h-100 px-1 me-2">
-                            -50%</p>
-                          <div class="original-and-discounted-price-wrapper d-flex flex-column fs-6">
-                            <div class="original-price position-relative fs-5 fw-light" style="color:#ACABAB;">$39.99
-                            </div>
-                            <div class="discounted-price fs-4 " style="color: #42FF00;">$19.99</div>
-                          </div>
-                        </div>
-                        <!-- SVG Icon -->
-                        <a href="carrito.html" class="steam-svg-icon">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="bi bi-steam"
-                            viewBox="0 0 16 16">
-                            <path
-                              d="M.329 10.333A8.01 8.01 0 0 0 7.99 16C12.414 16 16 12.418 16 8s-3.586-8-8.009-8A8.006 8.006 0 0 0 0 7.468l.003.006 4.304 1.769A2.198 2.198 0 0 1 5.62 8.88l1.96-2.844-.001-.04a3.046 3.046 0 0 1 3.042-3.043 3.046 3.046 0 0 1 3.042 3.043 3.047 3.047 0 0 1-3.111 3.044l-2.804 2a2.223 2.223 0 0 1-3.075 2.11 2.217 2.217 0 0 1-1.312-1.568L.33 10.333Z" />
-                            <path
-                              d="M4.868 12.683a1.715 1.715 0 0 0 1.318-3.165 1.705 1.705 0 0 0-1.263-.02l1.023.424a1.261 1.261 0 1 1-.97 2.33l-.99-.41a1.7 1.7 0 0 0 .882.84Zm3.726-6.687a2.03 2.03 0 0 0 2.027 2.029 2.03 2.03 0 0 0 2.027-2.029 2.03 2.03 0 0 0-2.027-2.027 2.03 2.03 0 0 0-2.027 2.027Zm2.03-1.527a1.524 1.524 0 1 1-.002 3.048 1.524 1.524 0 0 1 .002-3.048Z" />
-                          </svg>
-                        </a>
-                      </div>
-                      <div class="best-deals-btns">
-                        <div class="btn-group add-and-like-btn-group w-100">
-                              <path fill-rule="evenodd"
-                                d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" />
-                            </svg>
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- Best Deals Card 4-->
-              <div class="card my-3 best-deals-card border-0 m-auto" style="max-width: 540px;">
-                <div class="row g-0">
-                  <div class="col-md-4">
-                    <img src="resources/images/spaceship.jpg" class="img-fluid best-deals-img h-100" alt="..."
-                      style="object-fit: cover; object-position: center;">
-                  </div>
-                  <div class="col-md-8">
-                    <div class="card-body" style="background-color: rgba(0, 0, 0, 0.4);">
-                      <h5 class="card-title text-white lead text-center">Starfall</h5>
-                      <!-- card description text -->
-                      <div class="d-flex justify-content-between best-deals-description py-2 pe-3 ">
-                        <div class="price-and-percentage-price-wrapper d-flex text-white">
-                          <p class="discounted-price-percentage d-flex align-items-center fs-4 h-100 px-1 me-2">
-                            -20%</p>
-                          <div class="original-and-discounted-price-wrapper d-flex flex-column fs-6">
-                            <div class="original-price position-relative fs-5 fw-light" style="color:#ACABAB;">$79.99
-                            </div>
-                            <div class="discounted-price fs-4 " style="color: #42FF00;">$63.99</div>
-                          </div>
-                        </div>
-                        <!-- SVG Icon -->
-                        <a href="carrito.html" class="steam-svg-icon">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="bi bi-steam"
-                            viewBox="0 0 16 16">
-                            <path
-                              d="M.329 10.333A8.01 8.01 0 0 0 7.99 16C12.414 16 16 12.418 16 8s-3.586-8-8.009-8A8.006 8.006 0 0 0 0 7.468l.003.006 4.304 1.769A2.198 2.198 0 0 1 5.62 8.88l1.96-2.844-.001-.04a3.046 3.046 0 0 1 3.042-3.043 3.046 3.046 0 0 1 3.042 3.043 3.047 3.047 0 0 1-3.111 3.044l-2.804 2a2.223 2.223 0 0 1-3.075 2.11 2.217 2.217 0 0 1-1.312-1.568L.33 10.333Z" />
-                            <path
-                              d="M4.868 12.683a1.715 1.715 0 0 0 1.318-3.165 1.705 1.705 0 0 0-1.263-.02l1.023.424a1.261 1.261 0 1 1-.97 2.33l-.99-.41a1.7 1.7 0 0 0 .882.84Zm3.726-6.687a2.03 2.03 0 0 0 2.027 2.029 2.03 2.03 0 0 0 2.027-2.029 2.03 2.03 0 0 0-2.027-2.027 2.03 2.03 0 0 0-2.027 2.027Zm2.03-1.527a1.524 1.524 0 1 1-.002 3.048 1.524 1.524 0 0 1 .002-3.048Z" />
-                          </svg>
-                        </a>
-                      </div>
-                      <div class="best-deals-btns">
-                        <div class="btn-group add-and-like-btn-group w-100">
-                              <path fill-rule="evenodd"
-                                d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" />
-                            </svg>
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- Best Deals Card 5 -->
-              <div class="card my-3 best-deals-card border-0 m-auto" style="max-width: 540px;">
-                <div class="row g-0">
-                  <div class="col-md-4">
-                    <img src="resources/images/roaddash.jpg" class="img-fluid best-deals-img h-100" alt="..."
-                      style="object-fit: cover; object-position: center;">
-                  </div>
-                  <div class="col-md-8">
-                    <div class="card-body" style="background-color: rgba(0, 0, 0, 0.4);">
-                      <h5 class="card-title text-white lead text-center">Road Dash</h5>
-                      <!-- card description text -->
-                      <div class="d-flex justify-content-between best-deals-description py-2 pe-3 ">
-                        <div class="price-and-percentage-price-wrapper d-flex text-white">
-                          <p class="discounted-price-percentage d-flex align-items-center fs-4 h-100 px-1 me-2">
-                            -30%</p>
-                          <div class="original-and-discounted-price-wrapper d-flex flex-column fs-6">
-                            <div class="original-price position-relative fs-5 fw-light" style="color:#ACABAB;">$69.99
-                            </div>
-                            <div class="discounted-price fs-4 " style="color: #42FF00;">$48.99</div>
-                          </div>
-                        </div>
-                        <!-- SVG Icon -->
-                        <a href="carrito.html" class="steam-svg-icon">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="bi bi-steam"
-                            viewBox="0 0 16 16">
-                            <path
-                              d="M.329 10.333A8.01 8.01 0 0 0 7.99 16C12.414 16 16 12.418 16 8s-3.586-8-8.009-8A8.006 8.006 0 0 0 0 7.468l.003.006 4.304 1.769A2.198 2.198 0 0 1 5.62 8.88l1.96-2.844-.001-.04a3.046 3.046 0 0 1 3.042-3.043 3.046 3.046 0 0 1 3.042 3.043 3.047 3.047 0 0 1-3.111 3.044l-2.804 2a2.223 2.223 0 0 1-3.075 2.11 2.217 2.217 0 0 1-1.312-1.568L.33 10.333Z" />
-                            <path
-                              d="M4.868 12.683a1.715 1.715 0 0 0 1.318-3.165 1.705 1.705 0 0 0-1.263-.02l1.023.424a1.261 1.261 0 1 1-.97 2.33l-.99-.41a1.7 1.7 0 0 0 .882.84Zm3.726-6.687a2.03 2.03 0 0 0 2.027 2.029 2.03 2.03 0 0 0 2.027-2.029 2.03 2.03 0 0 0-2.027-2.027 2.03 2.03 0 0 0-2.027 2.027Zm2.03-1.527a1.524 1.524 0 1 1-.002 3.048 1.524 1.524 0 0 1 .002-3.048Z" />
                           </svg>
                         </a>
                       </div>
@@ -1227,270 +887,136 @@
                 </div>
               </div>
               <!-- Best Deals Card 6 -->
-              <div class="card my-3 best-deals-card border-0 m-auto" style="max-width: 540px;">
-                <div class="row g-0">
-                  <div class="col-md-4">
-                    <img src="resources/images/halflife.jpg" class="img-fluid best-deals-img h-100" alt="..."
-                      style="object-fit: cover; object-position: center;">
-                  </div>
-                  <div class="col-md-8">
-                    <div class="card-body" style="background-color: rgba(0, 0, 0, 0.4);">
-                      <h5 class="card-title text-white lead text-center">Half Life Alyx</h5>
-                      <!-- card description text -->
-                      <div class="d-flex justify-content-between best-deals-description py-2 pe-3 ">
-                        <div class="price-and-percentage-price-wrapper d-flex text-white">
-                          <p class="discounted-price-percentage d-flex align-items-center fs-4 h-100 px-1 me-2">
-                            -15%</p>
-                          <div class="original-and-discounted-price-wrapper d-flex flex-column fs-6">
-                            <div class="original-price position-relative fs-5 fw-light" style="color:#ACABAB;">$49.99
-                            </div>
-                            <div class="discounted-price fs-4 " style="color: #42FF00;">$42.49</div>
-                          </div>
-                        </div>
-                        <!-- SVG Icon -->
-                        <a href="carrito.html" class="steam-svg-icon">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="bi bi-steam"
-                            viewBox="0 0 16 16">
-                            <path
-                              d="M.329 10.333A8.01 8.01 0 0 0 7.99 16C12.414 16 16 12.418 16 8s-3.586-8-8.009-8A8.006 8.006 0 0 0 0 7.468l.003.006 4.304 1.769A2.198 2.198 0 0 1 5.62 8.88l1.96-2.844-.001-.04a3.046 3.046 0 0 1 3.042-3.043 3.046 3.046 0 0 1 3.042 3.043 3.047 3.047 0 0 1-3.111 3.044l-2.804 2a2.223 2.223 0 0 1-3.075 2.11 2.217 2.217 0 0 1-1.312-1.568L.33 10.333Z" />
-                            <path
-                              d="M4.868 12.683a1.715 1.715 0 0 0 1.318-3.165 1.705 1.705 0 0 0-1.263-.02l1.023.424a1.261 1.261 0 1 1-.97 2.33l-.99-.41a1.7 1.7 0 0 0 .882.84Zm3.726-6.687a2.03 2.03 0 0 0 2.027 2.029 2.03 2.03 0 0 0 2.027-2.029 2.03 2.03 0 0 0-2.027-2.027 2.03 2.03 0 0 0-2.027 2.027Zm2.03-1.527a1.524 1.524 0 1 1-.002 3.048 1.524 1.524 0 0 1 .002-3.048Z" />
-                          </svg>
-                        </a>
-                      </div>
-                      <div class="best-deals-btns">
-                        <div class="btn-group add-and-like-btn-group w-100">
-                              <path fill-rule="evenodd"
-                                d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" />
-                            </svg>
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+<div class="card my-3 best-deals-card border-0 m-auto" style="max-width: 540px;">
+  <div class="row g-0">
+    <div class="col-md-4">
+      <img src="resources/images/fable.jpg" class="img-fluid best-deals-img h-100" alt="..." style="object-fit: cover; object-position: center;">
+    </div>
+    <div class="col-md-8">
+      <div class="card-body" style="background-color: rgba(0, 0, 0, 0.4);">
+        <h5 class="card-title text-white lead text-center">Fable</h5>
+        <!-- card description text -->
+        <div class="d-flex justify-content-between best-deals-description py-2 pe-3 ">
+          <div class="price-and-percentage-price-wrapper d-flex text-white">
+            <p class="discounted-price-percentage d-flex align-items-center fs-4 h-100 px-1 me-2">
+              -20%</p>
+            <div class="original-and-discounted-price-wrapper d-flex flex-column fs-6">
+              <div class="original-price position-relative fs-5 fw-light" style="color:#ACABAB;">$44.990</div>
+              <div class="discounted-price fs-4 " style="color: #42FF00;">$43.990</div>
             </div>
           </div>
+          <!-- SVG Icon -->
+          <a href="#" class="xbox-svg-icon" id="fableButton">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="bi bi-xbox" viewBox="0 0 16 16">
+              <path d="M7.202 15.967a7.987 7.987 0 0 1-3.552-1.26c-.898-.585-1.101-.826-1.101-1.306 0-.965 1.062-2.656 2.879-4.583C6.459 7.723 7.897 6.44 8.052 6.475c.302.068 2.718 2.423 3.622 3.531 1.43 1.753 2.088 3.189 1.754 3.829-.254.486-1.83 1.437-2.987 1.802-.954.301-2.207.429-3.239.33Zm-5.866-3.57C.589 11.253.212 10.127.03 8.497c-.06-.539-.038-.846.137-1.95.218-1.377 1.002-2.97 1.945-3.95.401-.417.437-.427.926-.263.595.2 1.23.638 2.213 1.528l.574.519-.313.385C4.056 6.553 2.52 9.086 1.94 10.653c-.315.852-.442 1.707-.306 2.063.091.24.007.15-.3-.319Zm13.101.195c.074-.36-.019-1.02-.238-1.687-.473-1.443-2.055-4.128-3.508-5.953l-.457-.575.494-.454c.646-.593 1.095-.948 1.58-1.25.381-.237.927-.448 1.161-.448.145 0 .654.528 1.065 1.104a8.372 8.372 0 0 1 1.343 3.102c.153.728.166 2.286.024 3.012a9.495 9.495 0 0 1-.6 1.893c-.179.393-.624 1.156-.82 1.404-.1.128-.1.127-.043-.148ZM7.335 1.952c-.67-.34-1.704-.705-2.276-.803a4.171 4.171 0 0 0-.759-.043c-.471.024-.45 0 .306-.358A7.778 7.778 0 0 1 6.47.128c.8-.169 2.306-.17 3.094-.005.85.18 1.853.552 2.418.9l.168.103-.385-.02c-.766-.038-1.88.27-3.078.853-.361.176-.676.316-.699.312a12.246 12.246 0 0 1-.654-.319Z" />
+            </svg>
+          </a>
         </div>
       </div>
-    </section>
+    </div>
+  </div>
+</div>
 
-    <!-- Sponsors -->
-    <section class="sponsors popular-games">
-      <div class="container text-center text-white sponsors-logos-container">
-        <div class="lead fw-bold fs-1" style="padding-top: 100px;">Nuestros <span
-            class="assign-purple-color-1">Patrocinadores</span></div>
-        <div class="lead pb-3">Compartimos nuestra pasión por los juegos y nuestro compromiso con la excelencia en cada experiencia de juego que ofrecemos.
-        </div>
-        <div class="row d-flex justify-content-evenly">
-          <div class="col">
-            <img src="resources/images/unrealengine.png" class="d-block m-auto mt-4"
-              style="min-width: 100px; max-width: 300px; width: 170px;" alt="">
-          </div>
-          <div class="col">
-            <img src="resources/images/easports.png" class="d-block m-auto mt-4"
-              style=" min-width: 100px; max-width: 300px; width: 150px;" alt="">
-          </div>
-          <div class="col">
-            <img src="resources/images/ubisoft.png" class="d-block m-auto mt-4"
-              style="min-width: 100px; max-width: 300px; width: 170px;" alt="">
-          </div>
-          <div class="col">
-            <img src="resources/images/epicgames.png" class="d-block m-auto mt-4"
-              style="min-width: 100px; max-width: 300px; width: 130px;" alt="">
-          </div>
-        </div>
-      </div>
-    </section>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const fableButton = document.getElementById('fableButton');
 
-    <!-- Reviews -->
-    <section class="review best-deals">
-      <div class="container text-white text-center reviews-container">
-        <div class="lead fw-bold fs-1" style="padding-top: 100px;">Opiniones de clientes
-        </div>
-        <div class="lead pb-3">Valoramos enormemente la opinión de nuestros consumidores, ya que es fundamental para nosotros.
-        </div>
-      </div>
-      <div class="reviews-wrapper d-flex flex-wrap justify-content-evenly align-items-center">
-        <!-- Card 1 -->
-        <div class="card bord border-0 p-3 text-center m-2 mt-1"
-          style="width: 18rem; background-color: rgba(0, 0, 0, 0.4);">
-          <img src="resources/images/user1.jpg" class="card-img-top d-block m-auto rounded-circle"
-            style="width: 200px; height: 200px; border-radius: 50%; object-fit: cover; object-position: -65px 0;"
-            alt="...">
-          <div class="card-body text-white">
-            <p class="card-text review-description">Increíble selección de novedades.
-            </p>
-            <p class="card-text review-comma fw-bold display-3">
-              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="32" fill="currentColor" class="bi bi-quote"
-                viewBox="0 0 16 16">
-                <path
-                  d="M12 12a1 1 0 0 0 1-1V8.558a1 1 0 0 0-1-1h-1.388c0-.351.021-.703.062-1.054.062-.372.166-.703.31-.992.145-.29.331-.517.559-.683.227-.186.516-.279.868-.279V3c-.579 0-1.085.124-1.52.372a3.322 3.322 0 0 0-1.085.992 4.92 4.92 0 0 0-.62 1.458A7.712 7.712 0 0 0 9 7.558V11a1 1 0 0 0 1 1h2Zm-6 0a1 1 0 0 0 1-1V8.558a1 1 0 0 0-1-1H4.612c0-.351.021-.703.062-1.054.062-.372.166-.703.31-.992.145-.29.331-.517.559-.683.227-.186.516-.279.868-.279V3c-.579 0-1.085.124-1.52.372a3.322 3.322 0 0 0-1.085.992 4.92 4.92 0 0 0-.62 1.458A7.712 7.712 0 0 0 3 7.558V11a1 1 0 0 0 1 1h2Z" />
-              </svg>
-            </p>
-            <p class="card-text review-user-name fw-bold fs-4">
-              Mateo Velázquez
-            </p>
-          </div>
-        </div>
-        <!-- Card 2 -->
-        <div class="card bord border-0 p-3 text-center m-2 mt-1"
-          style="width: 18rem; background-color: rgba(0, 0, 0, 0.4);">
-          <img src="resources/images/user2.jpg" class="card-img-top d-block m-auto rounded-circle"
-            style="width: 200px; height: 200px; border-radius: 50%; object-fit: cover; object-position: center 0;"
-            alt="...">
-          <div class="card-body text-white">
-            <p class="card-text review-description">Entrega rápida, excelente servicio al cliente.
-            </p>
-            <p class="card-text review-comma fw-bold display-3">
-              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="32" fill="currentColor" class="bi bi-quote"
-                viewBox="0 0 16 16">
-                <path
-                  d="M12 12a1 1 0 0 0 1-1V8.558a1 1 0 0 0-1-1h-1.388c0-.351.021-.703.062-1.054.062-.372.166-.703.31-.992.145-.29.331-.517.559-.683.227-.186.516-.279.868-.279V3c-.579 0-1.085.124-1.52.372a3.322 3.322 0 0 0-1.085.992 4.92 4.92 0 0 0-.62 1.458A7.712 7.712 0 0 0 9 7.558V11a1 1 0 0 0 1 1h2Zm-6 0a1 1 0 0 0 1-1V8.558a1 1 0 0 0-1-1H4.612c0-.351.021-.703.062-1.054.062-.372.166-.703.31-.992.145-.29.331-.517.559-.683.227-.186.516-.279.868-.279V3c-.579 0-1.085.124-1.52.372a3.322 3.322 0 0 0-1.085.992 4.92 4.92 0 0 0-.62 1.458A7.712 7.712 0 0 0 3 7.558V11a1 1 0 0 0 1 1h2Z" />
-              </svg>
-            </p>
-            <p class="card-text review-user-name fw-bold fs-4">Renzo Salazar
-            </p>
-          </div>
-        </div>
-        <!-- Card 3 -->
-        <div class="card bord border-0 p-3 text-center m-2 mt-1"
-          style="width: 18rem; background-color: rgba(0, 0, 0, 0.4);">
-          <img src="resources/images/user4.jpg" class="card-img-top d-block m-auto rounded-circle"
-            style="width: 200px; height: 200px; object-fit: cover; object-position: -125px 0px;" alt="...">
-          <div class="card-body text-white">
-            <p class="card-text review-description">Gran selección de juegos a precios inmejorables.
-            </p>
-            <p class="card-text review-comma fw-bold display-3">
-              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="32" fill="currentColor" class="bi bi-quote"
-                viewBox="0 0 16 16">
-                <path
-                  d="M12 12a1 1 0 0 0 1-1V8.558a1 1 0 0 0-1-1h-1.388c0-.351.021-.703.062-1.054.062-.372.166-.703.31-.992.145-.29.331-.517.559-.683.227-.186.516-.279.868-.279V3c-.579 0-1.085.124-1.52.372a3.322 3.322 0 0 0-1.085.992 4.92 4.92 0 0 0-.62 1.458A7.712 7.712 0 0 0 9 7.558V11a1 1 0 0 0 1 1h2Zm-6 0a1 1 0 0 0 1-1V8.558a1 1 0 0 0-1-1H4.612c0-.351.021-.703.062-1.054.062-.372.166-.703.31-.992.145-.29.331-.517.559-.683.227-.186.516-.279.868-.279V3c-.579 0-1.085.124-1.52.372a3.322 3.322 0 0 0-1.085.992 4.92 4.92 0 0 0-.62 1.458A7.712 7.712 0 0 0 3 7.558V11a1 1 0 0 0 1 1h2Z" />
-              </svg>
-            </p>
-            <p class="card-text review-user-name fw-bold fs-4">Thiago Navarro
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
+    fableButton.addEventListener('click', (event) => {
+      event.preventDefault();
 
-    <!-- Download App -->
-    <section class="downloadapp pt-5" style="background-color: black;">
-      <div class="container text-center dg-flex justify-content-center text-white">
-        <div class="getourmobileapp display-2 mb-3 fw-bold p-1">DESCARGA NUESTRA <span
-            class="assign-purple-color-1">APP</span>
-        </div>
-        <div class="getourmobileapp-description text-center d-block p-2 m-auto" style="max-width: 750px;">Obtenga la mejor experiencia de juego mientras viaja con la aplicación móvil de Planet Games. Nuestra aplicación ofrece acceso rápido y fácil a una amplia selección de juegos y accesorios, al alcance de su mano. Descárgala ahora y no te pierdas nada: con la aplicación móvil de Planet Games, puedes permanecer conectado y jugar tus juegos favoritos dondequiera que vayas.</div>
-        <a href="#" class="btn btn-primary border-0 main-btn-style my-4 px-3 py-2 rounded-pill">
-          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor"
-            class="bi bi-google-play mb-1" viewBox="0 0 16 16">
-            <path
-              d="M14.222 9.374c1.037-.61 1.037-2.137 0-2.748L11.528 5.04 8.32 8l3.207 2.96 2.694-1.586Zm-3.595 2.116L7.583 8.68 1.03 14.73c.201 1.029 1.36 1.61 2.303 1.055l7.294-4.295ZM1 13.396V2.603L6.846 8 1 13.396ZM1.03 1.27l6.553 6.05 3.044-2.81L3.333.215C2.39-.341 1.231.24 1.03 1.27Z" />
-          </svg>
-          Descarga Aqui</a>
-      </div>
-    </section>
+      const gameTitle = 'Fable';
+      const gameImage = 'resources/images/fablexbox.jpg';
+      const originalPrice = 43990;
+      const discountedPrice = 43990;
 
-    <!-- About Us -->
-    <section class="aboutus" style="background-color: black;">
-      <div class="container pt-5 text-center p-4 text-white d-flex flex-column flex-md-row align-items-center">
-        <div class="about-us-title display-2 fw-bold pe-md-4">Sobre <span class="assign-purple-color-1">Nosotros</span></div>
-        <div class="about-us-description-wrapper text-center">
-          <div class="about-us-title display-6 assign-purple-color-1 text-center mt-3">Lo Que Nos Diferencia
-          </div>
-          <div class="about-us-description text-center p-2">
-            En Planet Games, nos apasiona brindar la mejor experiencia de juego. Con una amplia selección de juegos y accesorios, nuestro objetivo es satisfacer las necesidades de cada jugador. Pero no nos detenemos ahí: estamos construyendo una comunidad de jugadores apasionados, donde puedes conectarte, compartir tu amor por los juegos y crear amistades duraderas. Nuestro compromiso con la excelencia significa que puedes jugar con confianza y concentrarte en divertirte. ¡Únete a la comunidad de Planet Games hoy y subamos de nivel juntos!
-          </div>
-        </div>
-      </div>
-    </section>
+      
+      let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
 
-    <!-- Footer -->
-    <footer class="text-white pt-5 pb-4" style="background-color: black;">
-      <div class="container footer-container">
-        <div class="row footer-nav-links">
-          <div class="col-12 col-md-6 col-lg-3 d-lg-flex flex-column justify-content-start col-contact mt-3">
-            <div class="col-title fw-bold fs-3 assign-purple-color-1">
-              <a href="#" class="navbar-brand">
-                <img src="resources/images/Logo.png" alt="Logo" width="100" class="img-fluid">
-              </a>
-            </div>
-            <div class="contact-location d-flex p-1">
-              <div class="col-logos"><i class="fa-solid fa-location-dot contact_icon me-2"></i></div>
-              <div class="col-text">575 Alameda</div>
-            </div>
-            <div class="contact-email d-flex p-1">
-              <div class="col-logos"><i class="fa-solid fa-envelope contact_icon me-2"></i></div>
-              <div class="col-text">PlanetGames@gmail.com</div>
-            </div>
-            <div class="contact-phone-number d-flex p-1">
-              <div class="col-logos"><i class="fa-solid fa-phone contact_icon me-2"></i></div>
-              <div class="col-text">+359 481 9563</div>
-            </div>
-          </div>
-          <div class="col-6 col-md-6 col-lg-3 d-lg-flex flex-column justify-content-start col-aboutus mt-3">
-            <div class="col-title fw-bold fs-3 assign-purple-color-1">
-              Nosotros
-            </div>
-            <div class="aboutus-story p-1 ps-0 aboutus-links">Historia</div>
-            <div class="aboutus-teammembers p-1 ps-0 aboutus-links">Miembros del Equipo</div>
-            <div class="aboutus-partners p-1 ps-0 aboutus-links">Socios del Equipo</div>
-            <div class="aboutus-privacy policy p-1 ps-0 aboutus-links">Política De Privacidad
-            </div>
-            <div class="aboutus-termsandconditions p-1 ps-0 aboutus-links">Equipo Y Condiciones
-            </div>
-          </div>
-          <div class="col-6 col-md-6 col-lg-3 d-lg-flex flex-column justify-content-start col-quicklinks mt-3">
-            <div class="col-title fw-bold fs-3 assign-purple-color-1">
-              Enlaces rápidos
-            </div>
-            <div class="quicklinks-games p-1 ps-0 quicklinks-links">Juegos</div>
-            <div class="quicklinks-blogs p-1 ps-0 quicklinks-links">Blogs</div>
-            <div class="quicklinks-Plans p-1 ps-0 quicklinks-links">Planes</div>
-            <div class="quicklinks-forum p-1 ps-0 quicklinks-links">Foro</div>
-            <div class="quicklinks-support p-1 ps-0 quicklinks-links">Soporte</div>
-          </div>
-          <div class="col-12 col-md-6 col-lg-3 d-lg-flex flex-column justify-content-start col-socialmedia mt-3">
-            <div class="col-title fw-bold fs-3 assign-purple-color-1">
-              Redes Sociales
-            </div>
-            <div class="socialmedia-newsletter p-1 ps-0">Suscríbete a Nuestras Noticias            </div>
-            <div class="socialmedia-search p-1 ps-0 d-flex">
-              <input type="search" placeholder="Email*" class="p-1" style="border-radius: 0;">
-              <i
-                class="fa-solid fa-paper-plane socialmedia-paperplane-icon d-flex align-items-center justify-content-center px-3"></i>
-            </div>
-            <div class="socialmedia-followus p-1 ps-0">Síguenos en nuestras redes sociales</div>
-            <div class="socialmedia-socialmediaicons p-1 ps-0">
-              <i class="fa-brands fa-facebook-square socialmedia-facebook-icon fa-xl"></i>
-              <i class="fa-brands fa-steam-square socialmedia-steam-icon fa-xl"></i>
-              <i class="fa-brands fa-twitch socialmedia-twitch-icon fa-xl"></i>
-              <i class="fa-brands fa-youtube-square socialmedia-youtube-icon fa-xl"></i>
-            </div>
-          </div>
+      
+      carrito.push({
+        id: 'fable',  
+        nombre: gameTitle,
+        imagen: gameImage,
+        precioOriginal: originalPrice,
+        precioDescuento: discountedPrice,
+        cantidad: 1
+      });
+
+      
+      localStorage.setItem('carrito', JSON.stringify(carrito));
+
+      
+      window.location.href = 'carrito.html';
+    });
+  });
+</script>
+
+              
+              
+<section class="aboutus bg-black text-white py-5">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-4 mb-4 mb-lg-0">
+        <h2 class="display-4 fw-bold">Sobre <span class="text-purple">Nosotros</span></h2>
+      </div>
+      <div class="col-lg-8">
+        <h3 class="h4 text-purple mb-3">Lo Que Nos Diferencia</h3>
+        <p class="lead">
+          En Planet Games, nos apasiona brindar la mejor experiencia de juego. Con una amplia selección de juegos y accesorios, nuestro objetivo es satisfacer las necesidades de cada jugador. Pero no nos detenemos ahí: estamos construyendo una comunidad de jugadores apasionados donde puedes conectarte, compartir tu amor por los juegos y crear amistades duraderas. Nuestro compromiso con la excelencia significa que puedes jugar con confianza y concentrarte en divertirte. Además, ofrecemos eventos exclusivos, torneos emocionantes y contenido especializado para que tu experiencia sea aún más enriquecedora. ¡Únete a la comunidad de Planet Games hoy y subamos de nivel juntos hacia una nueva era de diversión y camaradería!
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-black text-white py-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4 mb-4 mb-md-0">
+        <a href="#" class="navbar-brand">
+          <img src="resources/images/Logo.png" alt="Logo" width="100" class="img-fluid mb-3">
+        </a>
+        <ul class="list-unstyled">
+          <li class="mb-2"><i class="fas fa-map-marker-alt me-2 text-purple"></i>575 Alameda</li>
+          <li class="mb-2"><i class="fas fa-envelope me-2 text-purple"></i>PlanetGames@gmail.com</li>
+          <li class="mb-2"><i class="fas fa-phone me-2 text-purple"></i>+359 481 9563</li>
+        </ul>
+      </div>
+      <div class="col-md-4 mb-4 mb-md-0">
+        <h4 class="text-purple mb-3">Enlaces Rápidos</h4>
+        <ul class="list-unstyled">
+          <li><a href="#" class="text-white">Inicio</a></li>
+          <li><a href="#" class="text-white">Juegos</a></li>
+          <li><a href="#" class="text-white">Ofertas</a></li>
+          <li><a href="#" class="text-white">Contacto</a></li>
+        </ul>
+      </div>
+      <div class="col-md-4">
+        <h4 class="text-purple mb-3">Síguenos</h4>
+        <div class="social-icons">
+          <a href="#" class="text-white me-3"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="text-white me-3"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="text-white me-3"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="text-white"><i class="fab fa-youtube"></i></a>
         </div>
       </div>
-    </footer>
-  </section>
-  <!-- Bootstrap Bundle -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-    crossorigin="anonymous"></script>
-  <!-- Font Awesome Bundle -->
-  <script src="https://kit.fontawesome.com/80afa6ed2d.js" crossorigin="anonymous"></script>
-  
-  <script>
-    var cookies = document.cookie.split("; ");
-    cookies.forEach(function(cookie){
-      var parts = cookie.split("=");
-      if (parts[0] === "username") {
-        var username = parts[1];
-        var profileName = username.charAt(0).toUpperCase();
-        document.getElementById("profileName").textContent = profileName;
-      }
-    })
-  </script>
-</body>
-</html>
+    </div>
+  </div>
+</footer>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/80afa6ed2d.js" crossorigin="anonymous"></script>
+
+<script>
+  var cookies = document.cookie.split("; ");
+  cookies.forEach(function(cookie) {
+    var parts = cookie.split("=");
+    if (parts[0] === "username") {
+      var username = parts[1];
+      var profileName = username.charAt(0).toUpperCase();
+      document.getElementById("profileName").textContent = profileName;
+    }
+  });
+</script>

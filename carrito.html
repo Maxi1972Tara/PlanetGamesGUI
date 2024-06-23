@@ -1,676 +1,154 @@
 <!DOCTYPE html>
-
 <html lang="es">
-
 <head>
-  <header>
-    <nav>
-        <ul>
-            <li><a href="index.html">Atras</a></li>
-        </ul>
-    </nav>
-</header>
-  <meta charset="UTF-8">
-
-  <title></title>
-
-  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
-
-  <script>
-
-    document.addEventListener('DOMContentLoaded', () => {
-
-     // Variables
-
-     const baseDeDatos = [
-
-       {
-
-         id: 1,
-
-         nombre: 'EldenRing',
-
-         precio: 59.99,
-
-         imagen:'resources/images/EldenRing.jpg'
-
-       },
-
-       {
-
-         id: 2,
-
-         nombre: 'Alanwake2',
-
-         precio: 59.99,
-
-         imagen: 'resources/images/Alanwake2.png'
-
-       },
-
-       {
-
-         id: 3,
-
-         nombre: 'Baldurs Gate 3',
-
-         precio: 29.99,
-
-         imagen: 'resources/images/BaldursGate3.jpg'
-
-       },
-
-       {
-
-         id: 4,
-
-         nombre: 'Dead Island 2',
-
-         precio: 29.99,
-
-         imagen: 'resources/images/DEADISLAND2.jpg'
-
-       },
-
-       {
-
-         id: 5,
-
-         nombre: 'EA SPORTS FC 24',
-
-         precio: 59.99,
-
-         imagen: 'resources/images/FC24.jpg'
-
-       },
-
-       {
-
-         id: 6,
-
-         nombre: 'Street Fighter 6',
-
-         precio: 29.99,
-
-         imagen: 'resources/images/Streetfighter6.png'
-
-       },
-
-       {
-
-         id: 7,
-
-         nombre: 'Bloodborne',
-
-         precio: 29.99,
-
-        imagen: 'resources/images/Bloodborne.jpg'
-
-       },
-
-       {
-
-         id: 8,
-
-         nombre: 'Days Gone',
-
-         precio: 29.99,
-
-         imagen: 'resources/images/Daysgone.png'
-
-      },
-
-      {
-
-         id: 9,
-
-         nombre: 'Halo Infinite',
-
-         precio: 52.99,
-
-         imagen: 'resources/images/haloinfinitexbox.jpg'
-
-      },
-
-      {
-
-         id: 10,
-
-         nombre: 'Forza Horizon 5',
-
-         precio: 44.99,
-
-         imagen: 'resources/images/forzahorizon5xbox.jpg'
-
-      },
-
-      {
-
-         id: 11,
-
-         nombre: 'Sea of thieves',
-
-         precio: 25.49,
-
-         imagen: 'resources/images/seaofthievesxbox.jpg'
-
-      },
-
-      {
-
-         id: 12,
-
-         nombre: 'Gears 5',
-
-         precio: 59.99,
-
-         imagen: 'resources/images/gears5.xbox.jpg'
-
-      },
-
-      {
-
-         id: 13,
-
-         nombre: 'State of decay',
-
-         precio: 55.99,
-
-         imagen: 'resources/images/stateofdecayxbox.jpg'
-
-      },
-
-      {
-
-         id: 14,
-
-         nombre: 'Fable',
-
-         precio: 39.99,
-
-         imagen: 'resources/images/fablexbox.jpg'
-
-      },
-
-      {
-
-         id: 15,
-
-         nombre: 'Ghost of Tsushima',
-
-         precio: 29.99,
-
-         imagen: 'resources/images/ghostoftsushimaplaystation.jpg'
-
-      },
-
-      {
-
-         id: 16,
-
-         nombre: 'Uncharted 4',
-
-         precio: 63.99,
-
-         imagen: 'resources/images/uncharted4playstation.jpg'
-
-      },
-
-      {
-
-         id: 17,
-
-         nombre: 'Spiderman',
-
-         precio: 27.99,
-
-         imagen: 'resources/images/spidermanplaystation.jpg'
-
-      },
-
-      {
-
-         id: 18,
-
-         nombre: 'God of war 2018',
-
-         precio: 52.49,
-
-         imagen: 'resources/images/GodofWarplaystation.jpg'
-
-      },
-
-      {
-
-         id: 19,
-
-         nombre: 'Bloodborne',
-
-         precio: 95.99,
-
-         imagen: 'resources/images/Bloodborneplaystation.jpg'
-
-      },
-
-      {
-
-         id: 20,
-
-         nombre: 'Last Of Us Part ⅠⅠ',
-
-         precio: 25.49,
-
-         imagen: 'resources/images/lastofusplaystation.jpg'
-
-      },
-
-      {
-
-         id: 21,
-
-         nombre: 'Orbitron',
-
-         precio: 44.99,
-
-         imagen: 'resources/images/orbiton.jpg'
-
-      },
-
-      {
-         id: 22,
-
-         nombre: 'Cyberstrike',
-
-         precio: 29.99,
-
-         imagen: 'resources/images/cyberstrikepc.jpg'
-
-      },
-
-      {
-
-         id: 23,
-
-         nombre: 'Dragonfire',
-
-         precio: 19.99,
-
-         imagen: 'resources/images/dragonfire.jpg'
-
-      },
-
-      {
-
-         id: 24,
-
-         nombre: 'Starfall',
-
-         precio: 63.99,
-
-         imagen: 'resources/images/starfallpc.jpg'
-
-      },
-
-      {
-
-         id: 25,
-
-         nombre: 'Road Dash',
-
-         precio: 48.99,
-
-         imagen: 'resources/images/roaddashpc.jpg'
-
-      },
-
-      {
-
-         id: 26,
-
-         nombre: 'Half Life Alyx',
-
-         precio: 42.49,
-
-         imagen: 'resources/images/halflifestream.jpg'
-
-      },
-
-
-
-     ];
-
-
-
-     let carrito = [];
-
-     const divisa = '$';
-
-     const DOMitems = document.querySelector('#items');
-
-     const DOMcarrito = document.querySelector('#carrito');
-
-     const DOMtotal = document.querySelector('#total');
-
-     const DOMbotonVaciar = document.querySelector('#boton-vaciar');
-
-
-
-     // Funciones
-
-
-
-     /**
-
-     * Dibuja todos los productos a partir de la base de datos. No confundir con el carrito
-
-     */
-
-     function renderizarProductos() {
-
-       baseDeDatos.forEach((info) => {
-
-         // Estructura
-
-         const miNodo = document.createElement('div');
-
-         miNodo.classList.add('card', 'col-sm-4');
-
-         // Body
-
-         const miNodoCardBody = document.createElement('div');
-
-         miNodoCardBody.classList.add('card-body');
-
-         // Titulo
-
-         const miNodoTitle = document.createElement('h5');
-
-         miNodoTitle.classList.add('card-title');
-
-         miNodoTitle.textContent = info.nombre;
-
-         // Imagen
-
-         const miNodoImagen = document.createElement('img');
-
-         miNodoImagen.classList.add('img-fluid');
-
-         miNodoImagen.setAttribute('src', info.imagen);
-
-         // Precio
-
-         const miNodoPrecio = document.createElement('p');
-
-         miNodoPrecio.classList.add('card-text');
-
-         miNodoPrecio.textContent = `${info.precio}${divisa}`;
-
-         // Boton
-
-         const miNodoBoton = document.createElement('button');
-
-         miNodoBoton.classList.add('btn', 'btn-primary');
-
-         miNodoBoton.textContent = '+';
-
-         miNodoBoton.setAttribute('marcador', info.id);
-
-         miNodoBoton.addEventListener('click', anyadirProductoAlCarrito);
-
-         // Insertamos
-
-         miNodoCardBody.appendChild(miNodoImagen);
-
-         miNodoCardBody.appendChild(miNodoTitle);
-
-         miNodoCardBody.appendChild(miNodoPrecio);
-
-         miNodoCardBody.appendChild(miNodoBoton);
-
-         miNodo.appendChild(miNodoCardBody);
-
-         DOMitems.appendChild(miNodo);
-
-       });
-
-     }
-
-
-
-     /**
-
-     * Evento para añadir un producto al carrito de la compra
-
-     */
-
-     function anyadirProductoAlCarrito(evento) {
-
-       // Anyadimos el Nodo a nuestro carrito
-
-       carrito.push(evento.target.getAttribute('marcador'))
-
-       // Actualizamos el carrito
-
-       renderizarCarrito();
-
-
-
-     }
-
-
-
-     /**
-
-     * Dibuja todos los productos guardados en el carrito
-
-     */
-
-     function renderizarCarrito() {
-
-       // Vaciamos todo el html
-
-       DOMcarrito.textContent = '';
-
-       // Quitamos los duplicados
-
-       const carritoSinDuplicados = [...new Set(carrito)];
-
-       // Generamos los Nodos a partir de carrito
-
-       carritoSinDuplicados.forEach((item) => {
-
-         // Obtenemos el item que necesitamos de la variable base de datos
-
-         const miItem = baseDeDatos.filter((itemBaseDatos) => {
-
-           // ¿Coincide las id? Solo puede existir un caso
-
-           return itemBaseDatos.id === parseInt(item);
-
-         });
-
-         // Cuenta el número de veces que se repite el producto
-
-         const numeroUnidadesItem = carrito.reduce((total, itemId) => {
-
-           // ¿Coincide las id? Incremento el contador, en caso contrario no mantengo
-
-           return itemId === item ? total += 1 : total;
-
-         }, 0);
-
-         // Creamos el nodo del item del carrito
-
-         const miNodo = document.createElement('li');
-
-         miNodo.classList.add('list-group-item', 'text-right', 'mx-2');
-
-         miNodo.textContent = `${numeroUnidadesItem} x ${miItem[0].nombre} - ${miItem[0].precio}${divisa}`;
-
-         // Boton de borrar
-
-         const miBoton = document.createElement('button');
-
-         miBoton.classList.add('btn', 'btn-danger', 'mx-5');
-
-         miBoton.textContent = 'X';
-
-         miBoton.style.marginLeft = '1rem';
-
-         miBoton.dataset.item = item;
-
-         miBoton.addEventListener('click', borrarItemCarrito);
-
-         // Mezclamos nodos
-
-         miNodo.appendChild(miBoton);
-
-         DOMcarrito.appendChild(miNodo);
-
-       });
-
-       // Renderizamos el precio total en el HTML
-
-       DOMtotal.textContent = calcularTotal();
-
-     }
-
-
-
-     /**
-
-     * Evento para borrar un elemento del carrito
-
-     */
-
-     function borrarItemCarrito(evento) {
-
-       // Obtenemos el producto ID que hay en el boton pulsado
-
-       const id = evento.target.dataset.item;
-
-       // Borramos todos los productos
-
-       carrito = carrito.filter((carritoId) => {
-
-         return carritoId !== id;
-
-       });
-
-       // volvemos a renderizar
-
-       renderizarCarrito();
-
-     }
-
-
-
-     /**
-
-      * Calcula el precio total teniendo en cuenta los productos repetidos
-
-      */
-
-     function calcularTotal() {
-
-       // Recorremos el array del carrito
-
-       return carrito.reduce((total, item) => {
-
-         // De cada elemento obtenemos su precio
-
-         const miItem = baseDeDatos.filter((itemBaseDatos) => {
-
-           return itemBaseDatos.id === parseInt(item);
-
-         });
-
-         // Los sumamos al total
-
-         return total + miItem[0].precio;
-
-       }, 0).toFixed(2);
-
-     }
-
-
-
-     /**
-
-     * Varia el carrito y vuelve a dibujarlo
-
-     */
-
-     function vaciarCarrito() {
-
-       // Limpiamos los productos guardados
-
-       carrito = [];
-
-       // Renderizamos los cambios
-
-       renderizarCarrito();
-
-     }
-
-
-
-     // Eventos
-
-     DOMbotonVaciar.addEventListener('click', vaciarCarrito);
-
-
-
-     // Inicio
-
-     renderizarProductos();
-
-     renderizarCarrito();
-
-    });
-
-  </script>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .carrito-item {
+            border: 1px solid #000;
+            padding: 10px;
+            margin: 10px 0;
+            display: flex;
+            align-items: center;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .carrito-item img {
+            width: 100px;
+            height: auto;
+            margin-right: 20px;
+        }
+        .carrito-item p {
+            margin: 0;
+        }
+        .carrito-item .actions {
+            margin-left: auto;
+        }
+        .carrito-item .actions button {
+            margin-left: 10px;
+        }
+    </style>
 </head>
-
 <body>
-
-  <div class="container">
-
-    <div class="row">
-
-      <!-- Elementos generados a partir del JSON -->
-
-      <main id="items" class="col-sm-8 row"></main>
-
-      <!-- Carrito -->
-
-      <aside class="col-sm-4">
-
-        <h2>Carrito</h2>
-
-        <!-- Elementos del carrito -->
-
-        <ul id="carrito" class="list-group"></ul>
-
-        <hr>
-
-        <!-- Precio total -->
-
-        <p class="text-right">Total: <span id="total"></span></p>
-
-        <button id="boton-vaciar" class="btn btn-danger">Vaciar</button>
-
-      </aside>
-
+    <div class="container">
+        <h1>Carrito</h1>
+        <div id="carrito"></div>
+        <div class="button-container">
+            <button onclick="regresarInicio()">Atrás</button>
+            <button onclick="seguirCompra()">Seguir con la Compra</button>
+            <button onclick="comprar()">Comprar</button>
+        </div>
     </div>
 
-  </div>
+    <script>
+        function mostrarCarrito() {
+            const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+            const carritoDiv = document.getElementById('carrito');
 
+            carritoDiv.innerHTML = '';
+            carrito.forEach((item, index) => {
+                const itemDiv = document.createElement('div');
+                itemDiv.classList.add('carrito-item');
+
+                itemDiv.innerHTML = `
+                    <img src="${item.imagen}" alt="${item.nombre}">
+                    <p>${item.nombre} - $${(item.precioOriginal * item.cantidad).toLocaleString('es-CL')} x ${item.cantidad}</p>
+                    <div class="actions">
+                        <button onclick="eliminarDelCarrito(${index})">Eliminar</button>
+                        <button onclick="incrementarCantidad(${index})">+</button>
+                        <button onclick="decrementarCantidad(${index})">-</button>
+                    </div>
+                `;
+
+                carritoDiv.appendChild(itemDiv);
+            });
+        }
+
+        function eliminarDelCarrito(index) {
+            let carrito = JSON.parse(localStorage.getItem('carrito'));
+            carrito.splice(index, 1);
+            localStorage.setItem('carrito', JSON.stringify(carrito));
+            mostrarCarrito();
+        }
+
+        function incrementarCantidad(index) {
+            let carrito = JSON.parse(localStorage.getItem('carrito'));
+            carrito[index].cantidad++;
+            carrito[index].precio = carrito[index].precioOriginal * carrito[index].cantidad;
+            localStorage.setItem('carrito', JSON.stringify(carrito));
+            mostrarCarrito();
+        }
+
+        function decrementarCantidad(index) {
+            let carrito = JSON.parse(localStorage.getItem('carrito'));
+            if (carrito[index].cantidad > 1) {
+                carrito[index].cantidad--;
+                carrito[index].precio = carrito[index].precioOriginal * carrito[index].cantidad;
+            } else {
+                carrito.splice(index, 1);
+            }
+            localStorage.setItem('carrito', JSON.stringify(carrito));
+            mostrarCarrito();
+        }
+
+        function seguirCompra() {
+            alert('Redirigiendo a la página de pago...');
+            window.location.href = 'Lista de juegos.html';
+        }
+        
+        function regresarInicio() {
+            window.location.href = 'Lista de juegos.html';
+        }
+
+        function comprar() {
+            const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+            if (carrito.length === 0) {
+                alert('El carrito está vacío. Agrega juegos antes de proceder con la compra.');
+            } else {
+                alert('Procesando la compra...');
+                enviarDatosCarrito(carrito);  // Llama a la función para enviar los datos
+            }
+        }
+
+        function enviarDatosCarrito(carrito) {
+            fetch('procesar_compra.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ carrito: carrito })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Respuesta del servidor:', data); // Imprime la respuesta en la consola
+                if (data.success) {
+                    alert('Compra realizada exitosamente.');
+                    localStorage.removeItem('carrito');
+                    mostrarCarrito();
+                } else {
+                    alert('Hubo un problema al procesar la compra: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error al enviar los datos:', error);
+                alert('Hubo un problema al procesar la compra.');
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', mostrarCarrito);
+    </script>
 </body>
-
 </html>
-
- 

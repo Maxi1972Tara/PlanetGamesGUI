@@ -1,16 +1,9 @@
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-        <header>
-          <nav>
-              <ul>
-                  <li><a href="index.html">Atras</a></li>
-              </ul>
-          </nav>
-      </header>
-        <meta charset="UTF-8">
+<head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de juegos</title>
+    <title>Catalogo</title>
     <style>
         body {
             font-family: Arial, sans-serif; 
@@ -18,10 +11,41 @@
             padding: 0;
             background-color: #f4f4f4;
         }
+        .navbar {
+            display: flex;
+            justify-content: center;
+            background-color: #333;
+            padding: 10px 0;
+        }
+        .navbar a {
+            color: white;
+            padding: 14px 20px;
+            text-decoration: none;
+            text-align: center;
+        }
+        .navbar a:hover {
+            background-color: #ddd;
+            color: black;
+        }
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
+        }
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .tab {
+            margin: 0 10px;
+            padding: 10px 20px;
+            background-color: #ddd;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .tab.active {
+            background-color: #bbb;
         }
         .game {
             background-color: #fff;
@@ -40,191 +64,401 @@
             flex: 1;
             font-family: "Times New Roman", Times, serif; 
         }
+        .hidden {
+            display: none;
+        }
     </style>
     <script>
-        // Realiza una solicitud AJAX para obtener los datos de los juegos desde la API
-        fetch('http://localhost:3000/api/games')
-            .then(response => response.json())
-            .then(data => {
-                // Procesa los datos de los juegos y actualiza el DOM
-                const gameList = document.getElementById('gameList');
-                data.forEach(game => {
-                    const gameDiv = document.createElement('div');
-                    gameDiv.innerHTML = `
-                        <div class="game">
-                            <img src="${game.image}" alt="${game.title}">
-                            <div class="game-details">
-                                <h2>${game.title}</h2>
-                                <p>${game.description}</p>
-                            </div>
-                        </div>
-                    `;
-                    gameList.appendChild(gameDiv);
+        document.addEventListener('DOMContentLoaded', function() {
+            const addToCartButtons = document.querySelectorAll('.add-to-cart');
+            const tabs = document.querySelectorAll('.tab');
+            const games = document.querySelectorAll('.game');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    tabs.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+
+                    const category = this.dataset.category;
+                    games.forEach(game => {
+                        if (game.dataset.category === category || category === 'all') {
+                            game.classList.remove('hidden');
+                        } else {
+                            game.classList.add('hidden');
+                        }
+                    });
                 });
-            })
-            .catch(error => {
-                console.error('Error al obtener los datos de los juegos:', error);
             });
+
+            addToCartButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const gameElement = this.closest('.game');
+                    const game = {
+                        nombre: gameElement.querySelector('h2').innerText,
+                        precioOriginal: parseFloat(gameElement.querySelector('.precio').innerText.replace('$', '').replace('.', '').replace(',', '.')),
+                        precio: parseFloat(gameElement.querySelector('.precio').innerText.replace('$', '').replace('.', '').replace(',', '.')),
+                        imagen: gameElement.querySelector('img').src,
+                        cantidad: 1
+                    };
+
+                    let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+                    const index = carrito.findIndex(item => item.nombre === game.nombre);
+                    if (index === -1) {
+                        carrito.push(game);
+                    } else {
+                        carrito[index].cantidad++;
+                        carrito[index].precio = carrito[index].precioOriginal * carrito[index].cantidad;
+                    }
+
+                    localStorage.setItem('carrito', JSON.stringify(carrito));
+                    window.location.href = 'carrito.html';
+                });
+            });
+        });
+        function regresarInicio() {
+            window.location.href = 'index.html';
+        }
     </script>
 </head>
 <body>
-    
-<div class="container">
-    <h1>Lista De Juegos</h1>
-    
-    <div class="game">
-        <img src="resources\images\Alanwake2.png" alt="Alan Wake 2">
-        <div class="game-details">
-            <h2>Alan Wake 2</h2>
-            <p>Llega Saga Anderson para investigar asesinatos ritualistas en un pequeño pueblo. Alan Wake escribe una oscura historia para dar forma a la realidad que lo rodea. Estos dos héroes están conectados de algún modo. ¿Podrán convertirse en los héroes que han de ser?
-            </p>
+    <div class="navbar">
+        <a href="index.html">Inicio</a>
+    </div>
+
+    <div class="container">
+        <h1>Catalogo</h1>
+        <div class="button-container">
+            <button onclick="regresarInicio()">Atrás</button>
+        </div>
+        <div class="tabs">
+            <div class="tab active" data-category="all">Todos</div>
+            <div class="tab" data-category="playstation">PlayStation</div>
+            <div class="tab" data-category="xbox">Xbox</div>
+            <div class="tab" data-category="nintendo">Nintendo</div>
+            <div class="tab" data-category="steam">Steam</div>
+        </div>
+
+        <div id="gameList">
+            <div class="game" data-category="playstation">
+                <img src="resources/images/Alanwake2.png" alt="Alan Wake 2">
+                <div class="game-details">
+                    <h2>Alan Wake 2</h2>
+                    <p>Llega Saga Anderson para investigar asesinatos ritualistas en un pequeño pueblo. Alan Wake escribe una oscura historia para dar forma a la realidad que lo rodea. Estos dos héroes están conectados de algún modo. ¿Podrán convertirse en los héroes que han de ser?</p>
+                    <p class="precio">$43.650</p>
+                    <button class="add-to-cart" data-game-id="alan-wake-2">Agregar al carrito</button>
+                </div>
+            </div>
+
+            <div class="game" data-category="playstation">
+                <img src="resources/images/BaldursGate3.jpg" alt="Baldur Gate 3">
+                <div class="game-details">
+                    <h2>Baldur Gate 3</h2>
+                    <p>es un juego de rol basado en grupos, rico en historias, ambientado en el universo de Dungeons & Dragons, donde tus elecciones dan forma a una historia de compañerismo y traición, supervivencia y sacrificio, y el atractivo del poder absoluto.</p>
+                    <p class="precio">$59.990</p>
+                    <button class="add-to-cart" data-game-id="baldur-gate-3">Agregar al carrito</button>
+                </div>
+            </div>
+
+            <div class="game" data-category="playstation">
+                <img src="resources/images/EldenRing.jpg" alt="Elden Ring">
+                <div class="game-details">
+                    <h2>Elden Ring</h2>
+                    <p>Desvela los misterios del poder del Círculo de Elden. Enfréntate a criaturas temibles y conoce a adversarios con pasados tumultuosos y personajes con sus propias motivaciones para ayudarte a avanzar o complicarte las cosas.</p>
+                    <p class="precio">$37.374</p>
+                    <button class="add-to-cart" data-game-id="elden-ring">Agregar al carrito</button>
+                </div>
+            </div>
+
+            <div class="game" data-category="playstation">
+                <img src="resources/images/DEADISLAND2.jpg" alt="Dead Island 2">
+                <div class="game-details">
+                    <h2>Dead Island 2</h2>
+                    <p>Un virus mortal se extiende por Los Ángeles y está convirtiendo a sus habitantes en zombis. Te han mordido e infectado, pero tu cuerpo es inmune.</p>
+                    <p class="precio">$64.990</p>
+                    <button class="add-to-cart" data-game-id="dead-island-2">Agregar al carrito</button>
+                </div>
+            </div>
+
+            <div class="game" data-category="playstation">
+                <img src="resources/images/ghostoftsushimaplaystation.jpg" alt="Ghost of Tsushima">
+                <div class="game-details">
+                    <h2>Ghost of Tsushima</h2>
+                    <p>Forja un nuevo camino y emplea tácticas de guerra poco convencionales para liberar Tsushima. Desafía a tus enemigos con tu katana, domina el arco para eliminar las amenazas lejanas, aprende tácticas de sigilo para emboscar a los enemigos y explora una nueva historia en la Isla Iki.</p>
+                    <p class="precio">$27.467</p>
+                    <button class="add-to-cart" data-game-id="ghost-of-tsushima">Agregar al carrito</button>
+                </div>
+            </div>
+
+            <div class="game" data-category="playstation">
+                <img src="resources/images/Bloodborne.jpg" alt="Bloodborne">
+                <div class="game-details">
+                    <h2>Bloodborne</h2>
+                    <p>Enfrenta tus pesadillas mientras buscas respuestas en la antigua ciudad de Yharnam, ahora maldecida por una enfermedad endémica que se propaga por las calles como un fuego arrasador. El peligro, la muerte y la locura merodean en cada esquina de este mundo oscuro y espantoso, y debes descubrir sus secretos más oscuros para poder sobrevivir.</p>
+                    <p class="precio">$32.990</p>
+                    <button class="add-to-cart" data-game-id="bloodborne">Agregar al carrito</button>
+                </div>
+            </div>
+
+            <div class="game" data-category="playstation">
+                <img src="resources/images/Daysgone.png" alt="Daysgone">
+                <div class="game-details">
+                    <h2>Daysgone</h2>
+                    <p>Ponte en los zapatos sucios y salpicados del antiguo motero forajido Deacon St. John, un cazarrecompensas que busca una razón para vivir en una tierra rodeada de muerte. Rebusca equipamiento entre asentamientos abandonados para fabricar objetos valiosos y armas, o prueba tu suerte con otros sobrevivientes que tratan de ganarse la vida con el comercio justo... o medios más violentos.</p>
+                    <p class="precio">$46.990</p>
+                    <button class="add-to-cart" data-game-id="daysgone">Agregar al carrito</button>
+                </div>
+            </div>
+
+            <div class="game" data-category="playstation">
+                <img src="resources/images/FC24.jpg" alt="FC24">
+                <div class="game-details">
+                    <h2>FC24</h2>
+                    <p>es el comienzo del futuro del fútbol. Con este título innovador y auténtico, te sentirás mucho más cerca del juego gracias a una experiencia futbolística más real que nunca y a la compañía de los mejores jugadores de los equipos, ligas y competencias más grandes del mundo.</p>
+                    <p class="precio">$47.990</p>
+                    <button class="add-to-cart" data-game-id="fc24">Agregar al carrito</button>
+                </div>
+            </div>
+
+            <div class="game" data-category="playstation">
+                <img src="resources/images/GodofWarplaystation.jpg" alt="God Of War">
+                <div class="game-details">
+                    <h2>God Of War</h2>
+                    <p>Kratos vuelve a ser padre. Como mentor y protector de Atreus, un hijo determinado a ganarse el respeto de su padre, se ve obligado a contener la ira que durante tanto tiempo lo ha caracterizado mientras recorre un mundo lleno de peligros junto a su muchacho.</p>
+                    <p class="precio">$18.990</p>
+                    <button class="add-to-cart" data-game-id="god-of-war">Agregar al carrito</button>
+                </div>
+            </div>    
+
+            <div class="game" data-category="playstation">
+                <img src="resources/images/god-of-war-ragnarok-2022101310444391_1.jpg" alt="God Of War Ragnarok">
+                <div class="game-details">
+                    <h2>God Of War Ragnarok</h2>
+                    <p>Este título te sumerge en una narrativa intensa y un mundo repleto de acción, donde cada desafío te brinda la oportunidad de perfeccionar tus habilidades de juego. Disfruta de una experiencia visualmente impresionante y mecánicas de combate refinadas que te mantendrán al filo del asiento mientras exploras los reinos nórdicos y enfrentas a dioses y monstruos legendarios.</p>
+                    <p class="precio">$59.990</p>
+                    <button class="add-to-cart" data-game-id="god-of-war-ragnarok">Agregar al carrito</button>
+                </div>
+            </div> 
+                        
+            <div class="game" data-category="playstation">
+                <img src="resources\images\lastofusplaystation.jpg" alt="Last Of Us Part II">
+                <div class="game-details">
+                    <h2>Last Of Us Part II</h2>
+                    <p>Cinco años después de su peligroso viaje a través de unos Estados Unidos pospandemia, Ellie y Joel logran establecerse en Jackson, Wyoming. Vivir entre una próspera comunidad de sobrevivientes les ha concedido paz y estabilidad, a pesar de la amenaza constante de los infectados y de otros sobrevivientes más desesperados.</p>
+                    <p class="precio">$49.990</p>
+                    <button class="add-to-cart" data-game-id="last-of-us-part-ii">Agregar al carrito</button>
+                </div>
+            </div>
+                        
+            <div class="game" data-category="playstation">
+                <img src="resources\images\spidermanplaystation.jpg" alt="Marvel's Spider-Man">
+                <div class="game-details">
+                    <h2>Marvel's Spider-Man</h2>
+                    <p>nos encontramos con un Peter Parker experimentado en luchar contra el crimen organizado en la ciudad de Nueva York. Al mismo tiempo, se esfuerza por mantener el equilibrio entre su caótica vida personal y su carrera mientras carga con el peso de proteger el destino de la Nueva York de Marvel.</p>
+                    <p class="precio">$54.990</p>
+                    <button class="add-to-cart" data-game-id="marvel-s-spider-man">Agregar al carrito</button>
+                </div>
+            </div>
+                        
+            <div class="game" data-category="playstation">
+                <img src="resources\images\Streetfighter6.png" alt="Street Fighter 6">
+                <div class="game-details">
+                    <h2>Street Fighter 6</h2>
+                    <p>es el próximo paso en la evolución de la serie de Street Fighter, e incluye innovadoras funcionalidades de jugabilidad, así como mejores gráficos para todos los aspectos del juego.</p>
+                    <p class="precio">$39.990</p>
+                    <button class="add-to-cart" data-game-id="street-fighter-6">Agregar al carrito</button>
+                </div>
+            </div>
+                        
+            <div class="game" data-category="playstation">
+                <img src="resources\images\uncharted4playstation.jpg" alt="Uncharted 4">
+                <div class="game-details"> 
+                    <h2>Uncharted 4</h2>
+                    <p>Al comienzo de este episodio vemos a Nathan, que ha cambiado las aventuras y los tesoros por una vida normal y bastante tranquila. Tras años de tranquilidad, Sam -su hermano- regresa de la nada y lo convence de volver a recorrer el mundo cazando reliquias y gloria.</p>
+                    <p class="precio">$22.990</p>
+                    <button class="add-to-cart" data-game-id="uncharted-4">Agregar al carrito</button>
+                </div>
+            </div>
+                        
+            <div class="game" data-category="xbox">
+                <img src="resources\images\forzahorizon5xbox.jpg" alt="Forza Horizon 5">
+                <div class="game-details"> 
+                    <h2>Forza Horizon 5</h2>
+                    <p>¡Tu aventura Horizon por excelencia te espera! Explora los dinámicos paisajes de mundo abierto y en constante evolución de México con una acción de conducción ilimitada y divertida en cientos de los mejores autos del mundo.</p>
+                    <p class="precio">$49.990</p>
+                    <button class="add-to-cart" data-game-id="forza-horizon-5">Agregar al carrito</button>
+                </div>
+            </div>
+                        
+            <div class="game" data-category="xbox">
+                <img src="resources\images\gears5.xbox.jpg" alt="Gears 5">
+                <div class="game-details"> 
+                    <h2>Gears 5</h2>
+                    <p>Con el estallido de una guerra...</p>
+                    <p class="precio">$29.990</p>
+                    <button class="add-to-cart" data-game-id="gears-5">Agregar al carrito</button>
+                </div>
+            </div>
+                        
+            <div class="game" data-category="xbox">
+                <img src="resources\images\haloinfinitexbox.jpg" alt="Halo Infinite">
+                <div class="game-details"> 
+                     <h2>Halo Infinite</h2>
+                    <p>Cuando se pierde toda esperanza y el destino de la humanidad pende de un hilo, el Jefe Maestro está listo para enfrentarse al enemigo más despiadado que jamás haya enfrentado. Colócate la armadura del mayor héroe de la humanidad para disfrutar de una aventura épica y explorar la escala masiva del anillo de Halo.</p>
+                    <p class="precio">$49.990</p>
+                    <button class="add-to-cart" data-game-id="halo-infinite">Agregar al carrito</button>
+                </div>
+            </div>
+                        
+            <div class="game" data-category="xbox">
+                <img src="resources\images\seaofthievesxbox.jpg" alt="Sea Of Thieves">
+                <div class="game-details"> 
+                    <h2>Sea Of Thieves</h2>
+                    <p>Explora un vasto mundo abierto repleto de islas vírgenes, navíos hundidos y misteriosos artefactos. Parte en pos de tesoros perdidos, enfréntate a capitanes esqueleto y custodia valiosos cargamentos de compañías comerciales. Además, ¡puedes darte a la pesca y la caza o volcarte en los cientos de objetivos secundarios!</p>
+                    <p class="precio">$32.990</p>
+                    <button class="add-to-cart" data-game-id="sea-of-thieves">Agregar al carrito</button>
+                </div>
+            </div>
+                        
+            <div class="game" data-category="xbox">
+                <img src="resources\images\stateofdecayxbox.jpg" alt="State Of Decay">
+                <div class="game-details"> 
+                <h2>State Of Decay</h2>
+                <p>La vida tal como la conocías se ha ido al infierno después de la madre de todos los brotes de zombis. Ahora tú y los pocos supervivientes dispersos debéis uniros para sobrevivir y reconstruir en un juego de acción en tercera persona ambientado en un mundo abierto dinámico.</p>
+                <p class="precio">$37.990</p>
+                <button class="add-to-cart" data-game-id="state-of-decay">Agregar al carrito</button>
+            </div>
+        </div>
+                        
+            <div class="game" data-category="xbox">
+                <img src="resources\images\fablexbox.jpg" alt="Fable">
+                <div class="game-details"> 
+                <h2>Fable</h2>
+                <p>¿Qué significa ser un héroe? Bueno, en la fantástica tierra de Albion, tú mismo lo decides. Con una amenaza oscura que se avecina, tus elecciones cambiarán Albion para siempre.</p>
+                <p class="precio">$43.990</p>
+                <button class="add-to-cart" data-game-id="fable">Agregar al carrito</button>
+            </div>
+        </div>
+
+        <div class="game" data-category="nintendo">
+            <img src="resources\images\p0VTRMeMXGMZU1oMGczGJ2uuBdhtR9OY1LmQJ3lpirI_350x200_1x-0.jpg" alt="Super Mario Bros. Wonder">
+            <div class="game-details"> 
+            <h2>Super Mario Bros. Wonder</h2>
+            <p>Mario y sus amigos fueron invitados a visitar el colorido Reino Flor (que queda muy cerca del Reino Champiñón). Desgraciadamente, Bowser se ha transformado en un castillo volador y está causando caos en este pacífico territorio. ¡Ahora nuestros héroes deberán salvar el día (y al Reino Flor) en esta maravillosa nueva aventura!.</p>
+            <p class="precio">$54.096</p>
+            <button class="add-to-cart" data-game-id="super-mario-bros-wonder">Agregar al carrito</button>
         </div>
     </div>
 
-        <div class="game">
-            <img src="resources\images\BaldursGate3.jpg" alt="Baldur Gate 3">
-            <div class="game-details">
-                <h2>Baldur Gate 3</h2>
-                <p>es un juego de rol basado en grupos, rico en historias, ambientado en el universo de Dungeons & Dragons, donde tus elecciones dan forma a una historia de compañerismo y traición, supervivencia y sacrificio, y el atractivo del poder absoluto.</p>
-            </div>
+        <div class="game" data-category="nintendo">
+            <img src="resources\images\cX8C-QpEp5t2IuOEjDpES4ywD0aO6JzWEjUu3rg_R1U_350x200_1x-0.jpeg" alt="Mario Kart 8 Deluxe">
+            <div class="game-details"> 
+            <h2>Mario Kart 8 Deluxe</h2>
+            <p>¡Acelera a través de las pistas del Reino Champiñón bajo el agua, en el cielo, de cabeza y sin gravedad, y llega a la meta para obtener la victoria! Prepara motores en el modo multijugador local*, en los torneos en línea** del juego, en el modo batalla que ha sido mejorado ¡y más!.</p>
+            <p class="precio">$61.222</p>
+            <button class="add-to-cart" data-game-id="mario-kart-8-deluxe">Agregar al carrito</button>
         </div>
-      
-        <div class="game">
-            <img src="resources\images\EldenRing.jpg" alt="Elden Ring">
-            <div class="game-details">
-                <h2>Elden Ring</h2>
-                <p>Desvela los misterios del poder del Círculo de Elden. Enfréntate a criaturas temibles y conoce a adversarios con pasados tumultuosos y personajes con sus propias motivaciones para ayudarte a avanzar o complicarte las cosas. 
-                </p>
-            </div>
-        </div>
+    </div>
 
-        <div class="game">
-            <img src="resources\images\DEADISLAND2.jpg" alt="Dead Island 2">
-            <div class="game-details">
-                <h2>Dead Island 2</h2>
-                <p>Un virus mortal se extiende por Los Ángeles y está convirtiendo a sus habitantes en zombis. Te han mordido e infectado, pero tu cuerpo es inmune.</p>
-            </div>
-        </div>
-        
-        <div class="game">
-            <img src="resources\images\ghostoftsushimaplaystation.jpg" alt="Ghost of Tsushima">
+        <div class="game" data-category="nintendo">
+            <img src="resources\images\MRkJQxxGrCNzVEfUiC90psvGHHUGsXTLWHH39u_evLQ_350x200_1x-0.jpg" alt="The Legend of Zelda: Tears of the Kingdom">
             <div class="game-details"> 
-                <h2>Ghost of Tsushima</h2>
-                <p>Forja un nuevo camino y emplea tácticas de guerra poco convencionales para liberar Tsushima. Desafía a tus enemigos con tu katana, domina el arco para eliminar las amenazas lejanas, aprende tácticas de sigilo para emboscar a los enemigos y explora una nueva historia en la Isla Iki.</p>
-            </div>
+            <h2>The Legend of Zelda: Tears of the Kingdom</h2>
+            <p>En esta secuela del juego The Legend of Zelda: Breath of the Wild, decidirás tu propio camino a través de los extensos paisajes de Hyrule y las islas que flotan en los vastos cielos. ¿Podrás aprovechar el poder de las nuevas habilidades de Link para luchar contra las malévolas fuerzas que amenazan al reino?.</p>
+            <p class="precio">$68.147</p>
+            <button class="add-to-cart" data-game-id="the-legend-of-zelda-tears-of-the-kingdom">Agregar al carrito</button>
         </div>
-        
-        <div class="game">
-            <img src="resources\images\Bloodborne.jpg" alt="Bloodborne">
-            <div class="game-details">
-                <h2>Bloodborne</h2>
-                <p>Enfrenta tus pesadillas mientras buscas respuestas en la antigua ciudad de Yharnam, ahora maldecida por una enfermedad endémica que se propaga por las calles como un fuego arrasador. El peligro, la muerte y la locura merodean en cada esquina de este mundo oscuro y espantoso, y debes descubrir sus secretos más oscuros para poder sobrevivir.</p>
-            </div>
-        </div>
-        
-        <div class="game">
-            <img src="resources\images\Daysgone.png" alt="Daysgone">
-            <div class="game-details">
-                <h2>Daysgone</h2>
-                <p>Ponte en los zapatos sucios y salpicados del antiguo motero forajido Deacon St. John, un cazarrecompensas que busca una razón para vivir en una tierra rodeada de muerte. Rebusca equipamiento entre asentamientos abandonados para fabricar objetos valiosos y armas, o prueba tu suerte con otros sobrevivientes que tratan de ganarse la vida con el comercio justo... o medios más violentos.</p>
-            </div>
-        </div>
-        
-        <div class="game">
-            <img src="resources\images\FC24.jpg" alt="FC24">
-            <div class="game-details">
-                <h2>FC24</h2>
-                <p>es el comienzo del futuro del fútbol. Con este título innovador y auténtico, te sentirás mucho más cerca del juego gracias a una experiencia futbolística más real que nunca y a la compañía de los mejores jugadores de los equipos, ligas y competencias más grandes del mundo.</p>
-            </div>
-        </div>
-        
-        <div class="game">
-            <img src="resources\images\GodofWarplaystation.jpg" alt="God Of War">
-            <div class="game-details">
-                <h2>God Of War</h2>
-                <p>Kratos vuelve a ser padre. Como mentor y protector de Atreus, un hijo determinado a ganarse el respeto de su padre, se ve obligado a contener la ira que durante tanto tiempo lo ha caracterizado mientras recorre un mundo lleno de peligros junto a su muchacho.</p>
-            </div>
-        </div>
-        
-        <div class="game">
-            <img src="resources\images\lastofusplaystation.jpg" alt="Last Of Us Part II">
-            <div class="game-details">
-                <h2>Last Of Us Part II</h2>
-                <p>Cinco años después de su peligroso viaje a través de unos Estados Unidos pospandemia, Ellie y Joel logran establecerse en Jackson, Wyoming. Vivir entre una próspera comunidad de sobrevivientes les ha concedido paz y estabilidad, a pesar de la amenaza constante de los infectados y de otros sobrevivientes más desesperados.</p>
-            </div>
-        </div>
-        
-        <div class="game">
-            <img src="resources\images\spidermanplaystation.jpg" alt="Marvel's Spider-Man">
-            <div class="game-details">
-                <h2>Marvel's Spider-Man</h2>
-                <p>nos encontramos con un Peter Parker experimentado en luchar contra el crimen organizado en la ciudad de Nueva York. Al mismo tiempo, se esfuerza por mantener el equilibrio entre su caótica vida personal y su carrera mientras carga con el peso de proteger el destino de la Nueva York de Marvel.</p>
-            </div>
-        </div>
-        
-        <div class="game">
-            <img src="resources\images\Streetfighter6.png" alt="Street Fighter 6">
-            <div class="game-details">
-                <h2>Street Fighter 6</h2>
-                <p>es el próximo paso en la evolución de la serie de Street Fighter, e incluye innovadoras funcionalidades de jugabilidad, así como mejores gráficos para todos los aspectos del juego.</p>
-            </div>
-        </div>
-        
-        <div class="game">
-            <img src="resources\images\uncharted4playstation.jpg" alt="Uncharted 4">
+   </div>
+        <div class="game" data-category="nintendo">
+            <img src="resources\images\Lf6iQheAlCd4Ng6S5du-EZwOVnbQPjiZptj--0T24Ig_350x200_1x-0.jpg" alt="Princess Peach: Showtime!">
             <div class="game-details"> 
-                <h2>Uncharted 4</h2>
-                <p>Al comienzo de este episodio vemos a Nathan, que ha cambiado las aventuras y los tesoros por una vida normal y bastante tranquila. Tras años de tranquilidad, Sam -su hermano- regresa de la nada y lo convence de volver a recorrer el mundo cazando reliquias y gloria.</p>
-            </div>
+            <h2>Princess Peach: Showtime!</h2>
+            <p>Ayuda a Peach a salvar el Teatro Esplendor de las garras de la malvada Grape y la Compañía Malaúva, quienes han preparado el escenario para una tragedia inolvidable.Junto a Lucy, la guardiana del teatro, ¡Peach está lista para restaurar la armonía!.</p>
+            <p class="precio">$57.107</p>
+            <button class="add-to-cart" data-game-id="Princess-Peach-Showtime">Agregar al carrito</button>
         </div>
-        
-        <div class="game">
-            <img src="resources\images\forzahorizon5xbox.jpg" alt="Forza Horizon 5">
+   </div>
+        <div class="game" data-category="nintendo">
+            <img src="resources\images\UeedxKC_QAE4u_eK5B1XwYI_pognUrh_OWkGcyjQI1A_350x200_1x-0.jpeg" alt="Super Mario Party">
             <div class="game-details"> 
-                <h2>Forza Horizon 5</h2>
-                <p>¡Tu aventura Horizon por excelencia te espera! Explora los dinámicos paisajes de mundo abierto y en constante evolución de México con una acción de conducción ilimitada y divertida en cientos de los mejores autos del mundo.</p>
-            </div>
+            <h2>Super Mario Party</h2>
+            <p>Sorprende a tus oponentes mientras corres a través del tablero para recolectar la mayor cantidad de estrellas en el modo de juego de tablero original para cuatro jugadores* de la serie Mario Party, ahora con la función de juego en línea**. ¡Disfruta de este frenesí con amigos y familiares!.</p>
+            <p class="precio">$45.164</p>
+            <button class="add-to-cart" data-game-id="Super-Mario-Party">Agregar al carrito</button>
         </div>
-        
-        <div class="game">
-            <img src="resources\images\gears5.xbox.jpg" alt="Gears 5">
-            <div class="game-details"> 
-                <h2>Gears 5</h2>
-                <p>Con el estallido de una guerra...</p>
-            </div>
-        </div>
-        
-        <div class="game">
-            <img src="resources\images\haloinfinitexbox.jpg" alt="Halo Infinite">
-            <div class="game-details"> 
-                <h2>Halo Infinite</h2>
-                <p>Cuando se pierde toda esperanza y el destino de la humanidad pende de un hilo, el Jefe Maestro está listo para enfrentarse al enemigo más despiadado que jamás haya enfrentado. Colócate la armadura del mayor héroe de la humanidad para disfrutar de una aventura épica y explorar la escala masiva del anillo de Halo.</p>
-            </div>
-        </div>
-        
-        <div class="game">
-            <img src="resources\images\seaofthievesxbox.jpg" alt="Sea Of Thieves">
-            <div class="game-details"> 
-                <h2>Sea Of Thieves</h2>
-                <p>Explora un vasto mundo abierto repleto de islas vírgenes, navíos hundidos y misteriosos artefactos. Parte en pos de tesoros perdidos, enfréntate a capitanes esqueleto y custodia valiosos cargamentos de compañías comerciales. Además, ¡puedes darte a la pesca y la caza o volcarte en los cientos de objetivos secundarios!</p>
-            </div>
-        </div>
-        
-        <div class="game">
-            <img src="resources\images\stateofdecayxbox.jpg" alt="State Of Decay">
-            <div class="game-details"> 
-                <h2>State Of Decay</h2>
-                <p>La vida tal como la conocías se ha ido al infierno después de la madre de todos los brotes de zombis. Ahora tú y los pocos supervivientes dispersos debéis uniros para sobrevivir y reconstruir en un juego de acción en tercera persona ambientado en un mundo abierto dinámico.</p>
-            </div>
-        </div>
-        
-        <div class="game">
-            <img src="resources\images\fablexbox.jpg" alt="Fable">
-            <div class="game-details"> 
-                <h2>Fable</h2>
-                <p>¿Qué significa ser un héroe? Bueno, en la fantástica tierra de Albion, tú mismo lo decides. Con una amenaza oscura que se avecina, tus elecciones cambiarán Albion para siempre.</p>
-            </div>
-        </div>
-  </body>
-  </html>
-  
+   </div>
+
+
+   <div class="game" data-category="steam">
+    <img src="resources\images\STARFLD.jpg" alt="Starfield">
+    <div class="game-details"> 
+    <h2>Starfield</h2>
+    <p>Un inmenso universo repleto de planetas, estrellas y mucho más para explorar. Los jugadores podrán crear su propio personaje y explorar con una libertad sin precedentes mientras se embarcan en un viaje épico para desvelar el mayor misterio de la humanidad.</p>
+    <p class="precio">$60.000</p>
+    <button class="add-to-cart" data-game-id="Starfield">Agregar al carrito</button>
+</div>
+</div>
+
+
+
+
+<div class="game" data-category="steam">
+    <img src="resources\images\GT45VPC.jpg" alt="Grand Theft Auto V">
+    <div class="game-details"> 
+    <h2>Grand Theft Auto V</h2>
+    <p>Regresarás a la mítica ciudad de Los Santos para embarcarte en una aventura con tres protagonistas: Franklin, Michael y Trevor. Franklin es un gánster del gueto, Michael es un atracador de bancos y Trevor es un psicópata de la América Profunda.</p>
+    <p class="precio">$10.000</p>
+    <button class="add-to-cart" data-game-id="Grand-Theft-Auto-V">Agregar al carrito</button>
+</div>
+</div>
+
+
+
+
+<div class="game" data-category="steam">
+    <img src="resources\images\SANLAN.jpg" alt="Sandland">
+    <div class="game-details"> 
+    <h2>Sandland</h2>
+    <p>Sand Land es un videojuego de acción y rol basado en la obra del reconocido Mangaka Akira Toriyama, Creador de la serie Dragon Ball. El jugador toma el papel de Beelzebub, un pequeño demonio hijo del rey de los demonios. Podrás comandar un grupo de héroes inadaptados y explorar el fantástico mundo de SAND LAND.</p>
+    <p class="precio">$50.000</p>
+    <button class="add-to-cart" data-game-id="Sandland">Agregar al carrito</button>
+</div>
+</div>
+
+
+
+
+<div class="game" data-category="steam">
+    <img src="resources\images\REDDR2.jpg" alt="Red Dead Redemption 2">
+    <div class="game-details"> 
+    <h2>Red Dead Redemption 2</h2>
+    <p>El juego de acción y aventura se desarrolla en un inmenso mundo abierto ambientado en el lejano oeste estadounidense, durante la segunda mitad de la era del Salvaje Oeste y el final de la era, a comienzos del siglo XX. Durante la mayor parte del juego, el jugador controla al forajido Arthur Morgan, un miembro de la banda dirigida por Van der Linde, mientras completa numerosas misiones (principales y secundarias) para progresar en la historia.</p>
+    <p class="precio">$60.000</p>
+    <button class="add-to-cart" data-game-id="Red-Dead-Redemption-2">Agregar al carrito</button>
+</div>
+</div>
+
+
+
+<div class="game" data-category="steam">
+    <img src="resources\images\F76_PC_2D_pack_EU_es_pegi_1528638891.jpg" alt="Fallout 76">
+    <div class="game-details"> 
+    <h2>Fallout 76</h2>
+    <p>Es una entrega de la serie Fallout y una precuela de las entradas anteriores.1​ Ambientada en el año 2105, los jugadores controlan a un residente de Vault 76 que debe aventurarse en el deteriorado mundo abierto conocido como "Apalachias" para volver a colonizar la región y descubrir una misteriosa plaga que ha matado a sus habitantes.</p>
+    <p class="precio">$40.000</p>
+    <button class="add-to-cart" data-game-id="Fallout-76">Agregar al carrito</button>
+</div>
+</div>
+
+<div class="game" data-category="steam">
+    <img src="resources\images\HWTCH3.jpg" alt="The Witcher 3">
+    <div class="game-details"> 
+    <h2>The Witcher 3</h2>
+    <p>es un videojuego de Rol/Rpg que se desarrolla en un mundo abierto de fantasía impresionantes paisajes, repleto de decisiones significativas y consecuencias trascendentales. Los jugadores toman el papel del brujo cazador de monstruos profesional Geralt de Rivia, el cual tiene la tarea de encontrar a la niña de la profecía en un inmenso mundo abierto repleto de ciudades de mercaderes, islas piratas, peligrosos pasos de montaña y cuevas olvidadas.</p>
+    <p class="precio">$39.990</p>
+    <button class="add-to-cart" data-game-id="The-Witcher-3">Agregar al carrito</button>
+</div>
+</div>
+
+    </body>
+</html>
+                

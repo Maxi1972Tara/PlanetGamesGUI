@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .container {
+            text-align: center;
+            margin-top: 60px;
+        }
+        .login-form {
+            display: inline-block;
+            text-align: left;
+        }
+        .login-form label, .login-form input {
+            display: block;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Iniciar Sesión</h1>
+        <form id="loginForm" class="login-form">
+            <label for="username">Nombre de usuario:</label>
+            <input type="text" id="username" name="username" required>
+
+            <label for="password">Contraseña:</label>
+            <input type="password" id="password" name="password" required>
+
+            <input type="submit" value="Iniciar Sesión">
+        </form>
+        <a href="formulario.html" class="register-link">Registrarse</a>
+    </div>
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            // Recuperar el nombre de usuario y contraseña guardados en el formulario de registro
+            const savedUsername = localStorage.getItem('newUsername');
+            const savedPassword = localStorage.getItem('newPassword');
+
+            // Verificar si los datos coinciden
+            if (username === savedUsername && password === savedPassword) {
+                alert('Inicio de sesión exitoso');
+                // Redirigir a la página principal o donde sea necesario
+                window.location.href = 'index.html';
+            } else {
+                alert('Nombre de usuario o contraseña incorrectos');
+            }
+        });
+    </script>
+</body>
+</html>
