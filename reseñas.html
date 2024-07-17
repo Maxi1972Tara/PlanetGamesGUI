@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foro de Reseñas de Juegos</title>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+    <header>
+        <h1>Foro de Reseñas de Juegos</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h2>Reseñas de Juegos</h2>
+            <p>Aquí puedes leer y dejar tus comentarios sobre los juegos que más te gustan.</p>
+            
+            <!-- Lista de Reseñas -->
+            <div class="review-list">
+                <div class="review">
+                    <h3><a href="https://vandal.elespanol.com/analisis/switch/the-legend-of-zelda-tears-of-the-kingdom/74464#p-83">The Legend of Zelda: Tears of the Kingdom</a></h3>
+                    <p>Descubre lo que hace a esta nueva entrega de Zelda una aventura épica.</p>
+                </div>
+                <div class="review">
+                    <h3><a href="https://vandal.elespanol.com/analisis/ps5/final-fantasy-xvi/90446#p-89">Final Fantasy XVI</a></h3>
+                    <p>Lee nuestra reseña sobre la última entrega de la icónica saga RPG.</p>
+                </div>
+                <div class="review">
+                    <h3><a href="https://vandal.elespanol.com/analisis/ps5/hogwarts-legacy/90452#p-89">Hogwarts Legacy</a></h3>
+                    <p>Explora la magia de Hogwarts en esta nueva experiencia mágica.</p>
+                </div>
+                <div class="review">
+                    <h3><a href="https://vandal.elespanol.com/analisis/pc/starfield/61951#p-13">Starfield</a></h3>
+                    <p>Sumérgete en el vasto universo de Starfield con nuestra reseña detallada.</p>
+                </div>
+                <div class="review">
+                    <h3><a href="https://vandal.elespanol.com/analisis/ps5/marvels-spiderman-2/106797#p-89">Spider-Man 2</a></h3>
+                    <p>Conoce todo sobre las nuevas aventuras de tu héroe arácnido favorito.</p>
+                </div>
+                <div class="review">
+                    <h3><a href="https://vandal.elespanol.com/analisis/pc/baldurs-gate-3/74185#p-13">Baldur's Gate III</a></h3>
+                    <p>Descubre qué hace a esta entrega de Baldur's Gate un RPG imperdible.</p>
+                </div>
+                <div class="review">
+                    <h3><a href="https://vandal.elespanol.com/analisis/ps5/resident-evil-4-remake/120274#p-89">Resident Evil 4 (Remake)</a></h3>
+                    <p>Lee nuestra evaluación del remake de uno de los juegos de terror más clásicos.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Formulario de nuevo comentario -->
+        <section class="new-comment">
+            <h2>Deja tu comentario</h2>
+            <form action="procesar_comentario.php" method="post">
+                <label for="game">Juego:</label>
+                <input type="text" id="game" name="game" placeholder="Nombre del juego" required>
+
+                <label for="username">Tu Nombre:</label>
+                <input type="text" id="username" name="username" placeholder="Tu nombre" required>
+
+                <label for="comment">Comentario:</label>
+                <textarea id="comment" name="comment" placeholder="Escribe tu comentario aquí..." rows="5" required></textarea>
+            
+                <button type="submit">Publicar Comentario</button>
+            </form>
+            
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Tu Nombre o Tu Empresa. Todos los derechos reservados.</p>
+    </footer>
+</body>
+</html>

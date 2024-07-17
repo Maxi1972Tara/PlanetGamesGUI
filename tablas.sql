@@ -18,3 +18,12 @@ CREATE TABLE compra (
     cantidad INT NOT NULL,
     fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+USE clientes;
+CREATE TABLE comentarios (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre_juego VARCHAR(255) NOT NULL,
+    nombre_cliente VARCHAR(100) NOT NULL,
+    comentario TEXT NOT NULL,
+    fecha_comentario TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
